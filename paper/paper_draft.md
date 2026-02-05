@@ -52,7 +52,7 @@ Two features of this passage are essential for formalization. First, Girard dist
 
 ### 2.1 Overview
 
-We implement a family of agent-based models sharing common infrastructure but differing in their hostility-transmission mechanism. All variants operate on a Watts-Strogatz small-world network of $N = 50$ agents with mean degree 6 and rewiring probability 0.15. We chose $N = 50$ as the default because it is large enough that $ 1/N $ effects do not dominate the convergence metrics, small enough for tractable visualization of individual agent trajectories, and situated in the middle of the range ( $N = 20$ to $N = 100$ ) across which we verify robustness in Section 3.4. Each agent maintains a desire vector over a set of rivalrous and non-rivalrous objects, and an aggression vector over all other agents. The simulation proceeds in discrete timesteps, each consisting of:
+We implement a family of agent-based models sharing common infrastructure but differing in their hostility-transmission mechanism. All variants operate on a Watts-Strogatz small-world network of $N = 50$ agents with mean degree 6 and rewiring probability 0.15. We chose $N = 50$ as the default because it is large enough that $1/N$ effects do not dominate the convergence metrics, small enough for tractable visualization of individual agent trajectories, and situated in the middle of the range ( $N = 20$ to $N = 100$ ) across which we verify robustness in Section 3.4. Each agent maintains a desire vector over a set of rivalrous and non-rivalrous objects, and an aggression vector over all other agents. The simulation proceeds in discrete timesteps, each consisting of:
 
 1. **Desire step:** agents mimetically absorb neighbors' desires (weighted by prestige).
 2. **Aggression-source step:** shared desire for rivalrous objects generates mutual aggression between neighbors (acquisitive mimesis), or status proximity generates rivalry-based aggression (in rivalry variants).
@@ -132,7 +132,7 @@ For each simulation run, we record:
 - **Expulsion count and timing:** number and temporal distribution of agent removals.
 - **Catharsis:** fractional tension drop following each expulsion event.
 - **Victim status at expulsion** (rivalry variants): the expelled agent's status relative to the population mean, testing whether "signs of the victim" emerge endogenously.
-- **Modal-target agreement:** fraction of living agents whose top aggression target is the modal target, excluding agents whose aggression vector sums to less than $ 10^{-8} $ (to prevent argmax-on-zero artifacts).
+- **Modal-target agreement:** fraction of living agents whose top aggression target is the modal target, excluding agents whose aggression vector sums to less than $10^{-8}$ (to prevent argmax-on-zero artifacts).
 
 We define *convergence* as modal-target agreement >= 0.95 sustained for 10 consecutive steps. The theoretical ceiling for modal agreement is $(N-1)/N = 0.98$, because self-targeting is excluded.
 
@@ -155,11 +155,11 @@ The central result is displayed in Table 1.
 
 All values are means across runs. Gini, top-target share, and convergence ratio are time-averaged over all 600 timesteps within each run; expulsions and catharsis are cumulative per run.
 
-The results divide cleanly along the transmission-character axis of the 2x2 design. Variants with linear hostility-transmission (LM, RL) produce Gini coefficients around 0.11--0.13, top-target shares near $ 1/N $ (the uniform baseline for 50 agents is 0.02), and convergence ratios near 1.0. Hostility spreads but does not converge. Variants with convex redistributive transmission (AC, RA) produce Gini coefficients above 0.73, top-target shares of 0.31--0.35, and convergence ratios of 1.4--1.6. Hostility both spreads and converges on a single target.
+The results divide cleanly along the transmission-character axis of the 2x2 design. Variants with linear hostility-transmission (LM, RL) produce Gini coefficients around 0.11--0.13, top-target shares near $1/N$ (the uniform baseline for 50 agents is 0.02), and convergence ratios near 1.0. Hostility spreads but does not converge. Variants with convex redistributive transmission (AC, RA) produce Gini coefficients above 0.73, top-target shares of 0.31--0.35, and convergence ratios of 1.4--1.6. Hostility both spreads and converges on a single target.
 
 The addition of rivalry dynamics to linear mimesis (LM to RL) produces negligible change in convergence metrics. Rivalry generates more aggression -- hence comparable expulsion counts -- but does not concentrate it. By contrast, the AC mechanism alone produces dramatic convergence. Rivalry combined with attentional concentration (RA) produces the strongest convergence and deepest catharsis, but the redistributive mechanism does the overwhelming majority of the convergence work.
 
-Applying a convex transform without conservation ( $\text{pull} = h^\gamma$ ) does not produce convergence and in fact collapses the contagion channel by attenuating subunit signals (Section 3.3). Convergence requires the full redistributive operator: convex salience weights *plus* L1 conservation of perceived hostility mass.
+Applying a convex transform without conservation ($\text{pull} = h^\gamma$) does not produce convergence and in fact collapses the contagion channel by attenuating subunit signals (Section 3.3). Convergence requires the full redistributive operator: convex salience weights *plus* L1 conservation of perceived hostility mass.
 
 ### 3.2 The Effective Phase Boundary Near Linearity
 
@@ -193,7 +193,7 @@ Decreasing $\gamma$ below 1 reduces both peak modal agreement and peak Gini mono
 
 ### 3.3 Operator Ablation
 
-The AC convergence mechanism has two components: the convex power transform ( $h^\gamma$ with $\gamma > 1$ ) and the redistributive normalization step, which divides by
+The AC convergence mechanism has two components: the convex power transform ($h^\gamma$ with $\gamma > 1$) and the redistributive normalization step, which divides by
 
 $$\sum_k h_i(k)^\gamma$$
 
@@ -456,7 +456,7 @@ For each agent $i \in \mathcal{L}_t$:
 
 $$D_i \leftarrow \alpha \cdot D_i + (1 - \alpha) \cdot \frac{\sum_{k \in \mathcal{N}(i) \cap \mathcal{L}_t} w_{ik} \cdot D_k}{\sum_{k \in \mathcal{N}(i) \cap \mathcal{L}_t} w_{ik}} + \epsilon_i$$
 
-where $\epsilon_i \sim \mathcal{N}(0, \sigma_{\text{noise}}^2)$ elementwise, and the result is clamped to $ [0, \infty) $.
+where $\epsilon_i \sim \mathcal{N}(0, \sigma_{\text{noise}}^2)$ elementwise, and the result is clamped to $[0, \infty)$.
 
 **Edge case:** If agent $i$ has no living neighbors, $D_i$ is unchanged.
 
@@ -484,7 +484,7 @@ where $f$ is a decreasing function of status distance (agents in close status pr
 
 $$S_k \leftarrow S_k - \lambda \cdot \text{ReceivedAggression}(k)$$
 
-clamped to $ [0, 1] $. Status loss reduces prestige (via status-dependent prestige weights in RL/RA), creating a feedback loop: targeting degrades status, degraded status reduces prestige, reduced prestige reduces the target's capacity to resist further targeting.
+clamped to $[0, 1]$. Status loss reduces prestige (via status-dependent prestige weights in RL/RA), creating a feedback loop: targeting degrades status, degraded status reduces prestige, reduced prestige reduces the target's capacity to resist further targeting.
 
 ### C.5 Step 3: Aggression Spread
 
