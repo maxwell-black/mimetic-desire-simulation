@@ -223,7 +223,36 @@ Expulsion produces measurable tension reduction: 18.8% mean drop in AC, 27.0% in
 
 The immediate tension drop is partly arithmetic: removing the most-targeted agent eliminates their share of total received aggression. What is emergent is that tension does not immediately redirect to a new target. The attentional funnel requires time to reconstitute after losing its focal point; this temporal gap is the emergent catharsis. The bimodal rhythm -- rapid-fire scapegoating during acute crisis, long dormant periods between crises -- is entirely emergent and has no coded precursor.
 
-### 3.6 The Arbitrariness and Endogenous Marginality of the Victim
+These catharsis metrics reflect the default threshold of 8.0; Section 3.6 shows that the cycle structure changes qualitatively at higher thresholds, with deeper tension drops, longer peace phases, and genuine crisis-unanimity-expulsion-peace cycles replacing the continuous grind observed here.
+
+### 3.6 Expulsion Threshold and the Conditions for the Founding Murder
+
+The expulsion threshold -- the total received aggression required to trigger removal -- determines whether the community's capacity for collective violence exceeds its capacity for mimetic convergence. This ratio produces qualitatively distinct regimes.
+
+In the no-expulsion condition, the AC mechanism drives modal agreement to its ceiling of 0.98 by approximately step 50, and total received aggression for the modal target stabilizes at an equilibrium of roughly 700--900 (set by the balance between rivalry-sourcing and decay). This equilibrium ceiling bounds the threshold values at which expulsion can fire. We tested thresholds from 8 to 750 across 12 runs of 1500 steps each and identified three regimes.
+
+*Regime 1: Low threshold (8.0).* Expulsion fires at step 4, when modal agreement is approximately 0.13. The community acts before convergence has begun. The result is rapid serial purges (median inter-expulsion gap: 1 step) producing roughly 30 expulsions per run with no unanimity and no sustained peace. Modal agreement never reconverges to 0.80 after the first expulsion. Hostility is present but not organized; victims are selected by proximity to the threshold rather than by collective consensus.
+
+*Regime 2: High threshold (500).* Expulsion fires at approximately step 36, when modal agreement has reached 0.97. The community converges to near-total unanimity before it acts: the victim is selected by the mimetic snowball, and the expulsion is singular rather than serial. This is the structural precondition Girard identifies for the founding murder -- total participation leaves no external vantage point from which to recognize the selection as arbitrary.
+
+The founding murder produces a genuine but transient peace. Modal agreement drops from 0.98 to approximately 0.06 in the step following expulsion, and total system tension collapses by roughly 95%. Modal agreement remains below 0.50 for a median of 17 steps. But the mimetic dynamics then reconstitute: modal agreement climbs back through 0.80 at step ~30 and reaches 0.98 by step ~50. A second expulsion follows at a median interval of 59 steps. The system produces 6 expulsions over 1500 steps in a rhythm of genuine crisis-unanimity-expulsion-peace-reconvergence cycles -- qualitatively different from the continuous grind of Regime 1, but not the permanent resolution Girard associates with the founding murder.
+
+This is the result the model should produce if Girard's two-phase account is correct but incomplete. The mimetic dynamics generate the cycle structure -- convergence, expulsion, dispersal, reconvergence -- but no mechanism arrests the reconvergence. In Girard's account, what arrests it is the sacred: prohibition, ritual, and sacrificial substitution, all grounded in the "double transference" by which the community retrospectively attributes both the crisis and its resolution to the victim. These are cultural elaborations that require representational capacities beyond mimetic imitation -- the ability to remember the victim, to sanctify the act, to institutionalize its repetition. The model lacks this layer, and its absence is informative: mimetic dynamics alone produce the raw material of the scapegoat cycle but not the institutional structure that converts a cycle into a stable order.
+
+*Regime 3: Threshold above equilibrium ceiling (750+).* The community achieves and sustains unanimous targeting (modal agreement 0.98 from step ~50 onward) but expulsion fires rarely or not at all: the aggression equilibrium approaches but may not reliably exceed the threshold. Runs at threshold 750 produce a median of 2 expulsions, with some runs producing none. This is permanent crisis without resolution -- the mimetic snowball completes, but the community cannot or does not act.
+
+| Threshold | Expulsions | 1st Exp Step | Pre-Exp Modal | Peace (steps) | Reconverge $t_{95}$ | Gap to 2nd |
+|-----------|-----------|-------------|--------------|--------------|-------------------|-----------|
+| 8 | 29.8 | 4 | 0.13 | 0 | -- | 1 |
+| 200 | 15.3 | 20 | 0.63 | 3 | 15 | 11 |
+| 500 | 6.2 | 36 | 0.97 | 17 | 49 | 59 |
+| 750 | 2.0 | 132 | 0.98 | 25 | -- | 260+ |
+
+*Table 4. Post-expulsion dynamics across threshold regimes. 12 runs x 1500 steps, gamma = 2.0, alpha = 0.15. Peace = consecutive steps with modal agreement < 0.50 after first expulsion. Reconverge $t_{95}$ = steps to modal agreement >= 0.95 after first expulsion. Gap = steps between first and second expulsions.*
+
+The three regimes are produced by a single parameter controlling the ratio of violence capacity to convergence capacity. Girard's account of the founding murder implicitly assumes Regime 2: the community can act, but only after unanimity is achieved. The model makes this assumption explicit and shows that it is non-trivial. If the threshold is too low, the result is serial violence without unanimity; if too high, unanimity without discharge. The founding murder occupies a specific parameter region, not a default outcome.
+
+### 3.7 The Arbitrariness and Endogenous Marginality of the Victim
 
 In AC (attentional concentration only, no rivalry), victims are statistically indistinguishable from the general population across all measured network properties: degree centrality (0.125 vs 0.122), betweenness centrality (0.037 vs 0.035), clustering coefficient (0.385 vs 0.370). The victim's identity is a contingent outcome of the attentional cascade, not a structural property of the network. This confirms Girard's claim about the fundamental arbitrariness of the victim.
 
@@ -269,7 +298,17 @@ Lorenz-Spreen et al. (2019) document the macro-level consequence: collective att
 
 The application of these findings to hostile targeting is a theoretically motivated extension, not a directly observed phenomenon. But the cognitive infrastructure -- finite attention, salience-driven filtering, mimetic absorption of neighbors' priorities -- is empirically grounded, and our model identifies the formal conditions under which these same dynamics produce convergent scapegoating.
 
-### 4.4 Limitations and Falsifiability
+### 4.4 The Missing Sacred
+
+The threshold-regime analysis (Section 3.6) produces a demarcation result: it identifies the boundary of what mimetic dynamics alone can generate. In Regime 2, the model produces the full cycle structure -- convergence to unanimity, expulsion, genuine peace, reconvergence, renewed crisis -- but the peace phase is transient (~17 steps) and the cycle repeats indefinitely. What the model does not produce is the stable social order that Girard attributes to the founding murder.
+
+In Girard's account, what converts the founding murder from a one-off cathartic event into a generative institution is the "double transference": because the community was unanimous, no member can recognize the selection as arbitrary, and the victim is retrospectively attributed causal power over both the crisis and its resolution. This attribution becomes the basis of the sacred -- prohibition (do not repeat the crisis), ritual (repeat the founding murder symbolically), and myth (narrate the victim's guilt and the community's deliverance). These are cultural elaborations requiring representational capacities beyond mimetic imitation: memory of the event, attribution of causal power, and institutional repetition.
+
+The model's failure to produce lasting peace is therefore not a deficiency but a positive finding. It demarcates what the mimetic substrate can and cannot do: it generates the raw material of the scapegoat cycle (convergence, expulsion, transient relief) but not the institutional overlay that stabilizes it. The sacred is the missing layer, and its absence tells us where mimetic theory's explanatory work ends and cultural theory's begins.
+
+Regime 3 -- unanimous hostility without discharge -- bears a structural resemblance to the condition Girard describes in *I See Satan Fall Like Lightning*, in which the scapegoat mechanism has been "revealed" but the community remains unable to resolve its crisis through other means. We note the parallel without claiming the model captures the full phenomenology of that condition.
+
+### 4.5 Limitations and Falsifiability
 
 The model treats the transition from acquisitive to conflictual mimesis as structurally given (separate coded mechanisms) rather than endogenous. A richer model might attempt to formalize the conditions under which agents shift from object-focused rivalry to objectless hostility-transmission, testing Girard's claim that this transition occurs when mimetic crisis reaches a critical intensity.
 
@@ -289,7 +328,7 @@ The falsifiability criterion must be sharpened accordingly. The model predicts t
 
 ## 5. Conclusion
 
-Girard writes that "the power of mimetic attraction multiplies with the number of those polarized." We have formalized that sentence and tested it. The formalization reveals that the multiplicative character of mimetic attraction in hostile contexts -- what Girard calls conflictual mimesis and describes as a "snowball effect" -- is the necessary and sufficient formal condition for the emergence of scapegoat convergence. Linear mimetic transmission, however intense, produces crisis without resolution: hostility spreads but does not converge. Convex redistributive transmission -- any degree of it, with the effective phase boundary lying between $\gamma = 1.02$ and $\gamma = 1.05$ -- produces the full Girardian pattern: convergence onto an arbitrary single victim, cathartic tension reduction upon expulsion, and -- when combined with status-rivalry dynamics -- endogenous production of the "signs of the victim."
+Girard writes that "the power of mimetic attraction multiplies with the number of those polarized." We have formalized that sentence and tested it. The formalization reveals that the multiplicative character of mimetic attraction in hostile contexts -- what Girard calls conflictual mimesis and describes as a "snowball effect" -- is the necessary and sufficient formal condition for the emergence of scapegoat convergence. Linear mimetic transmission, however intense, produces crisis without resolution: hostility spreads but does not converge. Convex redistributive transmission -- any degree of it, with the effective phase boundary lying between $\gamma = 1.02$ and $\gamma = 1.05$ -- produces the full Girardian pattern: convergence onto an arbitrary single victim, cathartic tension reduction upon expulsion, and -- when combined with status-rivalry dynamics -- endogenous production of the "signs of the victim." The threshold at which expulsion fires relative to the aggression equilibrium determines whether the system produces serial purges without unanimity, genuine crisis-expulsion-peace cycles with full unanimity, or permanent crisis without discharge -- and the founding murder occupies a specific parameter region rather than a default outcome (Section 3.6).
 
 The mechanism is not amplification but organization: the AC operator does not create hostility mass; it focuses existing mass onto a single target through convex salience weights under L1 conservation. Applying a convex transform without the redistribution step collapses the contagion channel entirely (Section 3.3). The convergence boundary is convexity used as a budget allocation rule, not convexity alone.
 
@@ -349,7 +388,7 @@ Weng, L., Flammini, A., Vespignani, A., & Menczer, F. (2012). Competition among 
 | Objects | 8 (5 rivalrous) | Number of desire objects |
 | Rivalry-to-aggression | 0.2 | Aggression increment from shared desire |
 | Aggression decay | 0.03 | Per-step decay fraction |
-| Expulsion threshold | 8.0 | Received aggression triggering removal |
+| Expulsion threshold | 8.0 (default) | Received aggression triggering removal (see Section 3.6 for threshold-regime analysis) |
 | Status loss rate | 0.005 | Aggression-to-status degradation (RL, RA) |
 | Rivalry intensity | 0.15 | Rivalry-to-aggression conversion (RL, RA) |
 | Timesteps | 600 | Simulation duration |
