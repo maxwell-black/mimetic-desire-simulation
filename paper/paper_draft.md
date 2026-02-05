@@ -52,7 +52,7 @@ Two features of this passage are essential for formalization. First, Girard dist
 
 ### 2.1 Overview
 
-We implement a family of agent-based models sharing common infrastructure but differing in their hostility-transmission mechanism. All variants operate on a Watts-Strogatz small-world network of $N = 50$ agents with mean degree 6 and rewiring probability 0.15. We chose $N = 50$ as the default because it is large enough that $1/N$ effects do not dominate the convergence metrics, small enough for tractable visualization of individual agent trajectories, and situated in the middle of the range ($N = 20$--$100$) across which we verify robustness in Section 3.4. Each agent maintains a desire vector over a set of rivalrous and non-rivalrous objects, and an aggression vector over all other agents. The simulation proceeds in discrete timesteps, each consisting of:
+We implement a family of agent-based models sharing common infrastructure but differing in their hostility-transmission mechanism. All variants operate on a Watts-Strogatz small-world network of $N = 50$ agents with mean degree 6 and rewiring probability 0.15. We chose $N = 50$ as the default because it is large enough that $ 1/N $ effects do not dominate the convergence metrics, small enough for tractable visualization of individual agent trajectories, and situated in the middle of the range ( $N = 20$ to $N = 100$ ) across which we verify robustness in Section 3.4. Each agent maintains a desire vector over a set of rivalrous and non-rivalrous objects, and an aggression vector over all other agents. The simulation proceeds in discrete timesteps, each consisting of:
 
 1. **Desire step:** agents mimetically absorb neighbors' desires (weighted by prestige).
 2. **Aggression-source step:** shared desire for rivalrous objects generates mutual aggression between neighbors (acquisitive mimesis), or status proximity generates rivalry-based aggression (in rivalry variants).
@@ -77,7 +77,9 @@ This design allows us to attribute convergence effects to transmission character
 
 $$\text{pull}_i(j) = \frac{\sum_{k \in N(i)} w_{ik} \cdot \text{agg}_k(j)}{\sum_{k \in N(i)} w_{ik}}$$
 
-Updated aggression: $\text{agg}_i(j) \leftarrow \alpha \cdot \text{agg}_i(j) + (1 - \alpha) \cdot \text{pull}_i(j)$
+Updated aggression:
+
+$$\text{agg}_i(j) \leftarrow \alpha \cdot \text{agg}_i(j) + (1 - \alpha) \cdot \text{pull}_i(j)$$
 
 where $\alpha \in [0, 1]$ controls the ratio of autonomous to mimetic aggression. This is the most literal formalization of "agents imitate others' hostility."
 
@@ -109,9 +111,11 @@ Relative mimetic pull between any two targets is the ratio of their perceived ho
 
 The salience exponent $\gamma$ controls the qualitative character of redistribution. When $\gamma = 1$, the operator reduces to LM (linear averaging): salience weights are proportional to perceived hostility, and no redistribution occurs. When $\gamma > 1$, relative salience differences are amplified (convex redistribution): targets with above-average hostility capture disproportionate mimetic pull. When $\gamma < 1$, relative salience differences are compressed (concave redistribution): the operator actively disperses hostility, working against convergence.
 
-Normalizing salience weights and rescaling by $\sum_k h_i(k)$ ensures that varying $\gamma$ changes only the *distribution* of mimetic pull across targets, not the overall magnitude. Without this conservation, a power transform would implicitly change the effective strength of mimesis by shrinking subunit signals (since for $0 < x < 1$ and $\gamma > 1$, $x^\gamma < x$). The ablation study in Section 3.3 confirms that this conservation property is constitutive: removing it collapses the contagion channel entirely.
+Normalizing salience weights and rescaling by $\sum_k h_i(k)$ ensures that varying $\gamma$ changes only the *distribution* of mimetic pull across targets, not the overall magnitude. Without this conservation, a power transform would implicitly change the effective strength of mimesis by shrinking subunit signals (since for $x$ in $(0, 1)$ and $\gamma > 1$, $x^\gamma < x$). The ablation study in Section 3.3 confirms that this conservation property is constitutive: removing it collapses the contagion channel entirely.
 
-Updated aggression: $\text{agg}_i(j) \leftarrow \alpha \cdot \text{agg}_i(j) + (1 - \alpha) \cdot \text{pull}_i(j)$
+Updated aggression:
+
+$$\text{agg}_i(j) \leftarrow \alpha \cdot \text{agg}_i(j) + (1 - \alpha) \cdot \text{pull}_i(j)$$
 
 **RL: Rivalry + Linear.** Aggression is sourced not from shared object-desire but from *status rivalry*. Each agent has a status scalar (initialized near 0.5); agents in close status proximity to connected neighbors generate mutual aggression, weighted toward upward rivalry (agents rival those of equal or higher status more than those below). Collectively received aggression degrades the target's status, reducing their prestige (status-dependent) and their capacity to resist further targeting. Aggression *spreads* via linear mimesis (as in LM). This tests whether the rivalry-escalation feedback loop produces convergence without the redistributive operator.
 
@@ -128,7 +132,7 @@ For each simulation run, we record:
 - **Expulsion count and timing:** number and temporal distribution of agent removals.
 - **Catharsis:** fractional tension drop following each expulsion event.
 - **Victim status at expulsion** (rivalry variants): the expelled agent's status relative to the population mean, testing whether "signs of the victim" emerge endogenously.
-- **Modal-target agreement:** fraction of living agents whose top aggression target is the modal target, excluding agents whose aggression vector sums to less than $10^{-8}$ (to prevent argmax-on-zero artifacts).
+- **Modal-target agreement:** fraction of living agents whose top aggression target is the modal target, excluding agents whose aggression vector sums to less than $ 10^{-8} $ (to prevent argmax-on-zero artifacts).
 
 We define *convergence* as modal-target agreement >= 0.95 sustained for 10 consecutive steps. The theoretical ceiling for modal agreement is $(N-1)/N = 0.98$, because self-targeting is excluded.
 
@@ -151,11 +155,11 @@ The central result is displayed in Table 1.
 
 All values are means across runs. Gini, top-target share, and convergence ratio are time-averaged over all 600 timesteps within each run; expulsions and catharsis are cumulative per run.
 
-The results divide cleanly along the transmission-character axis of the 2x2 design. Variants with linear hostility-transmission (LM, RL) produce Gini coefficients around 0.11--0.13, top-target shares near $1/N$ (the uniform baseline for 50 agents is 0.02), and convergence ratios near 1.0. Hostility spreads but does not converge. Variants with convex redistributive transmission (AC, RA) produce Gini coefficients above 0.73, top-target shares of 0.31--0.35, and convergence ratios of 1.4--1.6. Hostility both spreads and converges on a single target.
+The results divide cleanly along the transmission-character axis of the 2x2 design. Variants with linear hostility-transmission (LM, RL) produce Gini coefficients around 0.11--0.13, top-target shares near $ 1/N $ (the uniform baseline for 50 agents is 0.02), and convergence ratios near 1.0. Hostility spreads but does not converge. Variants with convex redistributive transmission (AC, RA) produce Gini coefficients above 0.73, top-target shares of 0.31--0.35, and convergence ratios of 1.4--1.6. Hostility both spreads and converges on a single target.
 
 The addition of rivalry dynamics to linear mimesis (LM to RL) produces negligible change in convergence metrics. Rivalry generates more aggression -- hence comparable expulsion counts -- but does not concentrate it. By contrast, the AC mechanism alone produces dramatic convergence. Rivalry combined with attentional concentration (RA) produces the strongest convergence and deepest catharsis, but the redistributive mechanism does the overwhelming majority of the convergence work.
 
-Applying a convex transform without conservation (pull $= h^\gamma$) does not produce convergence and in fact collapses the contagion channel by attenuating subunit signals (Section 3.3). Convergence requires the full redistributive operator: convex salience weights *plus* L1 conservation of perceived hostility mass.
+Applying a convex transform without conservation ( $\text{pull} = h^\gamma$ ) does not produce convergence and in fact collapses the contagion channel by attenuating subunit signals (Section 3.3). Convergence requires the full redistributive operator: convex salience weights *plus* L1 conservation of perceived hostility mass.
 
 ### 3.2 The Effective Phase Boundary Near Linearity
 
@@ -203,7 +207,7 @@ summing over all ordered pairs of living agents. "Final Mass" is $M$ at $t = n_{
 
 **Condition 1: Linear baseline ($\gamma = 1$).** Hostility spreads but does not converge: peak Gini = 0.115, peak modal = 0.240. Total aggression mass stabilizes at approximately 644, reflecting an equilibrium between the rivalry-sourcing step and decay. This is the LM variant and establishes the baseline against which the other conditions are measured.
 
-**Condition 2: Raw convex transform ($h^\gamma$, no normalization).** One might expect that applying a superlinear transform ($h^\gamma$ with $\gamma = 2$) without the redistribution step would still produce convergence, since the exponent amplifies differences. It does not. Peak Gini = 0.115 and peak modal agreement = 0.113 -- *worse* than linear. Total aggression mass collapses to approximately 9.1, a 98.6% reduction relative to Condition 1. The explanation is arithmetic: for $0 < x < 1$ and $\gamma > 1$, $x^\gamma < x$. Since hostility signals are typically subunit (fractional values between 0 and 1 after prestige-weighted averaging), the power transform systematically attenuates the contagion channel. With decay and mixing, this attrition bleeds the system dry.[^clip]
+**Condition 2: Raw convex transform ($h^\gamma$, no normalization).** One might expect that applying a superlinear transform ($h^\gamma$ with $\gamma = 2$) without the redistribution step would still produce convergence, since the exponent amplifies differences. It does not. Peak Gini = 0.115 and peak modal agreement = 0.113 -- *worse* than linear. Total aggression mass collapses to approximately 9.1, a 98.6% reduction relative to Condition 1. The explanation is arithmetic: for $x$ in $(0, 1)$ and $\gamma > 1$, $x^\gamma < x$. Since hostility signals are typically subunit (fractional values between 0 and 1 after prestige-weighted averaging), the power transform systematically attenuates the contagion channel. With decay and mixing, this attrition bleeds the system dry.[^clip]
 
 **Condition 3: Full AC operator (convex redistribution, L1 conserved).** The normalization step rescales the sharpened weights so total mimetic pull equals total perceived hostility, preventing the attrition that destroys Condition 2. Peak Gini = 0.972, peak modal = 0.980, and total mass = 786. This is the standard AC variant and demonstrates that convergence requires the full redistributive operator.
 
@@ -217,7 +221,7 @@ summing over all ordered pairs of living agents. "Final Mass" is $M$ at $t = n_{
 
 The convergence boundary is not "convexity alone"; it is convexity used as a redistribution rule under mass conservation.
 
-[^clip]: Clamping $h^\gamma$ to the interval $[0,\; \text{max\_val}]$ produces results identical to Condition 2 (peak Gini 0.115, peak modal 0.113), confirming the collapse is due to signal attrition, not numerical overflow.
+[^clip]: Clamping $h^\gamma$ to the interval $[0, \text{max-val}]$ produces results identical to Condition 2 (peak Gini 0.115, peak modal 0.113), confirming the collapse is due to signal attrition, not numerical overflow.
 
 ### 3.4 Robustness
 
@@ -292,7 +296,11 @@ Girard describes conflictual mimesis phenomenologically -- as fascination, obses
 
 The ablation (Section 3.3) reveals a further structural requirement: applying the convex power transform *without any scaling correction* (raw $h^\gamma$) destroys convergence by attenuating subunit signals -- total hostility mass collapses 98.6%, starving the contagion channel. The conserved-budget structure is constitutive, not optional. The mechanism is not amplification but *organization* -- the AC operator does not create hostility mass; it gives existing mass a direction. This aligns more precisely with Girard's phenomenology than a naive "amplification" reading. In Girard, mimetic crisis is already a high-energy field of undifferentiated violence; the scapegoat mechanism organizes that field into unanimity, not intensifying it. Rivalry dynamics load the system with hostility mass (acquisitive mimesis as fuel), while convex redistribution focuses that mass onto a single target (conflictual mimesis as organizing engine).
 
-A separate ablation control (Appendix C1) addresses the natural follow-up: what if the scaling problem is corrected without per-step redistribution? Replacing the AC operator with a fixed-scale convex map---$\text{pull}_i(j) = C \cdot h_i(j)^\gamma$, with $C$ calibrated from a linear burn-in to match total hostility throughput---eliminates the signal attrition of Section 3.3 but yields no stable convergence regime. Below a sharp explosion threshold $C_{\mathrm{crit}}$, the system behaves identically to the linear baseline (peak modal agreement $\approx 0.10$). Above it, total tension diverges within 25--75 steps. The failure mode is different from Section 3.3 (explosion rather than collapse) but the conclusion is the same: the per-step L1-conserving renormalization is constitutive of convergence. It bounds total mimetic pull at $\sum_k h_i(k)$ while redistributing that fixed budget toward the leading target, creating the zero-sum cross-target competition that no fixed-scale map can replicate.
+A separate ablation control (Appendix C1) addresses the natural follow-up: what if the scaling problem is corrected without per-step redistribution? Replacing the AC operator with a fixed-scale convex map,
+
+$$\text{pull}_i(j) = C \cdot h_i(j)^\gamma$$
+
+with $C$ calibrated from a linear burn-in to match total hostility throughput, eliminates the signal attrition of Section 3.3 but yields no stable convergence regime. Below a sharp explosion threshold $C_{\mathrm{crit}}$, the system behaves identically to the linear baseline (peak modal agreement of approximately 0.10). Above it, total tension diverges within 25--75 steps. The failure mode is different from Section 3.3 (explosion rather than collapse) but the conclusion is the same: the per-step L1-conserving renormalization is constitutive of convergence. It bounds total mimetic pull at $\sum_k h_i(k)$ while redistributing that fixed budget toward the leading target, creating the zero-sum cross-target competition that no fixed-scale map can replicate.
 
 The 2x2 design also clarifies the relative dynamical weight of the two phases: the AC mechanism accounts for the overwhelming majority of convergence, while rivalry contributes an additional ~8% Gini concentration and the endogenous marginality effect. Rivalry is a potentiator and enrichment of the scapegoat mechanism, not its primary driver.
 
@@ -448,7 +456,7 @@ For each agent $i \in \mathcal{L}_t$:
 
 $$D_i \leftarrow \alpha \cdot D_i + (1 - \alpha) \cdot \frac{\sum_{k \in \mathcal{N}(i) \cap \mathcal{L}_t} w_{ik} \cdot D_k}{\sum_{k \in \mathcal{N}(i) \cap \mathcal{L}_t} w_{ik}} + \epsilon_i$$
 
-where $\epsilon_i \sim \mathcal{N}(0, \sigma_{\text{noise}}^2)$ elementwise, and the result is clamped to $[0, \infty)$.
+where $\epsilon_i \sim \mathcal{N}(0, \sigma_{\text{noise}}^2)$ elementwise, and the result is clamped to $ [0, \infty) $.
 
 **Edge case:** If agent $i$ has no living neighbors, $D_i$ is unchanged.
 
@@ -476,7 +484,7 @@ where $f$ is a decreasing function of status distance (agents in close status pr
 
 $$S_k \leftarrow S_k - \lambda \cdot \text{ReceivedAggression}(k)$$
 
-clamped to $[0, 1]$. Status loss reduces prestige (via status-dependent prestige weights in RL/RA), creating a feedback loop: targeting degrades status, degraded status reduces prestige, reduced prestige reduces the target's capacity to resist further targeting.
+clamped to $ [0, 1] $. Status loss reduces prestige (via status-dependent prestige weights in RL/RA), creating a feedback loop: targeting degrades status, degraded status reduces prestige, reduced prestige reduces the target's capacity to resist further targeting.
 
 ### C.5 Step 3: Aggression Spread
 
