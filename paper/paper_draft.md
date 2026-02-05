@@ -191,7 +191,7 @@ Decreasing $\gamma$ below 1 reduces both peak modal agreement and peak Gini mono
 
 The AC convergence mechanism has two components: the convex power transform ($h^\gamma$ with $\gamma > 1$) and the redistributive normalization step (dividing by $\sum_k h_i(k)^\gamma$ and rescaling by $\sum_k h_i(k)$). This ablation study isolates their respective contributions by testing the transform with and without the redistribution, building from the simplest case to the full operator.
 
-We define total aggression mass at time $t$ as $M_t = \sum_{i \neq j} \text{agg}_i(t)(j)$, summing over all ordered pairs of living agents. "Final Mass" is $M$ at $t = n\_steps$.
+We define total aggression mass at time $t$ as $M_t = \sum_{i \neq j} \text{agg}_i(t)(j)$, summing over all ordered pairs of living agents. "Final Mass" is $M$ at $t = n_{\text{steps}}$.
 
 **Condition 1: Linear baseline ($\gamma = 1$).** Hostility spreads but does not converge: peak Gini = 0.115, peak modal = 0.240. Total aggression mass stabilizes at approximately 644, reflecting an equilibrium between the rivalry-sourcing step and decay. This is the LM variant and establishes the baseline against which the other conditions are measured.
 
@@ -209,7 +209,7 @@ We define total aggression mass at time $t$ as $M_t = \sum_{i \neq j} \text{agg}
 
 The convergence boundary is not "convexity alone"; it is convexity used as a redistribution rule under mass conservation.
 
-[^clip]: Clamping $h^\gamma$ to $[0, \text{max\_val}]$ produces results identical to Condition 2 (peak Gini 0.115, peak modal 0.113), confirming the collapse is due to signal attrition, not numerical overflow.
+[^clip]: Clamping $h^\gamma$ to $[0, \text{max\\_val}]$ produces results identical to Condition 2 (peak Gini 0.115, peak modal 0.113), confirming the collapse is due to signal attrition, not numerical overflow.
 
 ### 3.4 Robustness
 
@@ -438,7 +438,7 @@ All updates within a step are computed from the state at the beginning of that s
 
 For each agent $i \in \mathcal{L}_t$:
 
-$D_i \leftarrow \alpha \cdot D_i + (1 - \alpha) \cdot \frac{\sum_{k \in \mathcal{N}(i) \cap \mathcal{L}_t} w_{ik} \cdot D_k}{\sum_{k \in \mathcal{N}(i) \cap \mathcal{L}_t} w_{ik}} + \epsilon_i$
+$$D_i \leftarrow \alpha \cdot D_i + (1 - \alpha) \cdot \frac{\sum_{k \in \mathcal{N}(i) \cap \mathcal{L}_t} w_{ik} \cdot D_k}{\sum_{k \in \mathcal{N}(i) \cap \mathcal{L}_t} w_{ik}} + \epsilon_i$$
 
 where $\epsilon_i \sim \mathcal{N}(0, \sigma_{\text{noise}}^2)$ elementwise, and the result is clamped to $[0, \infty)$.
 
@@ -450,11 +450,11 @@ where $\epsilon_i \sim \mathcal{N}(0, \sigma_{\text{noise}}^2)$ elementwise, and
 
 For each pair $(i, k)$ where $k \in \mathcal{N}(i) \cap \mathcal{L}_t$:
 
-$A_i(k) \leftarrow A_i(k) + \rho \cdot (1 - \alpha) \cdot \frac{\text{SharedDesire}(i, k)}{d(i, k)}$
+$$A_i(k) \leftarrow A_i(k) + \rho \cdot (1 - \alpha) \cdot \frac{\text{SharedDesire}(i, k)}{d(i, k)}$$
 
 where $\rho$ is the rivalry-to-aggression parameter, $d(i, k) = \max(1, \text{shortest-path-length}(i, k))$, and:
 
-$\text{SharedDesire}(i, k) = \sum_{o=1}^{n_{\text{riv}}} \min(D_i(o),\; D_k(o))$
+$$\text{SharedDesire}(i, k) = \sum_{o=1}^{n_{\text{riv}}} \min(D_i(o),\; D_k(o))$$
 
 summing over rivalrous objects only.
 
@@ -462,11 +462,11 @@ summing over rivalrous objects only.
 
 Each agent $i$ has a status scalar $S_i \in [0, 1]$, initialized $S_i \sim \text{Uniform}(0.4, 0.6)$. For each pair $(i, k)$ with $k \in \mathcal{N}(i) \cap \mathcal{L}_t$:
 
-$A_i(k) \leftarrow A_i(k) + \rho_{\text{riv}} \cdot \text{UpwardBias}(S_i, S_k) \cdot f(|S_i - S_k|)$
+$$A_i(k) \leftarrow A_i(k) + \rho_{\text{riv}} \cdot \text{UpwardBias}(S_i, S_k) \cdot f(|S_i - S_k|)$$
 
 where $f$ is a decreasing function of status distance (agents in close status proximity generate more rivalry) and $\text{UpwardBias}$ weights rivalry toward agents of equal or higher status. Received aggression degrades the target's status:
 
-$S_k \leftarrow S_k - \lambda \cdot \text{ReceivedAggression}(k)$
+$$S_k \leftarrow S_k - \lambda \cdot \text{ReceivedAggression}(k)$$
 
 clamped to $[0, 1]$. Status loss reduces prestige (via status-dependent prestige weights in RL/RA), creating a feedback loop: targeting degrades status, degraded status reduces prestige, reduced prestige reduces the target's capacity to resist further targeting.
 
@@ -474,7 +474,7 @@ clamped to $[0, 1]$. Status loss reduces prestige (via status-dependent prestige
 
 For each agent $i \in \mathcal{L}_t$, define the prestige-weighted mean neighbor hostility toward each target $j$:
 
-$h_i(j) = \frac{\sum_{k \in \mathcal{N}(i) \cap \mathcal{L}_t} w_{ik} \cdot A_k(j)}{\sum_{k \in \mathcal{N}(i) \cap \mathcal{L}_t} w_{ik}}$
+$$h_i(j) = \frac{\sum_{k \in \mathcal{N}(i) \cap \mathcal{L}_t} w_{ik} \cdot A_k(j)}{\sum_{k \in \mathcal{N}(i) \cap \mathcal{L}_t} w_{ik}}$$
 
 with $h_i(i) = 0$ and $h_i(j) = 0$ for dead $j$.
 
@@ -482,7 +482,7 @@ with $h_i(i) = 0$ and $h_i(j) = 0$ for dead $j$.
 
 #### LM and RL (Linear spread)
 
-$A_i(j) \leftarrow \alpha \cdot A_i(j) + (1 - \alpha) \cdot h_i(j)$
+$$A_i(j) \leftarrow \alpha \cdot A_i(j) + (1 - \alpha) \cdot h_i(j)$$
 
 #### AC and RA (Attentional concentration spread)
 
@@ -498,11 +498,11 @@ Let $Z_i = \sum_{j} s_i(j)$.
 
 Otherwise, compute attention weights and mimetic pull:
 
-$a_i(j) = \frac{s_i(j)}{Z_i}, \qquad \text{pull}_i(j) = a_i(j) \cdot H_i$
+$$a_i(j) = \frac{s_i(j)}{Z_i}, \qquad \text{pull}_i(j) = a_i(j) \cdot H_i$$
 
 Update:
 
-$A_i(j) \leftarrow \alpha \cdot A_i(j) + (1 - \alpha) \cdot \text{pull}_i(j)$
+$$A_i(j) \leftarrow \alpha \cdot A_i(j) + (1 - \alpha) \cdot \text{pull}_i(j)$$
 
 If $H_i = 0$: $A_i(j) \leftarrow \alpha \cdot A_i(j)$ for all $j$.
 
@@ -517,7 +517,7 @@ After the update, enforce $A_i(i) = 0$ and $A_i(j) = 0$ for all dead $j$.
 
 For each agent $i \in \mathcal{L}_t$:
 
-$A_i \leftarrow (1 - \delta) \cdot A_i$
+$$A_i \leftarrow (1 - \delta) \cdot A_i$$
 
 where $\delta$ is the per-step decay fraction.
 
@@ -525,7 +525,7 @@ where $\delta$ is the per-step decay fraction.
 
 Compute total received aggression for each potential victim $v \in \mathcal{L}_t$:
 
-$R(v) = \sum_{i \in \mathcal{L}_t,\; i \neq v} A_i(v)$
+$$R(v) = \sum_{i \in \mathcal{L}_t,\; i \neq v} A_i(v)$$
 
 If $\max_v R(v) \geq \tau$ (expulsion threshold):
 
