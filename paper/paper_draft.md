@@ -189,9 +189,17 @@ Decreasing $\gamma$ below 1 reduces both peak modal agreement and peak Gini mono
 
 ### 3.3 Operator Ablation
 
-The AC convergence mechanism has two components: the convex power transform ($h^\gamma$ with $\gamma > 1$) and the redistributive normalization step (dividing by $\sum_k h_i(k)^\gamma$ and rescaling by $\sum_k h_i(k)$). This ablation study isolates their respective contributions by testing the transform with and without the redistribution, building from the simplest case to the full operator.
+The AC convergence mechanism has two components: the convex power transform ( $h^\gamma$ with $\gamma > 1$ ) and the redistributive normalization step, which divides by
 
-We define total aggression mass at time $t$ as $M_t = \sum_{i \neq j} \text{agg}_i(t)(j)$, summing over all ordered pairs of living agents. "Final Mass" is $M$ at $t = n_{\text{steps}}$.
+$$\sum_k h_i(k)^\gamma$$
+
+and rescales by $\sum_k h_i(k)$. This ablation study isolates their respective contributions by testing the transform with and without the redistribution, building from the simplest case to the full operator.
+
+We define total aggression mass at time $t$ as:
+
+$$M_t = \sum_{i \neq j} \text{agg}_i(t, j)$$
+
+summing over all ordered pairs of living agents. "Final Mass" is $M$ at $t = n_{\text{steps}}$.
 
 **Condition 1: Linear baseline ($\gamma = 1$).** Hostility spreads but does not converge: peak Gini = 0.115, peak modal = 0.240. Total aggression mass stabilizes at approximately 644, reflecting an equilibrium between the rivalry-sourcing step and decay. This is the LM variant and establishes the baseline against which the other conditions are measured.
 
@@ -209,7 +217,7 @@ We define total aggression mass at time $t$ as $M_t = \sum_{i \neq j} \text{agg}
 
 The convergence boundary is not "convexity alone"; it is convexity used as a redistribution rule under mass conservation.
 
-[^clip]: Clamping $h^\gamma$ to $[0, \text{max\\_val}]$ produces results identical to Condition 2 (peak Gini 0.115, peak modal 0.113), confirming the collapse is due to signal attrition, not numerical overflow.
+[^clip]: Clamping $h^\gamma$ to the interval $[0,\; \text{max\_val}]$ produces results identical to Condition 2 (peak Gini 0.115, peak modal 0.113), confirming the collapse is due to signal attrition, not numerical overflow.
 
 ### 3.4 Robustness
 
