@@ -401,3 +401,153 @@ Weng, L., Flammini, A., Vespignani, A., & Menczer, F. (2012). Competition among 
 ## Appendix B: Code Availability
 
 All simulations are implemented in Python using NumPy and NetworkX. Source code, runner scripts, and figure-generation code are available at: https://github.com/maxwell-black/mimetic-desire-simulation
+
+## Appendix C: Pseudocode and Definitions
+
+This appendix provides a complete specification of the per-timestep update rules sufficient to reimplement the model without reference to the source code. All variants share the same timestep structure; they differ only in the aggression-spread step (Step 3).
+
+### C.1 Timestep Loop
+
+```
+For t = 1 to T:
+    1. Desire step          (all variants)
+    2. Aggression-source step (all variants; object-rivalry or status-rivalry)
+    3. Aggression-spread step (VARIES BY VARIANT: LM, AC, RL, RA)
+    4. Decay step            (all variants)
+    5. Expulsion step        (all variants)
+    6. Record metrics
+```
+
+All updates within a step are computed from the state at the beginning of that step and applied simultaneously (batch update).
+
+### C.2 Definitions
+
+**Network.** A Watts-Strogatz graph $G = (V, E)$ with $|V| = N$, mean degree $k$, and rewiring probability $p$. Let $\mathcal{N}(i)$ denote the neighbors of $i$ in $G$.
+
+**Prestige weights.** For each directed edge $(i, k)$ where $\{i, k\} \in E$, a prestige weight $w_{ik} \in [0.1, 1.0]$ is drawn uniformly at random at initialization. Prestige is asymmetric: $w_{ik} \neq w_{ki}$ in general. The prestige weight $w_{ik}$ governs how much agent $i$ imitates agent $k$.
+
+**Desire vectors.** Each agent $i$ maintains $D_i \in \mathbb{R}_{\geq 0}^{n_{\text{obj}}}$, initialized $D_i(o) \sim \text{Uniform}(0, 0.3)$.
+
+**Aggression vectors.** Each agent $i$ maintains $A_i \in \mathbb{R}_{\geq 0}^{N}$ with $A_i(i) = 0$ (no self-aggression) and $A_i(j) = 0$ for all dead agents $j$.
+
+**Alive set.** $\mathcal{L}_t \subseteq V$ denotes agents alive at time $t$.
+
+### C.3 Step 1: Desire Update
+
+For each agent $i \in \mathcal{L}_t$:
+
+$D_i \leftarrow \alpha \cdot D_i + (1 - \alpha) \cdot \frac{\sum_{k \in \mathcal{N}(i) \cap \mathcal{L}_t} w_{ik} \cdot D_k}{\sum_{k \in \mathcal{N}(i) \cap \mathcal{L}_t} w_{ik}} + \epsilon_i$
+
+where $\epsilon_i \sim \mathcal{N}(0, \sigma_{\text{noise}}^2)$ elementwise, and the result is clamped to $[0, \infty)$.
+
+**Edge case:** If agent $i$ has no living neighbors, $D_i$ is unchanged.
+
+### C.4 Step 2: Aggression Source
+
+#### Object-rivalry source (LM, AC)
+
+For each pair $(i, k)$ where $k \in \mathcal{N}(i) \cap \mathcal{L}_t$:
+
+$A_i(k) \leftarrow A_i(k) + \rho \cdot (1 - \alpha) \cdot \frac{\text{SharedDesire}(i, k)}{d(i, k)}$
+
+where $\rho$ is the rivalry-to-aggression parameter, $d(i, k) = \max(1, \text{shortest-path-length}(i, k))$, and:
+
+$\text{SharedDesire}(i, k) = \sum_{o=1}^{n_{\text{riv}}} \min(D_i(o),\; D_k(o))$
+
+summing over rivalrous objects only.
+
+#### Status-rivalry source (RL, RA)
+
+Each agent $i$ has a status scalar $S_i \in [0, 1]$, initialized $S_i \sim \text{Uniform}(0.4, 0.6)$. For each pair $(i, k)$ with $k \in \mathcal{N}(i) \cap \mathcal{L}_t$:
+
+$A_i(k) \leftarrow A_i(k) + \rho_{\text{riv}} \cdot \text{UpwardBias}(S_i, S_k) \cdot f(|S_i - S_k|)$
+
+where $f$ is a decreasing function of status distance (agents in close status proximity generate more rivalry) and $\text{UpwardBias}$ weights rivalry toward agents of equal or higher status. Received aggression degrades the target's status:
+
+$S_k \leftarrow S_k - \lambda \cdot \text{ReceivedAggression}(k)$
+
+clamped to $[0, 1]$. Status loss reduces prestige (via status-dependent prestige weights in RL/RA), creating a feedback loop: targeting degrades status, degraded status reduces prestige, reduced prestige reduces the target's capacity to resist further targeting.
+
+### C.5 Step 3: Aggression Spread
+
+For each agent $i \in \mathcal{L}_t$, define the prestige-weighted mean neighbor hostility toward each target $j$:
+
+$h_i(j) = \frac{\sum_{k \in \mathcal{N}(i) \cap \mathcal{L}_t} w_{ik} \cdot A_k(j)}{\sum_{k \in \mathcal{N}(i) \cap \mathcal{L}_t} w_{ik}}$
+
+with $h_i(i) = 0$ and $h_i(j) = 0$ for dead $j$.
+
+**Edge case:** If $i$ has no living neighbors, $A_i$ is unchanged for this step.
+
+#### LM and RL (Linear spread)
+
+$A_i(j) \leftarrow \alpha \cdot A_i(j) + (1 - \alpha) \cdot h_i(j)$
+
+#### AC and RA (Attentional concentration spread)
+
+Let $H_i = \sum_{j} h_i(j)$ (total perceived neighborhood hostility).
+
+If $H_i > 0$:
+
+Compute sharpened salience: $s_i(j) = h_i(j)^{\gamma}$ for all $j$.
+
+Let $Z_i = \sum_{j} s_i(j)$.
+
+**Edge case:** If $Z_i = 0$ (possible when all $h_i(j) = 0$ despite $H_i > 0$ due to floating-point; or after expulsions leave only zero-aggression targets), set $\text{pull}_i(j) = 0$ for all $j$.
+
+Otherwise, compute attention weights and mimetic pull:
+
+$a_i(j) = \frac{s_i(j)}{Z_i}, \qquad \text{pull}_i(j) = a_i(j) \cdot H_i$
+
+Update:
+
+$A_i(j) \leftarrow \alpha \cdot A_i(j) + (1 - \alpha) \cdot \text{pull}_i(j)$
+
+If $H_i = 0$: $A_i(j) \leftarrow \alpha \cdot A_i(j)$ for all $j$.
+
+After the update, enforce $A_i(i) = 0$ and $A_i(j) = 0$ for all dead $j$.
+
+**Key identities of the AC operator (when $H_i > 0$ and $Z_i > 0$):**
+
+- *L1 conservation:* $\sum_j \text{pull}_i(j) = H_i$
+- *Ratio identity:* $\text{pull}_i(a) / \text{pull}_i(b) = (h_i(a) / h_i(b))^{\gamma}$ for $h_i(b) > 0$
+
+### C.6 Step 4: Decay
+
+For each agent $i \in \mathcal{L}_t$:
+
+$A_i \leftarrow (1 - \delta) \cdot A_i$
+
+where $\delta$ is the per-step decay fraction.
+
+### C.7 Step 5: Expulsion
+
+Compute total received aggression for each potential victim $v \in \mathcal{L}_t$:
+
+$R(v) = \sum_{i \in \mathcal{L}_t,\; i \neq v} A_i(v)$
+
+If $\max_v R(v) \geq \tau$ (expulsion threshold):
+
+1. Let $v^* = \arg\max_v R(v)$.
+2. Remove $v^*$: set $v^* \notin \mathcal{L}_{t+1}$.
+3. Zero all aggression toward $v^*$: $A_i(v^*) \leftarrow 0$ for all $i$.
+
+At most one agent is expelled per timestep.
+
+### C.8 Parameter Summary
+
+| Symbol | Parameter | Default |
+|--------|-----------|---------|
+| $N$ | Number of agents | 50 |
+| $k$ | Mean degree (Watts-Strogatz) | 6 |
+| $p$ | Rewiring probability | 0.15 |
+| $\alpha$ | Autonomous vs. mimetic ratio | 0.15 |
+| $\gamma$ | Salience exponent (AC, RA) | 2.0 |
+| $\rho$ | Rivalry-to-aggression rate | 0.2 |
+| $\delta$ | Aggression decay rate | 0.03 |
+| $\sigma_{\text{noise}}$ | Desire noise std. dev. | 0.02 |
+| $\tau$ | Expulsion threshold | 8.0 |
+| $\lambda$ | Status loss rate (RL, RA) | 0.005 |
+| $\rho_{\text{riv}}$ | Rivalry intensity (RL, RA) | 0.15 |
+| $n_{\text{obj}}$ | Total objects | 8 |
+| $n_{\text{riv}}$ | Rivalrous objects | 5 |
+| $T$ | Timesteps | 600 |
