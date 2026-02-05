@@ -10,7 +10,7 @@ Winthrop & Weinstine, P.A., Minneapolis
 
 ## Abstract
 
-René Girard claims that mimetic crisis resolves through unanimous polarization against a single victim, driven by a "snowball effect" in which "the power of mimetic attraction multiplies with the number of those polarized" (*Things Hidden*, p. 26). This paper formalizes and tests that claim using agent-based simulation. We implement Girard's two-phase decomposition -- acquisitive mimesis (rivalry generating hostility) and conflictual mimesis (contagion of hostility producing convergence) -- as structurally distinct mechanisms and test their respective contributions to scapegoat emergence. We find that Girard's two-phase architecture is structurally correct: rivalry alone generates hostility but does not concentrate it; superlinear hostility-transmission, formalizing the "snowball effect," produces convergence onto a single victim; and their combination yields the fullest Girardian outcome, including endogenous marginalization of the victim. The model's primary contribution is specifying the formal requirement Girard leaves implicit: hostility-transmission must be superlinear -- any degree of superlinearity suffices -- for the transition from "all against all" to "all against one."
+Rene Girard claims that mimetic crisis resolves through unanimous polarization against a single victim, driven by a "snowball effect" in which "the power of mimetic attraction multiplies with the number of those polarized" (*Things Hidden*, p. 26). This paper formalizes and tests that claim using agent-based simulation. We implement Girard's two-phase decomposition -- acquisitive mimesis (rivalry generating hostility) and conflictual mimesis (contagion of hostility producing convergence) -- as structurally distinct mechanisms and test their respective contributions to scapegoat emergence. We find that Girard's two-phase architecture is structurally correct: rivalry alone generates hostility but does not concentrate it; convex redistribution of hostility across targets, formalizing the "snowball effect," produces convergence onto a single victim; and their combination yields the fullest Girardian outcome, including endogenous marginalization of the victim. The model's primary contribution is specifying the formal requirement Girard leaves implicit: hostility-transmission must operate as a redistributive salience-weighting rule -- convex reallocation of a conserved hostility mass toward salient targets -- for the transition from "all against all" to "all against one." The effective phase boundary lies in a narrow interval just above linearity (gamma in [1.02, 1.05]), and applying a convex transform without the redistribution step collapses the contagion channel entirely.
 
 **Keywords:** mimetic theory, scapegoat mechanism, agent-based modeling, Girard, conflictual mimesis, collective violence
 
@@ -22,13 +22,13 @@ Girard's theory of the scapegoat mechanism makes a precise structural prediction
 
 This paper addresses that gap. We construct an agent-based model that implements Girard's two-phase account of mimetic crisis as described in *Things Hidden* (Book I, Chapter 1) and *Violence and the Sacred* (Chapter 6), then tests whether the predicted scapegoat convergence emerges from the formalized dynamics. Our approach is not to encode scapegoating as an outcome and observe its preconditions, but to encode the mimetic mechanisms Girard describes and observe whether scapegoating emerges.
 
-The central finding is that Girard's two-phase decomposition -- rivalry generating hostility (acquisitive mimesis), followed by contagion of hostility producing convergence (conflictual mimesis) -- is structurally sound. But the finding also specifies a formal requirement that Girard describes phenomenologically without formalizing: the transition from "all against all" to "all against one" requires that hostility-transmission be *superlinear*, meaning that the mimetic pull toward a target must grow faster than proportionally with the amount of existing hostility toward that target. This is precisely Girard's claim that mimetic attraction "multiplies" rather than merely accumulates, but our model shows that this multiplicative character is the *entire* formal difference between crisis-without-resolution and scapegoating.
+The central finding is that Girard's two-phase decomposition -- rivalry generating hostility (acquisitive mimesis), followed by contagion of hostility producing convergence (conflictual mimesis) -- is structurally sound. But the finding also specifies a formal requirement that Girard describes phenomenologically without formalizing: the transition from "all against all" to "all against one" requires that hostility-transmission operate as a *convex redistribution* rule, meaning that an agent's mimetic pull toward competing targets is reallocated by convex salience weights under conservation of total perceived hostility mass. This is precisely Girard's claim that mimetic attraction "multiplies" rather than merely accumulates: relative mimetic pull between targets is amplified by the salience exponent. Our model shows that this redistributive character is the *entire* formal difference between crisis-without-resolution and scapegoating. The effective phase boundary lies in a narrow interval just above linearity (gamma in [1.02, 1.05]), and applying a convex transform without the redistribution step does not produce convergence -- it collapses the contagion channel entirely (SS3.3).
 
 ### 1.1 Existing Computational Approaches
 
 Computational engagement with Girard's mimetic theory is remarkably sparse. Sack (2021) presents the first agent-based model of mimetic desire in NetLogo, formalizing the triangular structure of subject-mediator-object from *Deceit, Desire, and the Novel*. However, Sack's model addresses only the desire triangle with 3-8 agents and does not extend to rivalry escalation, collective violence, or scapegoating. Gardin (2008) proposes "complex mimetic systems" as a framework connecting mimetic theory to complex adaptive systems, but presents no simulation or empirical results. Paes (2025) offers a NetLogo agent-based model of scapegoating as crisis management, simulating tension accumulation across a small-world network, though this work models crisis and victim-selection as programmatically distinct stages rather than testing whether convergence emerges from mimetic dynamics alone.
 
-Our work differs from these predecessors in two respects. First, we test *emergence*: rather than encoding scapegoating as a mechanism and observing when it activates, we encode mimetic transmission rules and observe whether convergent targeting arises as an emergent outcome. Second, we conduct a *mechanism comparison*: we implement multiple candidate convergence mechanisms (linear mimetic averaging, superlinear attentional concentration, status-based rivalry, and their combinations) and test which are necessary and sufficient for the predicted outcome. This comparative approach allows us to identify what formal structure does the work in Girard's theory.
+Our work differs from these predecessors in two respects. First, we test *emergence*: rather than encoding scapegoating as a mechanism and observing when it activates, we encode mimetic transmission rules and observe whether convergent targeting arises as an emergent outcome. Second, we conduct a *mechanism comparison*: we implement multiple candidate convergence mechanisms (linear mimetic averaging, convex redistributive salience weighting, status-based rivalry, and their combinations) and test which are necessary and sufficient for the predicted outcome. This comparative approach allows us to identify what formal structure does the work in Girard's theory.
 
 ### 1.2 Girard's Two-Phase Account
 
@@ -44,7 +44,7 @@ The critical dynamical claim follows:
 
 > Once the object has disappeared and the mimetic frenzy has reached a high degree of intensity, one can expect conflictual mimesis to take over and snowball in its effects. Since the power of mimetic attraction multiplies with the number of those polarized, it is inevitable that at one moment the entire community will find itself unified against a single individual. (Girard 1987, 26)
 
-Two features of this passage are essential for formalization. First, Girard distinguishes the mechanism that produces the crisis (acquisitive mimesis, rivalry over objects) from the mechanism that produces convergence (conflictual mimesis, snowballing hostility-transmission). These are structurally different processes with different dynamical properties. Second, the convergence mechanism is characterized as *multiplicative*: "the power of mimetic attraction *multiplies* with the number of those polarized." This is not linear diffusion (where each additional hostile agent adds a fixed increment of mimetic pull) but superlinear amplification (where each additional hostile agent *multiplies* the pull on the remaining unpolarized agents). Our model tests whether this distinction -- linear versus superlinear hostility-transmission -- is in fact the formal boundary between crisis-without-convergence and scapegoating.
+Two features of this passage are essential for formalization. First, Girard distinguishes the mechanism that produces the crisis (acquisitive mimesis, rivalry over objects) from the mechanism that produces convergence (conflictual mimesis, snowballing hostility-transmission). These are structurally different processes with different dynamical properties. Second, the convergence mechanism is characterized as *multiplicative*: "the power of mimetic attraction *multiplies* with the number of those polarized." This is not linear diffusion (where each additional hostile agent adds a fixed increment of mimetic pull) but a process in which relative differences in salience are amplified, so that mimetic attraction toward a leading target grows disproportionately as polarization increases. Our model tests whether this distinction -- linear versus convex redistributive hostility-transmission -- is in fact the formal boundary between crisis-without-convergence and scapegoating.
 
 ---
 
@@ -74,17 +74,41 @@ Updated aggression: $\text{agg}_i(j) \leftarrow \alpha \cdot \text{agg}_i(j) + (
 
 where $\alpha \in [0, 1]$ controls the ratio of autonomous to mimetic aggression. This is the most literal formalization of "agents imitate others' hostility."
 
-**V2: Attentional Concentration.** Before absorption, agent *i* filters neighbor hostility through a salience function that amplifies peaks:
+**V2: Attentional Concentration (Convex Redistribution).** Let $h_i(j)$ denote the prestige-weighted mean hostility toward target $j$ among $i$'s neighbors (computed identically to V0). Agent $i$ then constructs salience weights and mimetic pull as follows.
 
-$$a_i(j) = \frac{h_i(j)^\gamma}{\sum_k h_i(k)^\gamma}$$
+Define salience weights:
 
-$$\text{pull}_i(j) = a_i(j) \cdot \sum_k h_i(k)$$
+$$w_i(j) = \frac{h_i(j)^\gamma}{\sum_k h_i(k)^\gamma}$$
 
-where $h_i(j)$ is the prestige-weighted average neighbor hostility toward *j* (as in V0) and $\gamma > 1$ is the salience exponent. When $\gamma = 1$, this reduces to V0. When $\gamma > 1$, targets with above-average hostility capture disproportionate attention. This formalizes Girard's claim that mimetic attraction "multiplies": the exponent $\gamma$ controls the degree of multiplicative amplification.
+That is: each target's share of agent $i$'s mimetic attention is the target's perceived hostility raised to the power $\gamma$, normalized across all targets. For each target $j$, agent $i$'s mimetic pull is then:
 
-**V5a: Rivalry + Linear.** Aggression is sourced not from shared object-desire but from *status rivalry*. Each agent has a status scalar (initialized near 0.5); agents in close status proximity to connected neighbors generate mutual aggression, weighted toward upward rivalry (agents rival those of equal or higher status more than those below). Collectively received aggression degrades the target's status, reducing their prestige (status-dependent) and their capacity to resist further targeting. Aggression *spreads* via linear mimesis (as in V0). This tests whether the rivalry-escalation feedback loop produces convergence without superlinear transmission.
+$$\text{pull}_i(j) = w_i(j) \cdot \sum_k h_i(k)$$
 
-**V5b: Rivalry + Attention.** Same status-rivalry dynamics as V5a, but aggression spreads via attentional concentration (as in V2). This tests the combination of both Girardian phases: rivalry-driven aggression generation plus superlinear conflictual mimesis.
+That is: agent $i$ adopts total mimetic pull equal to the total hostility it perceives in its neighborhood, but distributes that pull across targets according to the convex salience weights.
+
+Two identities characterize this operator and connect it to Girard's phenomenology.
+
+*L1 conservation.* Summing over targets:
+
+$$\sum_j \text{pull}_i(j) = \sum_k h_i(k)$$
+
+In precise English: the total mimetic pull agent $i$ receives equals the total hostility mass it perceives among its neighbors. The spread step does not create hostility mass; it redistributes it. Agent $i$ adopts the same total hostility mass it perceives in its neighborhood, but reallocates that mass across targets by convex salience weights.
+
+*Ratio identity.* For any two targets $a, b$ with $h_i(b) > 0$:
+
+$$\frac{\text{pull}_i(a)}{\text{pull}_i(b)} = \left(\frac{h_i(a)}{h_i(b)}\right)^\gamma$$
+
+In precise English: relative mimetic pull between any two targets is the ratio of their perceived hostilities raised to the power $\gamma$. This is the mathematically exact sense in which mimetic attraction "multiplies": a difference in salience becomes an amplified difference in imitative focus.
+
+The salience exponent $\gamma$ controls the qualitative character of redistribution. When $\gamma = 1$, the operator reduces to V0 (linear averaging): salience weights are proportional to perceived hostility, and no redistribution occurs. When $\gamma > 1$, relative salience differences are amplified (convex redistribution): targets with above-average hostility capture disproportionate mimetic pull. When $\gamma < 1$, relative salience differences are compressed (concave redistribution): the operator actively disperses hostility, working against convergence.
+
+Normalizing salience weights and rescaling by $\sum_k h_i(k)$ ensures that varying $\gamma$ changes only the *distribution* of mimetic pull across targets, not the overall magnitude of mimetic pull. Without this conservation, a power transform would implicitly change the effective strength of mimesis by shrinking subunit signals (since for $0 < x < 1$ and $\gamma > 1$, $x^\gamma < x$). The ablation study in SS3.3 confirms that this conservation property is constitutive: removing it collapses the contagion channel entirely.
+
+Updated aggression: $\text{agg}_i(j) \leftarrow \alpha \cdot \text{agg}_i(j) + (1 - \alpha) \cdot \text{pull}_i(j)$
+
+**V5a: Rivalry + Linear.** Aggression is sourced not from shared object-desire but from *status rivalry*. Each agent has a status scalar (initialized near 0.5); agents in close status proximity to connected neighbors generate mutual aggression, weighted toward upward rivalry (agents rival those of equal or higher status more than those below). Collectively received aggression degrades the target's status, reducing their prestige (status-dependent) and their capacity to resist further targeting. Aggression *spreads* via linear mimesis (as in V0). This tests whether the rivalry-escalation feedback loop produces convergence without convex salience weighting.
+
+**V5b: Rivalry + Attention.** Same status-rivalry dynamics as V5a, but aggression spreads via attentional concentration (as in V2). This tests the combination of both Girardian phases: rivalry-driven aggression generation plus convex redistributive conflictual mimesis.
 
 ### 2.3 Measurements
 
@@ -97,12 +121,15 @@ For each simulation run, we record:
 - **Expulsion count and timing:** number and temporal distribution of agent removals.
 - **Catharsis:** fractional tension drop following each expulsion event.
 - **Victim status at expulsion** (rivalry variants): the expelled agent's status relative to the population mean, testing whether "signs of the victim" emerge endogenously.
+- **Modal-target agreement:** fraction of living agents whose top aggression target is the modal target, excluding agents whose aggression vector sums to less than $10^{-8}$ (to prevent argmax-on-zero artifacts).
+
+We define *convergence* as modal-target agreement >= 0.95 sustained for 10 consecutive steps. The theoretical ceiling for modal agreement is $(N-1)/N = 0.98$, because self-targeting is excluded.
 
 ---
 
 ## 3. Results
 
-### 3.1 The Core Finding: Superlinearity Is Necessary and Sufficient
+### 3.1 The Convergence Engine: Convex Redistribution
 
 The central result is displayed in Table 1.
 
@@ -115,41 +142,81 @@ The central result is displayed in Table 1.
 
 *Table 1. Summary metrics across 10 runs per variant, alpha = 0.15, salience exponent = 2.0, 600 timesteps.*
 
-The results divide cleanly into two regimes. Variants with linear hostility-transmission (V0, V5a) produce Gini coefficients around 0.11-0.13, top-target shares near 1/N (the uniform baseline for 50 agents is 0.02), and convergence ratios near 1.0. Hostility spreads but does not converge. Variants with superlinear transmission (V2, V5b) produce Gini coefficients above 0.73, top-target shares of 0.31-0.35, and convergence ratios of 1.4-1.6. Hostility both spreads and converges on a single target.
+Applying a convex transform without conservation (pull = $h^\gamma$) does not produce convergence and in fact collapses the contagion channel by attenuating subunit signals (SS3.3). Convergence requires the full redistributive operator: convex salience weights *plus* L1 conservation of perceived hostility mass.
 
-The addition of rivalry dynamics to linear mimesis (V0 → V5a) produces negligible change in convergence metrics. Rivalry generates more aggression -- hence comparable expulsion counts -- but does not concentrate it. By contrast, attentional concentration alone (V2) produces dramatic convergence. Rivalry combined with attention (V5b) produces the strongest convergence and deepest catharsis, but the attention mechanism does the overwhelming majority of the convergence work.
+The results divide cleanly into two regimes. Variants with linear hostility-transmission (V0, V5a) produce Gini coefficients around 0.11-0.13, top-target shares near 1/N (the uniform baseline for 50 agents is 0.02), and convergence ratios near 1.0. Hostility spreads but does not converge. Variants with convex redistributive transmission (V2, V5b) produce Gini coefficients above 0.73, top-target shares of 0.31-0.35, and convergence ratios of 1.4-1.6. Hostility both spreads and converges on a single target.
 
-### 3.2 The Phase Transition at Superlinearity
+The addition of rivalry dynamics to linear mimesis (V0 -> V5a) produces negligible change in convergence metrics. Rivalry generates more aggression -- hence comparable expulsion counts -- but does not concentrate it. By contrast, convex redistributive salience weighting alone (V2) produces dramatic convergence. Rivalry combined with attention (V5b) produces the strongest convergence and deepest catharsis, but the redistributive mechanism does the overwhelming majority of the convergence work.
 
-To locate the formal boundary between crisis-without-convergence and scapegoating, we swept the salience exponent $\gamma$ from 1.0 to 5.0.
+### 3.2 The Phase Boundary Near Linearity
 
-| Exponent ($\gamma$) | Mean Gini | Top Share | Top1/Top2 | Expulsions |
-|---|---|---|---|---|
-| 1.00 | 0.108 | 0.038 | 1.04 | 15.5 |
-| 1.25 | 0.589 | 0.278 | 1.86 | 29.7 |
-| 1.50 | 0.696 | 0.344 | 1.73 | 31.0 |
-| 2.00 | 0.735 | 0.288 | 1.42 | 28.2 |
-| 3.00 | 0.756 | 0.321 | 1.54 | 28.2 |
+To locate the boundary between diffuse crisis and scapegoat convergence, we performed a fine-grained sweep of the salience exponent $\gamma$ under the no-expulsion condition, isolating the convergence mechanism from the expulsion consequence rule.
 
-*Table 2. Convergence metrics as a function of salience exponent. Alpha = 0.15, 6 runs per condition.*
+| $\gamma$ | Peak Modal (sd) | Final Modal (sd) | Peak Gini | Med $t_{95}$ | % Conv |
+|-----------|-----------------|------------------|-----------|---------------|--------|
+| 0.75 | 0.125 (0.017) | 0.098 (0.017) | 0.100 | -- | 0% |
+| 0.90 | 0.150 (0.020) | 0.122 (0.027) | 0.103 | -- | 0% |
+| 0.95 | 0.172 (0.032) | 0.136 (0.029) | 0.104 | -- | 0% |
+| 1.00 | 0.240 (0.074) | 0.194 (0.057) | 0.115 | -- | 0% |
+| 1.01 | 0.305 (0.118) | 0.218 (0.071) | 0.132 | -- | 0% |
+| 1.02 | 0.463 (0.260) | 0.356 (0.221) | 0.166 | 421 | 12% |
+| 1.05 | 0.980 (0.000) | 0.980 (0.000) | 0.810 | 116 | 100% |
+| 1.08 | 0.980 (0.000) | 0.980 (0.000) | 0.881 | 74 | 100% |
+| 1.10 | 0.980 (0.000) | 0.980 (0.000) | 0.906 | 62 | 100% |
+| 1.15 | 0.980 (0.000) | 0.980 (0.000) | 0.937 | 43 | 100% |
+| 1.25 | 0.980 (0.000) | 0.980 (0.000) | 0.959 | 30 | 100% |
+| 1.50 | 0.980 (0.000) | 0.980 (0.000) | 0.970 | 29 | 100% |
+| 2.00 | 0.980 (0.000) | 0.980 (0.000) | 0.972 | 30 | 100% |
 
-At $\gamma = 1.0$ (linear), the model matches the V0 baseline exactly: no convergence. At $\gamma = 1.25$ -- barely above linear -- Gini jumps from 0.108 to 0.589 and convergence ratio from 1.04 to 1.86. Above $\gamma = 1.5$, all metrics plateau. The phase transition is sharp and occurs at any degree of superlinearity. This is consistent with Girard's claim: what matters is not the *intensity* of mimetic transmission but its *multiplicative character*.
+*Table 2. Fine-grained gamma-sweep results. N=50 agents, Watts-Strogatz k=6, p=0.15, alpha=0.15, no expulsion, 8 runs x 600 steps per condition.*
 
-### 3.3 Robustness
+The phase boundary is sharp and narrowly localized. For $\gamma \leq 1.01$, no runs converged within 600 steps. At $\gamma = 1.02$, convergence is rare and slow (1 of 8 runs; $t_{95} = 421$). By $\gamma = 1.05$, convergence is universal (8/8; median $t_{95} = 116$). Convergence then accelerates with increasing $\gamma$: median $t_{95} = 74$ at 1.08, 62 at 1.10, 43 at 1.15. In the baseline setting tested here, the effective phase boundary lies in the narrow interval [1.02, 1.05]: a ~3% departure from purely proportional imitation separates crisis-without-convergence from robust scapegoat convergence.
 
-The superlinear-convergence result is robust across:
+Near the boundary, convergence exhibits pronounced critical slowing: as $\gamma \to 1^+$, time-to-convergence increases sharply.[^crit] Above the boundary, coordination rapidly saturates: peak modal agreement reaches its ceiling of $(N-1)/N = 0.98$ for all $\gamma \geq 1.05$. But the inequality of hostility mass (peak Gini) continues to increase with $\gamma$ -- from 0.810 at $\gamma = 1.05$ to 0.972 at $\gamma = 2.0$. $\gamma$ governs not only convergence speed but also the depth of hostility concentration: at low superlinear values, the community converges on a target but the disparity between target and non-target hostility is modest; at high $\gamma$, essentially all hostility mass is concentrated on a single agent.
+
+[^crit]: The critical-slowing pattern is consistent with a phase-transition-like boundary, though we do not claim the transition is continuous (second-order) on the basis of these finite-horizon data alone.
+
+Decreasing $\gamma$ below 1 reduces both peak modal agreement and peak Gini monotonically. Under the normalized salience weighting $w(j) \propto h(j)^\gamma$, values $\gamma < 1$ compress relative salience differences, dispersing hostility rather than focusing it. The sublinear regime is actively anti-convergent: hostility spreads but is pushed toward uniformity rather than concentration. Only a minimal departure from linearity is required for convergence to occur on simulation timescales: the effective boundary lies between $\gamma = 1.02$ and $\gamma = 1.05$, with marked critical slowing as $\gamma \to 1^+$.
+
+### 3.3 Operator Ablation
+
+The V2 convergence mechanism has two components: the convex power transform ($h^\gamma$ with $\gamma > 1$) and the redistributive normalization step (dividing by $\sum_k h_i(k)^\gamma$ and rescaling by $\sum_k h_i(k)$). This ablation study isolates their respective contributions by testing the transform with and without the redistribution.
+
+We define total aggression mass at time $t$ as $M_t = \sum_{i \neq j} \text{agg}_i(t)(j)$, summing over all ordered pairs of living agents. "Final Mass" is $M$ at $t = n\_steps$.
+
+Under linear averaging ($\gamma = 1$; condition D), hostility spreads but does not converge: peak Gini = 0.115, peak modal = 0.240. Total aggression mass stabilizes at approximately 644, reflecting an equilibrium between the rivalry-sourcing step and decay.
+
+One might expect that applying a superlinear transform ($h^\gamma$ with $\gamma = 2$) without the redistribution step would still produce convergence, since the exponent amplifies differences. It does not. Under condition B (raw $h^\gamma$, no normalization or conservation), peak Gini = 0.115 and peak modal agreement = 0.113 -- *worse* than linear. Total aggression mass collapses to approximately 9.1, a 98.6% reduction relative to linear. The explanation is arithmetic: for $0 < x < 1$ and $\gamma > 1$, $x^\gamma < x$. Since hostility signals are typically subunit (fractional values between 0 and 1 after prestige-weighted averaging), the power transform systematically attenuates the contagion channel. With decay and mixing, this attrition bleeds the system dry.
+
+Convergence requires the full V2 operator: convex salience weights *plus* L1 conservation. The normalization step rescales the sharpened weights so total mimetic pull equals total perceived hostility, preventing the attrition that destroys raw $h^\gamma$. Under condition A (standard V2), peak Gini = 0.972, peak modal = 0.980, and total mass = 786.
+
+| Condition | Description | Pk Gini | Pk Modal | Final Mass | Max Agg |
+|-----------|-------------|---------|----------|------------|---------|
+| D | Linear ($\gamma = 1$) | 0.115 | 0.240 | 644 | 0.646 |
+| B | Raw $h^\gamma$ (no normalization) | 0.115 | 0.113 | 9.1 | 0.053 |
+| A | V2 (convex redistribution, L1 conserved) | 0.972 | 0.980 | 786 | 19.1 |
+
+*Table 3. Ablation results. All conditions: N=50, alpha=0.15, no expulsion, 600 steps, 8 runs. Condition A uses gamma=2.0; Condition B uses gamma=2.0 without normalization or mass conservation.*
+
+The convergence boundary is not "convexity alone"; it is convexity used as a redistribution rule under mass conservation.[^clip]
+
+[^clip]: Clamping $h^\gamma$ to $[0, \text{max\_val}]$ produces results identical to condition B (peak Gini 0.115, peak modal 0.113), confirming the collapse is due to signal attrition, not numerical overflow.
+
+### 3.4 Robustness
+
+The convergence result under convex redistribution is robust across:
 
 - **Network topology:** Watts-Strogatz (small-world), Barabasi-Albert (scale-free), Erdos-Renyi (random), and complete graphs all produce convergence at $\gamma > 1$. Complete graphs produce the strongest convergence (Gini 0.558, convergence ratio 14.95) but also the most expulsions (46 of 50 agents), consistent with Girard's account of undifferentiation crisis in communities without structural barriers to mimetic transmission.
 - **Group size:** Convergence occurs at N = 20, 35, 50, 75, and 100, with Gini increasing slightly with group size (0.598 to 0.754). Small groups produce sharper individual targeting (top-target share 0.50 at N = 20).
-- **Mimetic susceptibility (alpha):** Even at alpha = 0.85 (85% autonomous aggression, 15% mimetic), convergence occurs at $\gamma \geq 1.5$. The attention mechanism does not require high mimetic susceptibility; it requires only that *whatever mimesis occurs* has superlinear character.
+- **Mimetic susceptibility (alpha):** Even at alpha = 0.85 (85% autonomous aggression, 15% mimetic), convergence occurs at $\gamma \geq 1.5$. The redistributive mechanism does not require high mimetic susceptibility; it requires only that *whatever mimesis occurs* has convex redistributive character.
 
-### 3.4 Catharsis Dynamics
+### 3.5 Catharsis Dynamics
 
 Expulsion produces measurable tension reduction: 18.8% mean drop in V2, 27.0% in V5b. In V5b, 27 of 30 expulsions in a representative run produce genuine catharsis (tension decrease). The system exhibits crisis-relief-reaccumulation cycles with bimodal inter-expulsion intervals (clusters of rapid expulsions separated by extended quiet periods).
 
 The immediate tension drop is partly arithmetic: removing the most-targeted agent eliminates their share of total received aggression. What is emergent is that tension does not immediately redirect to a new target. The attentional funnel requires time to reconstitute after losing its focal point; this temporal gap is the emergent catharsis. The bimodal rhythm -- rapid-fire scapegoating during acute crisis, long dormant periods between crises -- is entirely emergent and has no coded precursor.
 
-### 3.5 The Arbitrariness and Endogenous Marginality of the Victim
+### 3.6 The Arbitrariness and Endogenous Marginality of the Victim
 
 In V2 (attention only, no rivalry), victims are statistically indistinguishable from the general population across all measured network properties: degree centrality (0.125 vs 0.122), betweenness centrality (0.037 vs 0.035), clustering coefficient (0.385 vs 0.370). The victim's identity is a contingent outcome of the attentional cascade, not a structural property of the network. This confirms Girard's claim about the fundamental arbitrariness of the victim.
 
@@ -159,7 +226,7 @@ This finding directly addresses Girard's claim that the victim's "guilt" and "di
 
 > The signs of the victim are not the causes of victimization but its consequences. (Girard 1986, paraphrased from *The Scapegoat*)
 
-In V5a (rivalry + linear), a tiny victim status deficit exists (0.012) but is negligible -- status degradation occurs but does not concentrate on any single target sufficiently to produce visible marginality. The endogenous production of "signs of the victim" requires both the rivalry feedback (status degradation) and the convergence mechanism (attentional concentration).
+In V5a (rivalry + linear), a tiny victim status deficit exists (0.012) but is negligible -- status degradation occurs but does not concentrate on any single target sufficiently to produce visible marginality. The endogenous production of "signs of the victim" requires both the rivalry feedback (status degradation) and the convergence mechanism (convex redistributive salience weighting).
 
 ---
 
@@ -169,7 +236,7 @@ In V5a (rivalry + linear), a tiny victim status deficit exists (0.012) but is ne
 
 **The two-phase decomposition is structurally correct.** Girard's distinction between acquisitive mimesis (generating hostility through rivalry) and conflictual mimesis (producing convergence through hostility-contagion) is not merely expository but structurally necessary. The comparison between V5a (rivalry without convergence mechanism) and V2 (convergence mechanism without rivalry) demonstrates that these are genuinely independent dynamical contributions. Rivalry generates the raw material of hostility; conflictual mimesis concentrates it. Neither alone produces the full Girardian outcome; their combination does.
 
-**The "snowball effect" is the convergence mechanism.** Girard's claim that "the power of mimetic attraction multiplies with the number of those polarized" is confirmed in precise formal terms. The multiplicative character of hostility-transmission -- formalized as any salience exponent $\gamma > 1$ -- is the necessary and sufficient condition for the transition from diffuse crisis to focused scapegoating. Linear hostility-transmission ($\gamma = 1$) produces crisis without resolution, regardless of other parameter settings. The phase transition is sharp and occurs at minimal superlinearity ($\gamma \approx 1.25$), indicating that the mechanism is robust rather than fragile.
+**The "snowball effect" is the convergence mechanism.** Girard's claim that "the power of mimetic attraction multiplies with the number of those polarized" is confirmed in precise formal terms. The redistributive character of hostility-transmission -- formalized as convex salience weighting with any exponent $\gamma > 1$ -- is the necessary and sufficient condition for the transition from diffuse crisis to focused scapegoating. Linear hostility-transmission ($\gamma = 1$) produces crisis without resolution, regardless of other parameter settings. The phase boundary is sharp and occurs at minimal superlinearity (the effective boundary lies at $\gamma$ approximately 1.02-1.05), indicating that the mechanism is robust rather than fragile.
 
 **The victim is arbitrary, and "signs of the victim" are endogenously produced.** In the pure attention model (V2), victims are network-indistinguishable from the general population. In the combined model (V5b), victims acquire measurable marginality through the targeting process itself. Both findings are consistent with Girard's account: the victim need not be initially different; their "difference" is a product of the scapegoating process.
 
@@ -177,15 +244,21 @@ In V5a (rivalry + linear), a tiny victim status deficit exists (0.012) but is ne
 
 ### 4.2 What the Model Specifies Beyond Girard
 
-**The formal requirement for convergence.** Girard describes conflictual mimesis phenomenologically -- as fascination, obsession, the "snowball effect." Our model identifies the precise formal property that produces convergence: superlinear hostility-transmission, where the mimetic pull toward a target grows faster than proportionally with existing hostility toward that target. Girard gestures toward this with "multiplies," but the model demonstrates that this is not one feature among many but *the* distinguishing formal feature of the scapegoat mechanism. Any degree of superlinearity produces convergence; linearity never does, regardless of all other parameters.
+**The formal requirement for convergence.** Girard describes conflictual mimesis phenomenologically -- as fascination, obsession, the "snowball effect." Our model identifies the precise formal property that produces convergence: convex redistribution of hostility under L1 conservation, where mimetic pull toward competing targets is reallocated by salience weights that amplify relative differences. Girard gestures toward this with "multiplies," but the model demonstrates that this redistributive character is not one feature among many but *the* distinguishing formal feature of the scapegoat mechanism. The ablation (SS3.3) shows that convexity without conservation destroys convergence; the conserved-budget structure is constitutive, not optional. Above the boundary, $\gamma$ controls convergence speed and concentration depth; below $\gamma$ approximately 1.02, convergence does not occur within the operational horizon.
 
-**The relative contributions of rivalry and conflictual mimesis.** Girard's narrative presents the two phases as sequential and mutually dependent. The model reveals their relative dynamical weight: conflictual mimesis (attentional concentration) accounts for the overwhelming majority of convergence, while rivalry contributes approximately 8% additional Gini concentration (0.739 → 0.803) and the endogenous marginality effect. Rivalry is a potentiator and enrichment of the scapegoat mechanism, not its primary driver.
+**The relative contributions of rivalry and conflictual mimesis.** Girard's narrative presents the two phases as sequential and mutually dependent. The model reveals their relative dynamical weight: conflictual mimesis (convex redistributive salience weighting) accounts for the overwhelming majority of convergence, while rivalry contributes approximately 8% additional Gini concentration (0.739 -> 0.803) and the endogenous marginality effect. Rivalry is a potentiator and enrichment of the scapegoat mechanism, not its primary driver.
 
-**Minimal mimetic susceptibility suffices.** Even populations where 85% of individual aggression is autonomously generated produce scapegoats if the remaining 15% of mimetic transmission is superlinear. Girard's account emphasizes the dissolution of individual autonomy in crisis ("the doubles"), but the model suggests that the *qualitative character* of mimesis matters more than its *quantity*.
+**Minimal mimetic susceptibility suffices.** Even populations where 85% of individual aggression is autonomously generated produce scapegoats if the remaining 15% of mimetic transmission operates under convex redistribution. Girard's account emphasizes the dissolution of individual autonomy in crisis ("the doubles"), but the model suggests that the *qualitative character* of mimesis matters more than its *quantity*.
+
+The revised formal picture aligns more precisely with Girard's phenomenology than a naive "amplification" reading. In Girard, mimetic crisis is already a high-energy field of undifferentiated violence; the scapegoat mechanism is the *organization* of that field into unanimity, not its intensification. The V2 operator captures this: rivalry dynamics load the system with hostility mass (acquisitive mimesis as fuel), while the convex redistribution step focuses that mass onto a single target (conflictual mimesis as organizing engine). The spread step does not create violence; it gives it a direction.
 
 ### 4.3 Relation to Empirical Literature on Attention Cascades
 
-The superlinear attention mechanism we identify as the formal core of the scapegoat mechanism has independent empirical support in research on collective attention and information cascades. Studies of attention dynamics on social media platforms have found that the probability of an individual sharing content is a function of the *fraction* of their contacts who have already shared it, not the absolute number -- a result of competition for finite attention that naturally produces superlinear concentration on popular targets. Research on attention brokerage in online networks has demonstrated how high-degree nodes amplify content, causing followers to converge attention on the amplified target through local, causal processes that change global network structure. These findings describe the same functional mechanism -- superlinear attention concentration driven by mimetic absorption of neighbors' focus -- operating on information rather than hostility. The application to hostile targeting is a theoretically motivated extension, not a directly observed phenomenon; but the cognitive infrastructure (finite attention, salience-driven filtering, mimetic absorption of neighbors' priorities) is empirically grounded.
+The convex redistributive salience mechanism we identify as the formal core of the scapegoat mechanism has independent empirical support in research on collective attention and information cascades. The V2 operator is formally a budget allocation rule -- fixed total perceived mass, convex reallocation among competing targets -- which is the mathematical backbone of finite-attention and salience-competition models in the empirical literature.
+
+The formal mechanism is convex redistribution under conservation: agents redistribute a fixed attention budget across competing targets according to convex salience weights. The microfoundation for this rule is attentional concentration: agents have limited cognitive capacity and filter incoming hostility signals through a salience function that favors already-prominent targets. The empirical precedent is substantial: studies of attention dynamics on social media platforms have found that the probability of an individual sharing content is a function of the *fraction* of their contacts who have already shared it, not the absolute number -- a result of competition for finite attention that naturally produces superlinear concentration on popular targets. Research on attention brokerage in online networks has demonstrated how high-degree nodes amplify content, causing followers to converge attention on the amplified target through local, causal processes that change global network structure. The attention/visibility/cascade literatures motivate convex reallocation rules as descriptively plausible for hostile targeting as well. The application to hostile targeting is a theoretically motivated extension, not a directly observed phenomenon; but the cognitive infrastructure (finite attention, salience-driven filtering, mimetic absorption of neighbors' priorities) is empirically grounded.
+
+The ablation study (SS3.3) shows that the budget structure is *constitutive* in this implementation, not optional: without mass conservation, the convex transform destroys the contagion channel rather than sharpening it.
 
 ### 4.4 Limitations and Future Directions
 
@@ -195,13 +268,15 @@ The model does not include institutional or ritual structures that, in Girard's 
 
 The model assumes a single community without external relations. Girard's account of the scapegoat mechanism is fundamentally about intra-community dynamics, but real communities exist in relation to others. Whether inter-community contact modulates or amplifies the scapegoat mechanism is unexplored.
 
-Finally, our model of "attentional concentration" is one possible formalization of superlinear hostility-transmission. Other formalizations -- threshold models, information-cascade models, or explicit Girardian "fascination" dynamics -- might produce convergence with different properties. Our finding that any degree of superlinearity suffices suggests that the specific functional form matters less than the qualitative property of multiplicative amplification, but systematic comparison of alternative superlinear formalizations is warranted.
+Finally, our model of "attentional concentration" is one possible formalization of convex redistributive hostility-transmission. Other formalizations -- threshold models, information-cascade models, or explicit Girardian "fascination" dynamics -- might produce convergence with different properties. Our finding that any degree of superlinearity suffices (in the sense of convex redistribution) suggests that the specific functional form matters less than the qualitative property of budget-conserving convex reallocation, but systematic comparison of alternative formalizations is warranted.
 
 ---
 
 ## 5. Conclusion
 
-Girard writes that "the power of mimetic attraction multiplies with the number of those polarized." We have formalized that sentence and tested it. The formalization reveals that the multiplicative character of mimetic attraction in hostile contexts -- what Girard calls conflictual mimesis and describes as a "snowball effect" -- is the necessary and sufficient formal condition for the emergence of scapegoat convergence. Linear mimetic transmission, however intense, produces crisis without resolution: hostility amplifies but does not converge. Any degree of superlinear transmission produces the full Girardian pattern: convergence onto an arbitrary single victim, cathartic tension reduction upon expulsion, and -- when combined with status-rivalry dynamics -- endogenous production of the "signs of the victim."
+Girard writes that "the power of mimetic attraction multiplies with the number of those polarized." We have formalized that sentence and tested it. The formalization reveals that the multiplicative character of mimetic attraction in hostile contexts -- what Girard calls conflictual mimesis and describes as a "snowball effect" -- is the necessary and sufficient formal condition for the emergence of scapegoat convergence. Linear mimetic transmission, however intense, produces crisis without resolution: hostility spreads but does not converge. Convex redistributive transmission -- any degree of it, with the effective boundary lying between $\gamma = 1.02$ and $\gamma = 1.05$ -- produces the full Girardian pattern: convergence onto an arbitrary single victim, cathartic tension reduction upon expulsion, and -- when combined with status-rivalry dynamics -- endogenous production of the "signs of the victim."
+
+The mechanism is not amplification but organization: the V2 operator does not create hostility mass; it focuses existing mass onto a single target through convex salience weights under L1 conservation. Applying a convex transform without the redistribution step collapses the contagion channel entirely (SS3.3). The convergence boundary is convexity used as a budget allocation rule, not convexity alone.
 
 The model does not replace Girard's theory; it specifies it. Girard correctly identified the two-phase structure of mimetic crisis (rivalry-driven hostility generation, then hostility-contagion-driven convergence), correctly predicted the emergent properties (arbitrariness and retrospective marginalization of the victim, cathartic relief), and correctly characterized the convergence mechanism as multiplicative. What the model adds is the demonstration that this multiplicative character is not one feature among many but the *precise formal boundary* between crisis and scapegoating -- and that it is robust across network structures, group sizes, and levels of individual mimetic susceptibility.
 
