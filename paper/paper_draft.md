@@ -279,7 +279,11 @@ The model assumes a single community without external relations. Girard's accoun
 
 Our model of "attentional concentration" is one possible formalization of convex redistributive hostility-transmission. Other formalizations -- threshold models, information-cascade models, or explicit Girardian "fascination" dynamics -- might produce convergence with different properties. Our finding that any degree of superlinearity suffices (in the sense of convex redistribution) suggests that the specific functional form matters less than the qualitative property of budget-conserving convex reallocation, but systematic comparison of alternative formalizations is warranted.
 
-**Falsifiability.** The model's core claim is that hostility convergence requires superlinear (convex redistributive) transmission. This claim would be disconfirmed by empirical observation of scapegoating convergence in a population where hostility transmission is demonstrably linear -- that is, where individuals' adoption of hostility toward a target is strictly proportional to the prevalence of that hostility among their contacts, with no superlinear concentration. If real-world mob targeting events can be shown to emerge from purely proportional contagion without any attentional or salience-based redistribution, the model's central thesis is falsified.
+**Falsifiability.** The model's core claim is that hostility convergence requires superlinear (convex redistributive) transmission. This claim would be disconfirmed by empirical observation of scapegoating convergence in a population where hostility transmission is demonstrably linear. However, the empirical status of the dose-response functional form for hostility contagion is largely undetermined. The most relevant experimental work -- Hager, Krakowski, and Schaub (2018), who demonstrate social contagion of ethnic hostility in a field experiment -- establishes that hostility *is* contagious and differentially so for outgroup targets, but does not measure whether the adoption function is linear or superlinear in the fraction of hostile contacts. Linearity of hostility transmission has not been empirically demonstrated. Meanwhile, the complex contagion literature provides positive theoretical grounds for expecting nonlinearity. Centola (2010) showed experimentally that health behavior adoption required reinforcement from multiple distinct neighbors rather than a single exposure, and Sprague and House (2017) found that model-selection procedures applied to observational data on behavioral fads favored complex (nonlinear) contagion over simple contagion. Hostile targeting of a community member is costly and norm-violating -- precisely the class of behaviors for which the complex contagion literature predicts nonlinear adoption thresholds -- so the theoretical expectation from this literature is consistent with the model's assumptions.
+
+A further methodological complication bears on the falsifiability criterion. St-Onge, Hebert-Dufresne, and Allard (2024) show that even genuinely linear contagion produces apparent superlinearity in observed data when transmission settings are heterogeneous -- that is, when group sizes, local transmission rates, or contact patterns vary across the population. This result complicates falsification in both directions: apparent superlinearity in naturalistic data could be an artifact of setting heterogeneity rather than evidence of cognitive nonlinearity, and demonstrating genuinely linear transmission requires controlling for heterogeneity, which is nearly impossible in observational studies of hostility dynamics.
+
+The falsifiability criterion must be sharpened accordingly. The model predicts that convergent scapegoating cannot emerge from transmission that is both (a) genuinely linear at the individual cognitive level and (b) operating in homogeneous transmission settings. Observation of scapegoating convergence under conditions satisfying both (a) and (b) would falsify the model. The St-Onge et al. result implies that apparent convergence under superficially "linear" conditions in heterogeneous settings would not constitute falsification, since effective superlinearity can emerge from heterogeneity alone. Whether this makes the model's core claim empirically tractable or effectively unfalsifiable with current observational methods is an open question that future experimental work -- ideally adapting the Hager et al. design to measure the functional form of hostility adoption, not merely its presence -- could address.
 
 ---
 
@@ -297,6 +301,8 @@ The model does not replace Girard's theory; it specifies it. Girard correctly id
 
 Bakshy, E., Hofman, J. M., Mason, W. A., & Watts, D. J. (2011). Everyone's an influencer: Quantifying influence on Twitter. *Proceedings of the Fourth ACM International Conference on Web Search and Data Mining*, 65-74.
 
+Centola, D. (2010). The spread of behavior in an online social network experiment. *Science*, 329(5996), 1194-1197.
+
 Gardin, A. (2008). Complex mimetic systems. *Contagion: Journal of Violence, Mimesis, and Culture*, 15/16, 25-42.
 
 Girard, R. (1965). *Deceit, Desire, and the Novel: Self and Other in Literary Structure*. Trans. Y. Freccero. Johns Hopkins University Press.
@@ -311,6 +317,8 @@ Girard, R. (2001). *I See Satan Fall Like Lightning*. Trans. J. G. Williams. Orb
 
 Granovetter, M. (1978). Threshold models of collective behavior. *American Journal of Sociology*, 83(6), 1420-1443.
 
+Hager, A., Krakowski, K., & Schaub, M. (2018). Social contagion of ethnic hostility. *Proceedings of the National Academy of Sciences*, 116(29), 14584-14589.
+
 Hodas, N. O., & Lerman, K. (2014). The simple rules of social contagion. *Scientific Reports*, 4, 4343.
 
 Lorenz-Spreen, P., Moensted, B. M., Hovel, P., & Lehmann, S. (2019). Accelerating dynamics of collective attention. *Nature Communications*, 10, 1759.
@@ -320,6 +328,10 @@ O'Higgins Norman, J., & Connolly, J. (2011). Mimetic theory and scapegoating in 
 Paes, L. (2025). An agent-based model of scapegoating. Unpublished manuscript. [NetLogo model.]
 
 Sack, G. A. (2021). Geometries of desire: A computational approach to Girardian mimetic theory. *Contagion: Journal of Violence, Mimesis, and Culture*, 28, 81-112.
+
+Sprague, D. A., & House, T. (2017). Evidence for complex contagion models of social contagion from observational data. *PLOS ONE*, 12(7), e0180802.
+
+St-Onge, G., Hebert-Dufresne, L., & Allard, A. (2024). Nonlinear bias toward complex contagion in uncertain transmission settings. *Proceedings of the National Academy of Sciences*, 121(1), e2312538121.
 
 Weng, L., Flammini, A., Vespignani, A., & Menczer, F. (2012). Competition among memes in a world with limited attention. *Scientific Reports*, 2, 335.
 
