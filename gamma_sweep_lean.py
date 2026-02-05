@@ -10,7 +10,7 @@ from dataclasses import dataclass, replace
 from collections import Counter
 import sys, warnings
 warnings.filterwarnings('ignore')
-sys.path.insert(0, '/home/claude')
+import os; sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from convergence_variants import VariantConfig, BaseSimulation
 
 
@@ -131,7 +131,7 @@ def run_gamma(gamma, n_runs=8, n_steps=600):
 def avg(r, k): return float(np.mean([x[k] for x in r]))
 def sd(r, k):  return float(np.std([x[k] for x in r]))
 def med(r, k): return float(np.median([x[k] for x in r]))
-def pconv(r):  return sum(1 for x in r if x['peak_modal'] >= 0.90) / len(r)
+def pconv(r, n_steps):  return sum(1 for x in r if x['time_to_95'] < n_steps) / len(r)
 
 
 if __name__ == '__main__':
@@ -157,7 +157,7 @@ if __name__ == '__main__':
               f"final_modal={avg(r,'final_modal'):.3f}  "
               f"peak_gini={avg(r,'peak_gini'):.3f}  "
               f"t95_med={med(r,'time_to_95'):.0f}  "
-              f"conv={pconv(r):.0%}")
+              f"conv={pconv(r, N_STEPS):.0%}")
 
     # ---- Full table ----
     print("\n" + "=" * 95)
@@ -173,7 +173,7 @@ if __name__ == '__main__':
               f"{avg(r,'final_modal'):>9.3f} {sd(r,'final_modal'):>5.3f} | "
               f"{avg(r,'peak_gini'):>7.3f} | "
               f"{med(r,'time_to_50'):>5.0f} | {med(r,'time_to_80'):>5.0f} | "
-              f"{med(r,'time_to_95'):>5.0f} | {pconv(r):>5.0%}")
+              f"{med(r,'time_to_95'):>5.0f} | {pconv(r, N_STEPS):>5.0%}")
 
     # ---- Critical slowing down ----
     print("\n" + "=" * 95)
@@ -198,7 +198,7 @@ if __name__ == '__main__':
     print("=" * 95)
     for i in range(len(gammas) - 1):
         lo, hi = gammas[i], gammas[i+1]
-        clo, chi = pconv(all_res[lo]), pconv(all_res[hi])
+        clo, chi = pconv(all_res[lo], N_STEPS), pconv(all_res[hi], N_STEPS)
         if clo < 0.5 and chi >= 0.5:
             print(f"  Transition: gamma={lo:.2f} ({clo:.0%}) -> "
                   f"gamma={hi:.2f} ({chi:.0%})")
