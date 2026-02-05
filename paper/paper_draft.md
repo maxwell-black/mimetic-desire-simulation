@@ -1,4 +1,4 @@
-# Mimetic Attraction Multiplies: A Computational Test of Girard's Scapegoat Mechanism
+# A Computational Test of Girard's Scapegoat Mechanism
 
 **Maxwell J. Black**
 
