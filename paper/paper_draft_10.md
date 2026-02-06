@@ -136,7 +136,7 @@ The central result is displayed in Table 1.
 | RL        | Rivalry + linear          |       0.223 |              0.043 |                1.06 |         14.3 | 6.3%        |
 | RA        | Rivalry + attention       |       0.812 |              0.436 |                2.19 |         26.8 | 36.7%       |
 
-*Table 1. Summary metrics across 10 runs per variant (seeds spaced by 1000), $\alpha=0.15$, salience exponent $\gamma=2.0$, 600 timesteps, expulsion threshold $\tau=8.0$. Gini, top-target share, and convergence ratio are time-averaged over all 600 timesteps within each run and then averaged across runs (note that this averaging mixes pre- and post-convergence regimes for AC and RA; peak and final-window values are reported in the no-expulsion gamma sweep, Table 2). “Expulsions” reports the mean number of expulsions per run. “Catharsis” reports the mean immediate fractional drop in total received aggression following an expulsion (averaged over expulsions within a run, then averaged across runs).*
+*Table 1. Summary metrics across 10 runs per variant (seeds spaced by 1000),* $\alpha=0.15$, *salience exponent* $\gamma=2.0$, *600 timesteps, expulsion threshold* $\tau=8.0$. *Gini, top-target share, and convergence ratio are time-averaged over all 600 timesteps within each run and then averaged across runs (note that this averaging mixes pre- and post-convergence regimes for AC and RA; peak and final-window values are reported in the no-expulsion gamma sweep, Table 2). "Expulsions" reports the mean number of expulsions per run. "Catharsis" reports the mean immediate fractional drop in total received aggression following an expulsion (averaged over expulsions within a run, then averaged across runs).*
 
 Table 1b.
 
@@ -147,7 +147,7 @@ Table 1b.
 | RL        | 0%                 | —           |                          0 |             0.315 |
 | RA        | 0%                 | —           |                          0 |             0.564 |
 
-*Table 1b. Convergence outcomes under full dynamics (expulsions enabled). Convergence is defined as modal-target agreement $\ge 0.95$ sustained for 10 consecutive steps. “Median $t_1$” reports the first timestep at which a qualifying episode begins (reported only when at least one run converges). “Fraction steps converged” is the share of timesteps lying inside qualifying convergence episodes. “Mean peak modal” is the runwise maximum modal-target agreement averaged across runs; it remains informative even when convergence rate is 0%.*
+*Table 1b. Convergence outcomes under full dynamics (expulsions enabled). Convergence is defined as modal-target agreement* $\ge 0.95$ *sustained for 10 consecutive steps. "Median* $t_1$ *" reports the first timestep at which a qualifying episode begins (reported only when at least one run converges). "Fraction steps converged" is the share of timesteps lying inside qualifying convergence episodes. "Mean peak modal" is the runwise maximum modal-target agreement averaged across runs; it remains informative even when convergence rate is 0%.*
 
 The transmission-character axis remains the dominant divider. Under linear transmission (LM, RL), hostility remains diffuse: top-target shares stay near $\sim 0.04$ and convergence ratios remain near 1.0. Introducing status rivalry under linear spread (RL) modestly increases inequality in received aggression (Mean Gini 0.223 vs 0.115 in LM), but does not produce strong single-target concentration or sustained coordination. By contrast, convex redistributive transmission (AC, RA) sharply concentrates hostility (Mean Gini 0.739–0.812; top-target share 0.310–0.436) and deepens catharsis (29.6–36.7%). Status rivalry under attentional concentration (RA vs AC) further increases concentration and catharsis, consistent with a marginalization feedback, but the redistributive transmission mechanism still does the majority of the convergence work.
 
@@ -177,9 +177,9 @@ To locate the boundary between diffuse crisis and scapegoat convergence, we perf
 
 *Table 2. Fine-grained gamma-sweep results. N=50 agents, Watts-Strogatz k=6, p=0.15, alpha=0.15, no expulsion, 8 runs x 600 steps per condition.*
 
-The effective phase boundary is sharp and narrowly localized.[^crit] For $\gamma \leq 1.01$, no runs converge. At $\gamma = 1.02$, convergence is rare and slow (1 of 8 runs; $t_{95} = 421$). By $\gamma = 1.05$, convergence is universal (8/8; median $t_{95} = 116$). The boundary lies in the interval [1.02, 1.05]: a ~3% departure from purely proportional imitation separates crisis-without-convergence from robust scapegoating.
+The effective phase boundary is sharp and narrowly localized.<sup>1</sup> For $\gamma \leq 1.01$, no runs converge. At $\gamma = 1.02$, convergence is rare and slow (1 of 8 runs; $t_{95} = 421$). By $\gamma = 1.05$, convergence is universal (8/8; median $t_{95} = 116$). The boundary lies in the interval [1.02, 1.05]: a ~3% departure from purely proportional imitation separates crisis-without-convergence from robust scapegoating.
 
-[^crit]: The critical-slowing pattern near the boundary (sharply increasing $t_{95}$ as $\gamma \to 1^+$) is consistent with a phase-transition-like boundary, though we do not claim a continuous (second-order) phase transition on the basis of finite-horizon data. We use "effective phase boundary" throughout to denote the empirically observed transition interval, without claiming universality-class membership.
+<sup>1</sup> The critical-slowing pattern near the boundary (sharply increasing $t_{95}$ as $\gamma \to 1^+$) is consistent with a phase-transition-like boundary, though we do not claim a continuous (second-order) phase transition on the basis of finite-horizon data. We use "effective phase boundary" throughout to denote the empirically observed transition interval, without claiming universality-class membership.
 
 Above the boundary, coordination rapidly saturates: peak modal agreement reaches its ceiling of 0.98 for all $\gamma \geq 1.05$. But the inequality of hostility mass (peak Gini) continues to increase with $\gamma$ -- from 0.810 at $\gamma = 1.05$ to 0.972 at $\gamma = 2.0$. The exponent governs not only convergence speed but also the depth of hostility concentration.
 
@@ -191,9 +191,9 @@ The AC convergence mechanism has two components: the convex power transform ($h^
 
 We define total aggression mass at time $t$ as $M_t = \sum_{i \neq j} \text{agg}_i(t, j)$.
 
-**Condition 1: Linear baseline ($\gamma = 1$).** Hostility spreads but does not converge: peak Gini = 0.115, peak modal = 0.240. Total mass stabilizes at approximately 644, reflecting equilibrium between rivalry-sourcing and decay.
+**Condition 1: Linear baseline** ($\gamma = 1$). Hostility spreads but does not converge: peak Gini = 0.115, peak modal = 0.240. Total mass stabilizes at approximately 644, reflecting equilibrium between rivalry-sourcing and decay.
 
-**Condition 2: Raw convex transform ($h^\gamma$, no normalization).** One might expect that a superlinear transform alone would produce convergence, since the exponent amplifies differences. It does not. Peak Gini = 0.115, peak modal = 0.113 -- *worse* than linear. Total mass collapses to approximately 9.1, a 98.6% reduction. The explanation is arithmetic: for $x \in (0, 1)$ and $\gamma > 1$, $x^\gamma < x$. Since hostility signals are typically subunit after prestige-weighted averaging, the power transform systematically attenuates the contagion channel. With decay, this attrition bleeds the system dry.[^clip]
+**Condition 2: Raw convex transform** ($h^\gamma$, no normalization). One might expect that a superlinear transform alone would produce convergence, since the exponent amplifies differences. It does not. Peak Gini = 0.115, peak modal = 0.113 -- *worse* than linear. Total mass collapses to approximately 9.1, a 98.6% reduction. The explanation is arithmetic: for $x \in (0, 1)$ and $\gamma > 1$, $x^\gamma < x$. Since hostility signals are typically subunit after prestige-weighted averaging, the power transform systematically attenuates the contagion channel. With decay, this attrition bleeds the system dry.<sup>2</sup>
 
 **Condition 3: Full AC operator (convex redistribution, throughput conserved).** The normalization step rescales the sharpened weights so total mimetic pull equals total perceived hostility, preventing the attrition of Condition 2. Peak Gini = 0.972, peak modal = 0.980, total mass = 786.
 
@@ -207,7 +207,7 @@ We define total aggression mass at time $t$ as $M_t = \sum_{i \neq j} \text{agg}
 
 The convergence boundary is not "convexity alone"; it is convexity operating as a redistribution rule under throughput conservation.
 
-[^clip]: Clamping $h^\gamma$ to $[0, \text{max-val}]$ produces results identical to Condition 2, confirming the collapse is due to signal attrition, not numerical overflow.
+<sup>2</sup> Clamping $h^\gamma$ to $[0, \text{max-val}]$ produces results identical to Condition 2, confirming the collapse is due to signal attrition, not numerical overflow.
 
 A further ablation (Appendix C1) addresses the natural follow-up: what if the scaling problem is corrected without per-step redistribution? Replacing the AC operator with a fixed-scale convex map $\text{pull}_i(j) = C \cdot h_i(j)^\gamma$, with $C$ calibrated from a linear burn-in to match total hostility throughput, eliminates signal attrition but yields no stable convergence regime. Below a sharp explosion threshold $C_{\mathrm{crit}}$, the system behaves identically to the linear baseline; above it, total tension diverges within 25--75 steps. The per-step throughput-conserving renormalization is constitutive: it bounds total mimetic pull at $H_i$ while redistributing that fixed budget toward the leading target, creating zero-sum cross-target competition that no fixed-scale map can replicate.
 
