@@ -417,9 +417,7 @@ Weng, L., Flammini, A., Vespignani, A., & Menczer, F. (2012). Competition among 
 
 ## Appendix B: Code Availability
 
-All simulations are implemented in Python using NumPy and NetworkX. Source code, runner scripts, and figure-generation code are available at: https://github.com/maxwell-black/mimetic-desire-simulation (commit `[HASH]`, tagged `v12`).
-
-<!-- AUTHOR CHECK: Insert the actual commit hash before submission. -->
+All simulations are implemented in Python using NumPy and NetworkX. Source code, runner scripts, and figure-generation code are available at: https://github.com/maxwell-black/mimetic-desire-simulation (commit `a5541440098f7f9d69bd8a2ac00796d1d865cba8`, tagged `v12`).
 
 ## Appendix C: Pseudocode and Definitions
 
