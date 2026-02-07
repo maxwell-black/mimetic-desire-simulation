@@ -1,59 +1,57 @@
 # Mimetic Desire Simulation
 
-Agent-based model formalizing Girard's mimetic theory. Tests whether scapegoat convergence emerges from mimetic dynamics without hard-coded crisis mechanisms.
+Companion code for "Mimetic Attraction Multiplies: A Computational Test of Girard's Scapegoat Mechanism" (Black, 2026).
 
-## Core Claims Under Test
+## Overview
 
-- **Triangular desire**: agents desire what their models desire
-- **Internal mediation**: rivalry intensifies with social proximity
-- **Doubling**: mutual modeling creates positive feedback
-- **Mimetic crisis**: system-level tension spike from escalating rivalries
-- **Scapegoat resolution**: crisis resolves via mimetic convergence of accusation onto a single target
+Agent-based model testing Girard's claim that mimetic crisis resolves through unanimous polarization against a single victim. Four variants in a 2x2 design cross two hostility-transmission modes (linear vs. convex redistributive) with two hostility sources (object-rivalry vs. status-rivalry).
 
-## Architecture
+## Core Module
 
-Agents live on a Watts-Strogatz small-world graph. Each agent maintains a desire vector over objects (some rivalrous) and an aggression vector over other agents. Prestige-weighted mimetic updating drives desire convergence; shared desire for rivalrous objects generates rivalry; rivalry sources aggression; aggression spreads mimetically through the network.
+- **`girard_2x2_v3.py`** -- Authoritative simulation module implementing all four variants (LM, AC, RL, RA).
 
-## Files
+## Reproduction Scripts
 
-| File | Description |
-|------|-------------|
-| `mimetic_sim.py` | V1 simulation: hard-coded crisis/scapegoat mechanism |
-| `mimetic_sim_v2.py` | V2 simulation: no hard-coded scapegoating; tests emergent convergence |
-| `convergence_variants.py` | Four variant mechanisms for aggression spread (linear baseline, threshold contagion, attention/salience, signs-of-victim) |
-| `gamma_sweep_lean.py` | Fine-grained sweep of the salience exponent around the phase transition |
-| `run_simulation.py` | Runner + plots for v1 |
-| `run_v2_validation.py` | Runner + plots for v2 validation |
-| `run_variants.py` | Runner + comparative plots across all four convergence variants |
+Each script reproduces one table or analysis section from the paper. All import from `girard_2x2_v3.py` and should be run from the repo root.
 
-## Key Parameters
+| Script | Reproduces | Runtime |
+|--------|-----------|---------|
+| `reproduce_tables_1_1b.py` | Tables 1, 1b | ~3 min |
+| `reproduce_table_2.py` | Table 2 (gamma sweep) | ~5 min |
+| `reproduce_table_3.py` | Table 3 (operator ablation) | ~2 min |
+| `reproduce_table_4.py` | Table 4 (threshold regimes) | ~8 min |
+| `reproduce_table_d1.py` | Table D1 (fixed-scale ablation) | ~5 min |
+| `reproduce_table_e1.py` | Table E1 (robustness grid) | ~8 min |
+| `reproduce_section_3_7.py` | Section 3.7 statistics | ~4 min |
 
-- **alpha**: autonomous desire retention (low = strong Girardian claim, high = rational-choice baseline)
-- **salience_exponent** (gamma): sharpness of attentional concentration in the attention/salience variant. Phase transition near gamma ~1.0
-- **expulsion_threshold**: received-aggression level triggering agent expulsion
-
-## Running
-
-```bash
-# Single v1 run + alpha sweep
-python run_simulation.py
-
-# V2 emergent scapegoating validation
-python run_v2_validation.py
-
-# Convergence variant comparison
-python run_variants.py
-
-# Fine-grained gamma sweep
-python gamma_sweep_lean.py
-```
-
-All runners produce PNG plots in the working directory and print summary tables to stdout.
-
-## Dependencies
+### Requirements
 
 ```
 numpy
 networkx
-matplotlib
+scipy  # for reproduce_section_3_7.py only
 ```
+
+### Quick Start
+
+```bash
+python reproduce_tables_1_1b.py
+```
+
+## Directory Structure
+
+```
+girard_2x2_v3.py          # core simulation
+reproduce_*.py             # reproduction scripts
+paper/                     # manuscript drafts
+figures/                   # generated figures
+legacy/                    # old framework (pre-2x2 design)
+```
+
+## Legacy Code
+
+The `legacy/` directory contains earlier framework iterations (`convergence_variants.py`, `mimetic_sim.py`, etc.) that use different class hierarchies and variant naming. These files are retained for provenance but **do not reproduce the paper's reported numbers**. Use only the `reproduce_*.py` scripts in the repo root for replication.
+
+## License
+
+MIT
