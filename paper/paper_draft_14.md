@@ -4,7 +4,7 @@
 
 Winthrop & Weinstine, P.A., Minneapolis
 
-**Draft -- February 2026**
+**Draft -- February 2026 (v14)**
 
 ---
 
@@ -177,6 +177,8 @@ The transmission-character axis remains the dominant divider. Under linear trans
 
 With expulsions enabled at $\tau=8$, none of the variants satisfy our strict convergence criterion (modal agreement $\ge 0.95$ for 10 consecutive steps; Table 1b). Nevertheless, attention-based variants reach substantially higher peak modal agreement (AC 0.468; RA 0.564) than linear variants (LM 0.249; RL 0.315), showing transient movement toward unanimity even when expulsion interrupts sustained convergence.
 
+![Figure 1. Convergence trajectories under linear vs. convex redistributive transmission (no expulsion, seed 42). Under linear mimesis (LM), modal-target agreement fluctuates around 0.12--0.18: the community generates hostility but never coordinates it. Under attentional concentration (AC), the mimetic snowball drives agreement from 0.06 to 0.98 by step 31. The RA variant (dashed) converges faster still, consistent with rivalry's potentiating role. The ceiling of 0.98 = (N-1)/N reflects the excluded self-targeting constraint.](figures/fig1_trajectories.pdf)
+
 Applying a convex transform without throughput conservation ($\text{pull} = h^\gamma$) does not produce convergence and in fact collapses the contagion channel by attenuating subunit signals (Section 3.3). Convergence requires the full redistributive operator: convex attention weights *plus* throughput conservation of perceived hostility.
 
 ### 3.2 The Effective Phase Boundary Near Linearity
@@ -208,6 +210,8 @@ The effective phase boundary is sharp and narrowly localized.[^crit] For $\gamma
 Above the boundary, coordination rapidly saturates: peak modal agreement reaches its ceiling of 0.98 for all $\gamma \geq 1.05$. But the inequality of hostility mass (peak Gini) continues to increase with $\gamma$ -- from 0.810 at $\gamma = 1.05$ to 0.972 at $\gamma = 2.0$. The exponent governs not only convergence speed but also the depth of hostility concentration.
 
 Decreasing $\gamma$ below 1 reduces both peak modal agreement and peak Gini monotonically. Under the normalized attention weighting $a_i(j) \propto h_i(j)^\gamma$, values $\gamma < 1$ compress relative salience differences, actively pushing hostility toward uniformity.
+
+![Figure 2. The effective phase boundary near linearity. (a) Convergence rate as a function of salience exponent $\gamma$, showing the sharp transition from 0% to 100% within the interval $\gamma^* \in [1.02, 1.05]$ (shaded). (b) Median time to convergence ($t_{95}$) for converging conditions, with min--max bars across 8 runs. The fourfold increase from $t_{95} = 30$ at $\gamma = 1.25$ to $t_{95} = 421$ at $\gamma = 1.02$ is consistent with critical slowing down near a phase-transition-like boundary.](figures/fig2_phase_transition.pdf)
 
 ### 3.3 Operator Ablation
 
@@ -282,6 +286,8 @@ The founding murder produces genuine but transient peace. Modal agreement drops 
 *Table 4. Post-expulsion dynamics across threshold regimes. 12 runs x 1500 steps, gamma = 2.0, alpha = 0.15. Peace = consecutive steps with modal agreement < 0.50 after first expulsion.*
 
 The three regimes are produced by a single parameter controlling the ratio of violence capacity to convergence capacity. Girard's founding murder implicitly assumes Regime 2. The model makes this assumption explicit and shows it is non-trivial: if the threshold is too low, the result is serial violence without unanimity; if too high, unanimity without discharge. The founding murder occupies a specific parameter region.
+
+![Figure 3. Expulsion threshold regimes. (a) At $\tau = 8$ (Regime 1), expulsion fires before convergence begins, producing rapid serial purges with no sustained unanimity. (b) At $\tau = 500$ (Regime 2), the community converges to near-total unanimity before each expulsion (red vertical lines). Post-expulsion, modal agreement collapses and a transient peace phase ensues before the mimetic snowball reconstitutes. The repeating sawtooth pattern -- crisis, unanimity, expulsion, peace, reconvergence -- corresponds to the cycle structure Girard describes, minus the institutional stabilization of the sacred (Section 4.3).](figures/fig3_founding_murder.pdf)
 
 ### 3.7 The Arbitrariness and Endogenous Marginality of the Victim
 
@@ -411,7 +417,9 @@ Weng, L., Flammini, A., Vespignani, A., & Menczer, F. (2012). Competition among 
 
 ## Appendix B: Code Availability
 
-All simulations are implemented in Python using NumPy and NetworkX. Source code, runner scripts, and figure-generation code are available at: https://github.com/maxwell-black/mimetic-desire-simulation (commit `4d74c692cce8d04a3d28ae30247411bc465601e6`, tagged `v12`).
+All simulations are implemented in Python using NumPy and NetworkX. Source code, runner scripts, and figure-generation code are available at: https://github.com/maxwell-black/mimetic-desire-simulation (commit `[HASH]`, tagged `v12`).
+
+<!-- AUTHOR CHECK: Insert the actual commit hash before submission. -->
 
 ## Appendix C: Pseudocode and Definitions
 
