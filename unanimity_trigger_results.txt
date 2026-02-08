@@ -1,0 +1,96 @@
+=====================================================================================
+UNANIMITY-TRIGGERED EXPULSION: SUMMARY
+=====================================================================================
+gamma     Med Exp  Med Peace  Med Reconverge  Med Cycle  Med Alive
+-------------------------------------------------------------------------------------
+1.02          0.0       1077              --         --         50
+1.03          3.0          1             238        238         47
+1.04         14.0          0              79         79         36
+1.05         19.0          0              44         44         31
+1.08         21.0          0              20         20         29
+1.1          20.5          0              22         22         30
+1.15         19.0          0              19         19         31
+1.25         19.0          6              21         21         31
+1.5          16.0          4              13         13         34
+2.0           8.5          3              10         10         42
+
+
+Detailed trace: gamma=1.02, seed=42
+-----------------------------------------------------------------
+Expulsions: 0 in 1500 steps
+Expulsion steps: []
+
+
+Detailed trace: gamma=1.05, seed=42
+-----------------------------------------------------------------
+Expulsions: 18 in 1500 steps
+Expulsion steps: [88, 142, 151, 158, 165, 189, 198, 219, 305, 312, 416, 440, 460, 500, 614, 790, 823, 1166]
+  Exp  1 at t=   88: peace=  0 steps, reconverge=  54, gap_to_next=   54
+  Exp  2 at t=  142: peace=  0 steps, reconverge=   9, gap_to_next=    9
+  Exp  3 at t=  151: peace=  0 steps, reconverge=   1, gap_to_next=    7
+  Exp  4 at t=  158: peace=  0 steps, reconverge=   3, gap_to_next=    7
+  Exp  5 at t=  165: peace=  0 steps, reconverge=  24, gap_to_next=   24
+  Exp  6 at t=  189: peace=  0 steps, reconverge=   9, gap_to_next=    9
+  Exp  7 at t=  198: peace=  3 steps, reconverge=  21, gap_to_next=   21
+  Exp  8 at t=  219: peace=  0 steps, reconverge=  86, gap_to_next=   86
+  Exp  9 at t=  305: peace=  0 steps, reconverge=   1, gap_to_next=    7
+  Exp 10 at t=  312: peace= 60 steps, reconverge= 104, gap_to_next=  104
+  Exp 11 at t=  416: peace=  0 steps, reconverge=  24, gap_to_next=   24
+  Exp 12 at t=  440: peace=  0 steps, reconverge=  20, gap_to_next=   20
+  Exp 13 at t=  460: peace= 20 steps, reconverge=  40, gap_to_next=   40
+  Exp 14 at t=  500: peace= 86 steps, reconverge= 114, gap_to_next=  114
+  Exp 15 at t=  614: peace=132 steps, reconverge= 176, gap_to_next=  176
+  ... (3 more)
+
+
+Detailed trace: gamma=1.1, seed=42
+-----------------------------------------------------------------
+Expulsions: 23 in 1500 steps
+Expulsion steps: [51, 58, 86, 93, 114, 121, 173, 180, 223, 230, 296, 312, 340, 413, 421, 482, 529, 623, 698, 757]...
+  Exp  1 at t=   51: peace=  0 steps, reconverge=   5, gap_to_next=    7
+  Exp  2 at t=   58: peace=  5 steps, reconverge=  28, gap_to_next=   28
+  Exp  3 at t=   86: peace=  0 steps, reconverge=   1, gap_to_next=    7
+  Exp  4 at t=   93: peace=  0 steps, reconverge=  21, gap_to_next=   21
+  Exp  5 at t=  114: peace=  0 steps, reconverge=   1, gap_to_next=    7
+  Exp  6 at t=  121: peace= 30 steps, reconverge=  52, gap_to_next=   52
+  Exp  7 at t=  173: peace=  0 steps, reconverge=   1, gap_to_next=    7
+  Exp  8 at t=  180: peace= 21 steps, reconverge=  43, gap_to_next=   43
+  Exp  9 at t=  223: peace=  0 steps, reconverge=   1, gap_to_next=    7
+  Exp 10 at t=  230: peace= 49 steps, reconverge=  66, gap_to_next=   66
+  Exp 11 at t=  296: peace=  0 steps, reconverge=  16, gap_to_next=   16
+  Exp 12 at t=  312: peace= 17 steps, reconverge=  28, gap_to_next=   28
+  Exp 13 at t=  340: peace=  0 steps, reconverge=  73, gap_to_next=   73
+  Exp 14 at t=  413: peace=  0 steps, reconverge=   8, gap_to_next=    8
+  Exp 15 at t=  421: peace= 42 steps, reconverge=  61, gap_to_next=   61
+  ... (8 more)
+
+
+Detailed trace: gamma=2.0, seed=42
+-----------------------------------------------------------------
+Expulsions: 6 in 1500 steps
+Expulsion steps: [32, 50, 58, 72, 85, 98]
+  Exp  1 at t=   32: peace=  2 steps, reconverge=  18, gap_to_next=   18
+  Exp  2 at t=   50: peace=  3 steps, reconverge=   8, gap_to_next=    8
+  Exp  3 at t=   58: peace=  4 steps, reconverge=  14, gap_to_next=   14
+  Exp  4 at t=   72: peace=  3 steps, reconverge=  13, gap_to_next=   13
+  Exp  5 at t=   85: peace=  4 steps, reconverge=  13, gap_to_next=   13
+  Exp  6 at t=   98: peace=  6 steps, reconverge=None, gap_to_next= None
+
+
+=====================================================================================
+COMPARISON: UNANIMITY vs ACCUMULATION TRIGGER (gamma=2.0, seed=42)
+=====================================================================================
+
+Unanimity trigger (fire at modal >= 0.95):
+  Expulsions: 6 in 800 steps
+  Median peace duration: 4 steps
+  Median reconvergence: 13 steps
+  Median cycle length: 13 steps
+    Exp 1 at t=  32: peace=  2, reconverge=18, gap=18
+    Exp 2 at t=  50: peace=  3, reconverge=8, gap=8
+    Exp 3 at t=  58: peace=  4, reconverge=14, gap=14
+    Exp 4 at t=  72: peace=  3, reconverge=13, gap=13
+    Exp 5 at t=  85: peace=  4, reconverge=13, gap=13
+    Exp 6 at t=  98: peace=  6, reconverge=None, gap=None
+
+Saved traces to unanimity_trigger_traces.npz

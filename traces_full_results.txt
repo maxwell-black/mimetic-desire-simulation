@@ -1,0 +1,28 @@
+Running: unanimity trigger, N=50, gamma=1.05...
+  16 expulsions, final alive=34
+Running: unanimity trigger, N=50, gamma=1.5...
+  16 expulsions, final alive=34
+Running: unanimity trigger, N=50, gamma=2.0...
+  6 expulsions, final alive=44
+Running: unanimity trigger, N=200, gamma=1.05...
+  95 expulsions, final alive=106
+  First exp: t=128, Last exp: t=1499
+Running: unanimity trigger, N=200, gamma=2.0...
+  30 expulsions, final alive=170
+  First exp: t=99, Last exp: t=1387
+  Reconverged after last exp: False
+Running: accumulation trigger, N=50, gamma=2.0, tau=500...
+  8 expulsions, final alive=42
+
+Self-exhaustion test: N=200, gamma=2.0, 8 seeds...
+  seed=42: 30 exp, alive=170, reconverge after last: NO (self-exhausted)
+  seed=1042: 24 exp, alive=176, reconverge after last: NO (self-exhausted)
+  seed=2042: 22 exp, alive=178, reconverge after last: NO (self-exhausted)
+  seed=3042: 27 exp, alive=173, reconverge after last: NO (self-exhausted)
+  seed=4042: 29 exp, alive=171, reconverge after last: YES
+  seed=5042: 32 exp, alive=168, reconverge after last: NO (self-exhausted)
+  seed=6042: 30 exp, alive=170, reconverge after last: NO (self-exhausted)
+  seed=7042: 37 exp, alive=163, reconverge after last: NO (self-exhausted)
+
+Saved 18 arrays to unanimity_trigger_traces_full.npz
+Keys: ['accum_n50_g20_alive', 'accum_n50_g20_exps', 'accum_n50_g20_modal', 'ut_n200_g105_alive', 'ut_n200_g105_exps', 'ut_n200_g105_modal', 'ut_n200_g20_alive', 'ut_n200_g20_exps', 'ut_n200_g20_modal', 'ut_n50_g105_alive', 'ut_n50_g105_exps', 'ut_n50_g105_modal', 'ut_n50_g15_alive', 'ut_n50_g15_exps', 'ut_n50_g15_modal', 'ut_n50_g20_alive', 'ut_n50_g20_exps', 'ut_n50_g20_modal']
