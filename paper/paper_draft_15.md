@@ -749,13 +749,13 @@ Table E1 reports convergence outcomes across the conditions referenced in Sectio
 |Topology       |$N$|$k$|$\alpha$|$\gamma$|Conv. Rate|Median $t_{95}$|Peak Gini|
 |---------------|---|---|--------|--------|----------|---------------|---------|
 |Watts-Strogatz |20 |6  |0.15    |2.0     |100%      |10             |0.936    |
-|Watts-Strogatz |50 |6  |0.15    |2.0     |100%      |30             |0.972    |
+|Watts-Strogatz |50 |6  |0.15    |2.0     |100%      |29             |0.972    |
 |Watts-Strogatz |100|6  |0.15    |2.0     |62%       |84             |0.973    |
-|Barabasi-Albert|50 |3  |0.15    |2.0     |100%      |6              |0.973    |
-|Erdos-Renyi    |50 |6  |0.15    |2.0     |100%      |8              |0.973    |
-|Complete       |50 |49 |0.15    |2.0     |100%      |6              |0.972    |
+|Barabasi-Albert|50 |3  |0.15    |2.0     |100%      |7              |0.973    |
+|Erdos-Renyi    |50 |6  |0.15    |2.0     |100%      |9              |0.972    |
+|Complete       |50 |49 |0.15    |2.0     |100%      |3              |0.972    |
 |Watts-Strogatz |50 |6  |0.50    |2.0     |88%       |81             |0.941    |
 |Watts-Strogatz |50 |6  |0.85    |1.5     |88%       |106            |0.804    |
 |Watts-Strogatz |50 |6  |0.85    |2.0     |75%       |192            |0.822    |
 
-*Table E1. Robustness of convergence across topologies, group sizes, and mimetic susceptibility levels. Convergence rate is the fraction of 8 runs achieving modal agreement $\geq 0.95$ within 600 steps. Median $t_{95}$ is computed over converging runs only. Extended runs (2400 steps) confirm that non-converging runs are genuinely metastable, not time-horizon artifacts.*
+*Table E1. Robustness of convergence across topologies, group sizes, and mimetic susceptibility levels. Convergence rate is the fraction of 8 runs achieving modal agreement $\geq 0.95$ within 600 steps. Median $t_{95}$ is computed over converging runs only. Extended runs (2400 steps) confirm that non-converging runs are genuinely metastable, not time-horizon artifacts. Results produced by `reproduce_table_e1.py` using `girard_2x2_v3.py` with graph-type support for all four topologies (Watts-Strogatz, Barabasi-Albert with $m = 3$, Erdos-Renyi with $p = k/(N-1)$, and complete graph).*
