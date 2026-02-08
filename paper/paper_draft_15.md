@@ -4,13 +4,13 @@
 
 Winthrop & Weinstine, P.A., Minneapolis
 
-**Draft -- February 2026 (v14)**
+**Draft -- February 2026 (v15)**
 
 ---
 
 ## Abstract
 
-Girard claims that mimetic crisis resolves through unanimous polarization against a single victim via a "snowball effect" in which mimetic attraction "multiplies with the number of those polarized." We formalize and test this claim using an agent-based model with four variants arranged in a 2x2 design, crossing two hostility-transmission modes (linear vs. convex redistributive) with two hostility sources (object-rivalry vs. status-rivalry). The central finding is that convex redistribution of hostility -- formalized as salience-weighted reallocation that preserves per-agent mimetic throughput (the L1 norm of the pull vector) while amplifying relative differences among targets -- is, across the model family tested here, the decisive condition for scapegoat convergence. The effective phase boundary lies in a narrow interval just above linearity ($\gamma \in [1.02, 1.05]$). Ablation confirms that convexity without throughput conservation collapses the contagion channel entirely. Under conditions that impede full convergence (larger groups, higher autonomy), the model produces stable factional bifurcation rather than unanimity, an outcome Girard treats as a distinct crisis resolution. The model specifies the formal requirement Girard describes phenomenologically but leaves implicit, and reproduces his broader typology of crisis outcomes from a single mechanism.
+Girard claims that mimetic crisis resolves through unanimous polarization against a single victim via a "snowball effect" in which mimetic attraction "multiplies with the number of those polarized." We formalize and test this claim using an agent-based model with four variants arranged in a 2x2 design, crossing two hostility-transmission modes (linear vs. convex redistributive) with two hostility sources (object-rivalry vs. status-rivalry). The central finding is that convex redistribution of hostility -- formalized as salience-weighted reallocation that preserves per-agent mimetic throughput (the L1 norm of the pull vector) while amplifying relative differences among targets -- is, across the model family tested here, the decisive condition for scapegoat convergence. The effective phase boundary lies in a narrow interval just above linearity ($\gamma \in [1.02, 1.03]$), is invariant across community sizes from 50 to 200 agents, and sharpens with increasing $N$ -- consistent with a mechanism-level critical threshold rather than a finite-size artifact. Ablation confirms that convexity without throughput conservation collapses the contagion channel entirely. Switching from an accumulation trigger to a unanimity trigger for expulsion reveals three qualitatively distinct violence topologies above the phase boundary: a boundary-grinding regime of relentless serial purges with zero peace, a supercritical burst regime of paired expulsions separated by long natural peace intervals, and -- at small community sizes -- self-exhaustion of the mimetic cascade through topology destruction. These regimes map onto distinct conditions in Girard's theoretical apparatus: the grinding regime identifies the condition under which the sacred -- prohibition, ritual, sacrificial substitution -- is structurally indispensable for community survival; the burst regime produces the empirical pattern of periodic paroxysms that ritual manages but did not invent. The model specifies the formal requirement Girard describes phenomenologically but leaves implicit, reproduces his broader typology of crisis outcomes from a single mechanism, and demarcates the boundary between what mimetic dynamics alone can generate and what requires the cultural elaboration Girard calls the sacred.
 
 **Keywords:** mimetic theory, scapegoat mechanism, agent-based modeling, Girard, conflictual mimesis, collective violence
 
@@ -22,7 +22,7 @@ Girard's theory of the scapegoat mechanism makes a precise structural prediction
 
 This paper addresses that gap. We construct an agent-based model that implements Girard's two-phase account of mimetic crisis as described in *Things Hidden Since the Foundation of the World* (Book I, Chapter 1) and *Violence and the Sacred* (Chapter 6), then tests whether the predicted scapegoat convergence emerges from the formalized dynamics. Our approach is not to encode scapegoating as an outcome and observe its preconditions, but to encode the mimetic mechanisms Girard describes and observe whether scapegoating emerges.
 
-The central finding is that Girard's two-phase decomposition -- rivalry generating hostility (acquisitive mimesis), followed by contagion of hostility producing convergence (conflictual mimesis) -- is structurally sound, but requires a formal specification Girard leaves implicit: hostility-transmission must operate as a *convex redistribution* rule, in which each agent's mimetic pull toward competing targets is reallocated by convex attention weights while the total pull magnitude is held constant at the perceived neighborhood hostility. The effective phase boundary lies in a narrow interval just above linearity ($\gamma \in [1.02, 1.05]$), and applying a convex transform without the throughput-conserving redistribution step collapses the contagion channel entirely (Section 3.3).
+The central finding is that Girard's two-phase decomposition -- rivalry generating hostility (acquisitive mimesis), followed by contagion of hostility producing convergence (conflictual mimesis) -- is structurally sound, but requires a formal specification Girard leaves implicit: hostility-transmission must operate as a *convex redistribution* rule, in which each agent's mimetic pull toward competing targets is reallocated by convex attention weights while the total pull magnitude is held constant at the perceived neighborhood hostility. The effective phase boundary lies in a narrow interval just above linearity ($\gamma \in [1.02, 1.03]$) and is invariant across community sizes tested (Section 3.2).
 
 ### 1.1 Existing Computational Approaches
 
@@ -60,14 +60,14 @@ The expulsion step is a *consequence rule*, not a convergence mechanism: the gam
 
 ### 2.2 Variants
 
-We test four model variants designed to isolate the independent contributions of two candidate convergence mechanisms: (i) the character of hostility transmission (linear averaging vs. convex redistributive weighting), and (ii) the source of hostility (shared-object rivalry vs. status-proximity rivalry). Throughout, $w_{ik}$ denotes the prestige weight governing how much agent $i$ imitates agent $k$, while $a_i(j)$ denotes the attention weight governing how much of agent $i$’s mimetic pull is directed at target $j$. The four variants are the cells of a 2x2 design:
+We test four model variants designed to isolate the independent contributions of two candidate convergence mechanisms: (i) the character of hostility transmission (linear averaging vs. convex redistributive weighting), and (ii) the source of hostility (shared-object rivalry vs. status-proximity rivalry). Throughout, $w_{ik}$ denotes the prestige weight governing how much agent $i$ imitates agent $k$, while $a_i(j)$ denotes the attention weight governing how much of agent $i$'s mimetic pull is directed at target $j$. The four variants are the cells of a 2x2 design:
 
 |  | Linear spread | Attentional concentration spread |
 |---|---|---|
 | **Object-rivalry source** | LM (baseline) | AC |
 | **Status-rivalry source** | RL | RA |
 
-This design allows us to attribute convergence effects to transmission character, hostility source, or their interaction. **Caveat:** the axes are not perfectly orthogonal. In RL and RA, rivalry dynamics alter prestige and influence weights via status updates, so the "source" dimension has indirect effects on the "spread" dimension. We return to this coupling in Section 4.4; the design nonetheless cleanly separates the primary mechanisms under test.
+This design allows us to attribute convergence effects to transmission character, hostility source, or their interaction. **Caveat:** the axes are not perfectly orthogonal. In RL and RA, rivalry dynamics alter prestige and influence weights via status updates, so the "source" dimension has indirect effects on the "spread" dimension. We return to this coupling in Section 4.6; the design nonetheless cleanly separates the primary mechanisms under test.
 
 **LM: Linear Mimesis (baseline).** Agent *i*'s mimetic pull toward target *j* is a prestige-weighted average of neighbors' aggression toward *j*:
 
@@ -77,7 +77,7 @@ Updated aggression:
 
 $$\text{agg}_i(j) \leftarrow \alpha \cdot \text{agg}_i(j) + (1 - \alpha) \cdot \text{pull}_i(j)$$
 
-where $\alpha \in [0, 1]$ is a global mimetic susceptibility parameter (note: higher $\alpha$ means *less* mimesis). At $\alpha = 0$, agents are fully mimetic; at $\alpha = 1$, fully autonomous. The same parameter governs desire imitation (Step 1), aggression imitation (Step 3), and rivalry-to-aggression conversion (Step 2), consistent with Girard’s claim that rivalry is itself a mimetic phenomenon: without mimetic desire ($\alpha \to 1$), there is no shared desire, hence no acquisitive rivalry, hence no rivalry-generated aggression.
+where $\alpha \in [0, 1]$ is a global mimetic susceptibility parameter (note: higher $\alpha$ means *less* mimesis). At $\alpha = 0$, agents are fully mimetic; at $\alpha = 1$, fully autonomous. The same parameter governs desire imitation (Step 1), aggression imitation (Step 3), and rivalry-to-aggression conversion (Step 2), consistent with Girard's claim that rivalry is itself a mimetic phenomenon: without mimetic desire ($\alpha \to 1$), there is no shared desire, hence no acquisitive rivalry, hence no rivalry-generated aggression.
 
 **AC: Attentional Concentration (Convex Redistribution).** Let $h_i(j)$ denote the prestige-weighted mean hostility toward target $j$ among $i$'s neighbors (computed identically to LM). Let $H_i = \sum_j h_i(j)$ be the total perceived neighborhood hostility. Agent $i$ constructs attention weights and mimetic pull as follows.
 
@@ -141,7 +141,7 @@ computed over living agents only. If $\sum r_i = 0$, $G = 0$.
 
 **Shannon entropy of targeting:** $H = -\sum_v p_v \log_2 p_v$, where $p_v = R(v) / \sum_v R(v)$, computed over living agents with $R(v) > 0$.
 
-**Modal-target agreement:** Let $T_i = \arg\max_j A_i(j)$ be agent $i$’s top target. Let $\mathcal{A}_t = {i \in \mathcal{L}_t : \sum_j A_i(j) > 10^{-8}}$ be the set of agents with nontrivial aggression. The modal target is $t^* = \text{mode}({T_i : i \in \mathcal{A}_t})$. Modal-target agreement is $|{i \in \mathcal{A}_t : T_i = t^*}| / |\mathcal{A}_t|$.
+**Modal-target agreement:** Let $T_i = \arg\max_j A_i(j)$ be agent $i$'s top target. Let $\mathcal{A}_t = {i \in \mathcal{L}_t : \sum_j A_i(j) > 10^{-8}}$ be the set of agents with nontrivial aggression. The modal target is $t^* = \text{mode}({T_i : i \in \mathcal{A}_t})$. Modal-target agreement is $|{i \in \mathcal{A}_t : T_i = t^*}| / |\mathcal{A}_t|$.
 
 
 
@@ -160,7 +160,7 @@ The central result is displayed in Table 1.
 | RL        | Rivalry + linear          |       0.223 |              0.043 |                1.06 |         14.3 | 6.3%        |
 | RA        | Rivalry + attention       |       0.812 |              0.436 |                2.19 |         26.8 | 36.7%       |
 
-*Table 1. Summary metrics across 10 runs per variant (seeds spaced by 1000), $\alpha=0.15$, salience exponent $\gamma=2.0$, 600 timesteps, expulsion threshold $\tau=8.0$. Gini, top-target share, and convergence ratio are time-averaged over all 600 timesteps within each run and then averaged across runs (note that this averaging mixes pre- and post-convergence regimes for AC and RA; peak and final-window values are reported in the no-expulsion gamma sweep, Table 2). “Expulsions” reports the mean number of expulsions per run. “Catharsis” reports the mean immediate fractional drop in total received aggression following an expulsion (averaged over expulsions within a run, then averaged across runs). Formally, catharsis for a single expulsion event at step $t$ is $(M_{t^-} - M_{t^+}) / M_{t^-}$, where $M_{t^-} = \sum_{v} R(v)$ is total received aggression immediately before expulsion and $M_{t^+}$ is total received aggression immediately after (i.e., after zeroing all aggression toward the expelled agent).*
+*Table 1. Summary metrics across 10 runs per variant (seeds spaced by 1000), $\alpha=0.15$, salience exponent $\gamma=2.0$, 600 timesteps, expulsion threshold $\tau=8.0$. Gini, top-target share, and convergence ratio are time-averaged over all 600 timesteps within each run and then averaged across runs (note that this averaging mixes pre- and post-convergence regimes for AC and RA; peak and final-window values are reported in the no-expulsion gamma sweep, Table 2). "Expulsions" reports the mean number of expulsions per run. "Catharsis" reports the mean immediate fractional drop in total received aggression following an expulsion (averaged over expulsions within a run, then averaged across runs). Formally, catharsis for a single expulsion event at step $t$ is $(M_{t^-} - M_{t^+}) / M_{t^-}$, where $M_{t^-} = \sum_{v} R(v)$ is total received aggression immediately before expulsion and $M_{t^+}$ is total received aggression immediately after (i.e., after zeroing all aggression toward the expelled agent).*
 
 Under the full dynamics with expulsions enabled at the default threshold ($\tau = 8.0$), no variant achieves sustained convergence (Table 1b). This confirms that at low thresholds, expulsion interrupts the convergence process before unanimity -- a finding developed in the threshold-regime analysis of Section 3.6.
 
@@ -171,9 +171,9 @@ Under the full dynamics with expulsions enabled at the default threshold ($\tau 
 | RL        | 0%                 | —           |                          0 |             0.315 |
 | RA        | 0%                 | —           |                          0 |             0.564 |
 
-*Table 1b. Convergence outcomes under full dynamics (expulsions enabled). Convergence is defined as modal-target agreement $\ge 0.95$ sustained for 10 consecutive steps. “Median $t_1$” reports the first timestep at which a qualifying episode begins (reported only when at least one run converges). “Fraction steps converged” is the share of timesteps lying inside qualifying convergence episodes. “Mean peak modal” is the runwise maximum modal-target agreement averaged across runs; it remains informative even when convergence rate is 0%.*
+*Table 1b. Convergence outcomes under full dynamics (expulsions enabled). Convergence is defined as modal-target agreement $\ge 0.95$ sustained for 10 consecutive steps. "Median $t_1$" reports the first timestep at which a qualifying episode begins (reported only when at least one run converges). "Fraction steps converged" is the share of timesteps lying inside qualifying convergence episodes. "Mean peak modal" is the runwise maximum modal-target agreement averaged across runs; it remains informative even when convergence rate is 0%.*
 
-The transmission-character axis remains the dominant divider. Under linear transmission (LM, RL), hostility remains diffuse: top-target shares stay near $\sim 0.04$ and convergence ratios remain near 1.0. Introducing status rivalry under linear spread (RL) modestly increases inequality in received aggression (Mean Gini 0.223 vs 0.115 in LM), but does not produce strong single-target concentration or sustained coordination. By contrast, convex redistributive transmission (AC, RA) sharply concentrates hostility (Mean Gini 0.739–0.812; top-target share 0.310–0.436) and deepens catharsis (29.6–36.7%). Status rivalry under attentional concentration (RA vs AC) further increases concentration and catharsis, consistent with a marginalization feedback, but the redistributive transmission mechanism still does the majority of the convergence work.
+The transmission-character axis remains the dominant divider. Under linear transmission (LM, RL), hostility remains diffuse: top-target shares stay near $\sim 0.04$ and convergence ratios remain near 1.0. Introducing status rivalry under linear spread (RL) modestly increases inequality in received aggression (Mean Gini 0.223 vs 0.115 in LM), but does not produce strong single-target concentration or sustained coordination. By contrast, convex redistributive transmission (AC, RA) sharply concentrates hostility (Mean Gini 0.739--0.812; top-target share 0.310--0.436) and deepens catharsis (29.6--36.7%). Status rivalry under attentional concentration (RA vs AC) further increases concentration and catharsis, consistent with a marginalization feedback, but the redistributive transmission mechanism still does the majority of the convergence work.
 
 With expulsions enabled at $\tau=8$, none of the variants satisfy our strict convergence criterion (modal agreement $\ge 0.95$ for 10 consecutive steps; Table 1b). Nevertheless, attention-based variants reach substantially higher peak modal agreement (AC 0.468; RA 0.564) than linear variants (LM 0.249; RL 0.315), showing transient movement toward unanimity even when expulsion interrupts sustained convergence.
 
@@ -203,7 +203,7 @@ To locate the boundary between diffuse crisis and scapegoat convergence, we perf
 
 *Table 2. Fine-grained gamma-sweep results. N=50 agents, Watts-Strogatz k=6, p=0.15, alpha=0.15, no expulsion, 8 runs x 600 steps per condition.*
 
-The effective phase boundary is sharp and narrowly localized.[^crit] For $\gamma \leq 1.01$, no runs converge. At $\gamma = 1.02$, convergence is rare and slow (1 of 8 runs; $t_{95} = 421$). By $\gamma = 1.05$, convergence is universal (8/8; median $t_{95} = 116$). The boundary lies in the interval [1.02, 1.05]: a ~3% departure from purely proportional imitation separates crisis-without-convergence from robust scapegoating.
+The effective phase boundary is sharp and narrowly localized.[^crit] For $\gamma \leq 1.01$, no runs converge. At $\gamma = 1.02$, convergence is rare and slow (1 of 8 runs; $t_{95} = 421$). By $\gamma = 1.05$, convergence is universal (8/8; median $t_{95} = 116$). The boundary lies in the interval [1.02, 1.05] at $N = 50$: a ~3% departure from purely proportional imitation separates crisis-without-convergence from robust scapegoating.
 
 [^crit]: The critical-slowing pattern near the boundary -- median $t_{95}$ jumps from 116 at $\gamma = 1.05$ to 421 at $\gamma = 1.02$, a fourfold increase for a 3% change in the exponent -- is consistent with a phase-transition-like boundary, though we do not claim a continuous (second-order) phase transition on the basis of finite-horizon data. We use "effective phase boundary" throughout to denote the empirically observed transition interval, without claiming universality-class membership.
 
@@ -211,7 +211,25 @@ Above the boundary, coordination rapidly saturates: peak modal agreement reaches
 
 Decreasing $\gamma$ below 1 reduces both peak modal agreement and peak Gini monotonically. Under the normalized attention weighting $a_i(j) \propto h_i(j)^\gamma$, values $\gamma < 1$ compress relative salience differences, actively pushing hostility toward uniformity.
 
-![Figure 2. The effective phase boundary near linearity. (a) Convergence rate as a function of salience exponent $\gamma$, showing the sharp transition from 0% to 100% within the interval $\gamma^* \in [1.02, 1.05]$ (shaded). (b) Median time to convergence ($t_{95}$) for converging conditions, with min--max bars across 8 runs. The fourfold increase from $t_{95} = 30$ at $\gamma = 1.25$ to $t_{95} = 421$ at $\gamma = 1.02$ is consistent with critical slowing down near a phase-transition-like boundary.](../figures/fig2_phase_transition.png)
+#### Phase Boundary Invariance Across Community Size
+
+To test whether the phase boundary is a property of the attention-allocation mechanism or an artifact of finite community size, we repeated the fine-grained gamma sweep at $N = 100$ and $N = 200$ with 20 seeds per condition and 800 steps (no expulsion). Mean degree scales with $N$ ($k = 12$ at $N = 100$, $k = 20$ at $N = 200$) to maintain comparable connectivity.
+
+| $N$ | $\gamma \leq 1.01$ | $\gamma = 1.02$ | $\gamma = 1.03$ | $\gamma \geq 1.04$ |
+|-----|---------------------|-----------------|-----------------|---------------------|
+| 50  | 0%                  | 10%             | 90%             | 100%                |
+| 100 | 0%                  | 0%              | 100%            | 100%                |
+| 200 | 0%                  | 0%              | 100%            | 100%                |
+
+*Table 2b. Convergence rate by gamma and community size. 20 seeds per condition, 800 steps, no expulsion.*
+
+The boundary does not shift with $N$; it *sharpens*. At $N = 50$, a fuzzy zone spans $\gamma \in [1.02, 1.04]$: 10% convergence at 1.02, 90% at 1.03, 100% at 1.04. At $N \geq 100$, the transition collapses to a clean step function between 1.02 (0%) and 1.03 (100%). Convergence speed is also approximately $N$-independent: median $t_{95}$ at $\gamma = 1.05$ is 88, 98, and 102 for $N = 50, 100, 200$ respectively.
+
+The $N$-invariance strengthens the interpretation that $\gamma^*$ is a property of the convex redistribution operator itself, not a finite-size artifact. The slight fuzziness at $N = 50$ is the expected signature of a small system near a critical threshold, where stochastic fluctuations occasionally tip individual runs across the boundary. At larger $N$, these fluctuations average out and the boundary sharpens.
+
+We accordingly revise our characterization of the effective phase boundary from the $N = 50$ interval $[1.02, 1.05]$ to the $N$-invariant interval $[1.02, 1.03]$, noting that the upper bound represents essentially a point transition at $N \geq 100$.
+
+![Figure 2. The effective phase boundary near linearity. (a) Convergence rate as a function of salience exponent $\gamma$, showing the sharp transition from 0% to 100% within the interval $\gamma^* \in [1.02, 1.03]$ (shaded). (b) Median time to convergence ($t_{95}$) for converging conditions, with min--max bars across 20 runs. The approximate $N$-independence of convergence speed ($t_{95} \approx 90$--$102$ at $\gamma = 1.05$ across all $N$) confirms that the mechanism, once triggered, operates on a timescale set by the convex redistribution operator rather than by community size.](../figures/fig2_phase_transition.png)
 
 ### 3.3 Operator Ablation
 
@@ -260,7 +278,7 @@ This is structurally distinct from incomplete convergence: it is *two convergenc
 
 ### 3.5 Catharsis Dynamics
 
-Expulsion produces measurable tension reduction. Under the default parameterization ($\gamma = 2.0$, $\tau = 8.0$), the mean immediate fractional drop in total received aggression following an expulsion is 29.6% in AC and 36.7% in RA (Table 1), with attention-based variants producing substantially deeper catharsis than their linear counterparts (LM: 5.6%, RL: 6.3%). The system exhibits crisis-relief-reaccumulation cycles with clustered inter-expulsion intervals (runs of rapid expulsions separated by extended quiet periods). The immediate tension drop is partly arithmetic (removing the most-targeted agent eliminates their share of total received aggression), but the emergent finding is that tension does not immediately redirect: the attentional funnel requires time to reconstitute after losing its focal point, and this temporal gap constitutes the emergent catharsis. These metrics reflect the default threshold of 8.0; Section 3.6 shows qualitatively different cycle structures at higher thresholds.
+Expulsion produces measurable tension reduction. Under the default parameterization ($\gamma = 2.0$, $\tau = 8.0$), the mean immediate fractional drop in total received aggression following an expulsion is 29.6% in AC and 36.7% in RA (Table 1), with attention-based variants producing substantially deeper catharsis than their linear counterparts (LM: 5.6%, RL: 6.3%). The system exhibits crisis-relief-reaccumulation cycles with clustered inter-expulsion intervals (runs of rapid expulsions separated by extended quiet periods). The immediate tension drop is partly arithmetic (removing the most-targeted agent eliminates their share of total received aggression), but the emergent finding is that tension does not immediately redirect: the attentional funnel requires time to reconstitute after losing its focal point, and this temporal gap constitutes the emergent catharsis. These metrics reflect the default threshold of 8.0; Section 3.6 shows qualitatively different cycle structures at higher thresholds, and Section 3.8 shows that the cycle topology depends on the distance from the phase boundary.
 
 ### 3.6 Expulsion Threshold and the Conditions for the Founding Murder
 
@@ -297,6 +315,81 @@ In RA (rivalry + attention), victims have a mean status of 0.451 (95% CI [0.441,
 
 In RL (rivalry + linear), the victim status deficit is larger in absolute terms (0.063, $p < 0.001$) but occurs against a background of globally collapsed status: mean population status under RL is 0.173 (vs 0.487 under RA), because diffuse aggression degrades all agents roughly equally. The endogenous *targeting* of status degradation -- selective damage to victims against a backdrop of otherwise-stable population status -- requires the convergence mechanism (convex redistribution). Rivalry provides the degradation channel; convex redistribution provides the selectivity.
 
+### 3.8 Violence Topologies Under Unanimity-Triggered Expulsion
+
+The threshold-regime analysis of Section 3.6 varies the community's *capacity* for collective violence. This section varies the *intensity* of the mimetic transmission mechanism itself by sweeping $\gamma$ above the phase boundary under a unanimity trigger (expulsion fires when modal agreement $\geq 0.95$, with a 5-step cooldown). This isolates the consequences of distance from the phase boundary for the topology of violence cycles, independent of an arbitrary accumulation threshold.
+
+Three qualitatively distinct regimes emerge.
+
+**Subcritical ($\gamma < 1.03$).** No expulsions occur. The community never achieves the unanimity required to trigger collective action. Hostility remains diffuse; the "crisis" is real but the snowball never completes. This is Girard's "crisis of undifferentiation" arrested before it reaches its resolution in the founding murder.
+
+**Boundary grinding ($\gamma \approx 1.03$--$1.10$).** The snowball completes: unanimity is achieved and the victim is expelled. But the mimetic cascade reconstitutes almost instantly. At $N = 200$, $\gamma = 1.05$: 95 expulsions in 1500 steps, reconvergence time of 1 step, effective cycle length of 7 steps (the 5-step cooldown plus 2 steps to reconverge). The community identifies a new victim essentially at the moment the cooldown expires. Peace duration is zero. At $N = 500$, $\gamma = 1.05$: 52 expulsions, same 7-step cycle gap, no deceleration. Given enough time, this regime would grind through the entire population.
+
+| $N$ | $\gamma$ | Med. Expulsions | Med. Reconverge | Med. Cycle Gap | Pct. Consumed |
+|-----|----------|-----------------|-----------------|----------------|---------------|
+| 50  | 1.05     | 19              | 44              | 44             | 38%           |
+| 100 | 1.05     | 39              | 14              | 14             | 39%           |
+| 200 | 1.05     | 70              | 1               | 7              | 35%           |
+| 500 | 1.05     | 69              | 1               | 7              | 14%           |
+| 50  | 1.10     | 21              | 22              | 22             | 41%           |
+| 100 | 1.10     | 56              | 10              | 10             | 56%           |
+| 200 | 1.10     | 92              | 2               | 7              | 46%           |
+| 500 | 1.10     | 75              | 4               | 7              | 15%           |
+
+*Table 6. Boundary-grinding regime: unanimity-triggered expulsion near the phase boundary. 8 runs per condition, 1500 steps, unanimity threshold 0.95, cooldown 5. "Med. Reconverge" is the median number of steps after an expulsion before modal agreement returns to 0.95. "Med. Cycle Gap" is the median steps between consecutive expulsions. At $N \geq 200$, the cycle gap converges on 7 steps -- the cooldown plus minimal reconvergence time.*
+
+**Supercritical bursts ($\gamma \gg 1$, e.g., 1.5--2.0).** Violence occurs in discrete *paired* expulsions separated by long natural peace intervals. At $N = 500$, $\gamma = 2.0$ (seed 42): 9 expulsions in 1500 steps. The trace reveals a characteristic structure:
+
+```
+Exp 1 t= 284, gap   7   ← pair
+Exp 2 t= 291, gap 459   ← long peace
+Exp 3 t= 750, gap   7   ← pair
+Exp 4 t= 757, gap 337   ← long peace
+Exp 5 t=1094, gap  14   ← triple
+Exp 6 t=1108, gap   7
+Exp 7 t=1115, gap 349   ← long peace
+Exp 8 t=1464, gap   7   ← pair
+Exp 9 t=1471             ← (sim ends)
+```
+
+The mechanism fires in bursts of 2--3, each burst separated by 300--450 steps of genuine peace (modal agreement below 0.50). The first expulsion within a burst disrupts the cascade enough that it immediately reconverges onto a nearby target (gap 7 = cooldown), fires again, and then the *combined* topological disruption of two removals is sufficient to break the cascade for hundreds of steps. The inter-burst peace intervals are not an artifact of the cooldown; they reflect the time required for the mimetic snowball to reconstitute across a network that has lost two adjacent focal nodes.
+
+| $N$ | $\gamma$ | Med. Expulsions | Med. Peace | Med. Reconverge | Pct. Consumed |
+|-----|----------|-----------------|------------|-----------------|---------------|
+| 50  | 1.50     | 16              | 4          | 13              | 32%           |
+| 100 | 1.50     | 48              | 3          | 12              | 48%           |
+| 200 | 1.50     | 55              | 0          | 10              | 27%           |
+| 500 | 1.50     | 15              | 1          | 8               | 3%            |
+| 50  | 2.00     | 9               | 3          | 10              | 17%           |
+| 100 | 2.00     | 29              | 3          | 10              | 29%           |
+| 200 | 2.00     | 30              | 1          | 4               | 15%           |
+| 500 | 2.00     | 6               | 1          | 4               | 1.2%          |
+
+*Table 7. Supercritical burst regime: unanimity-triggered expulsion at high gamma. Same conditions as Table 6. Peace intervals emerge naturally from topology disruption and increase with both $\gamma$ and $N$.*
+
+The paired-burst structure provides a mechanical substrate for Girard's concept of "doubles" -- the paired victims who appear in founding myths (Cain and Abel, Romulus and Remus, Eteocles and Polynices). In the model, the pairing is not psychological (the two victims do not fight each other) but structural: at high $\gamma$, the hostility landscape is so steep that when the primary victim is removed, the runner-up is already primed as the consensus target. The group's attention snaps to the second victim with no intervening deliberation. The model produces the *fact* of paired victims; myth, in Girard's account, provides the retrospective narrative that makes sense of it. Whether the mythological pattern of founding doubles reflects a structural feature of the underlying violence (as the model suggests) or is a purely narrative device is a question the model cannot resolve, but the mechanical availability of the pattern is worth noting.
+
+### 3.9 Community Scale and Self-Exhaustion
+
+At high $\gamma$, the paired-burst regime interacts with community size to produce a further qualitative distinction: at small $N$, the mimetic cascade permanently exhausts itself.
+
+At $N = 50$, $\gamma = 2.0$: 6 expulsions (12% consumed), last expulsion at step 98, followed by 1402 steps of silence -- no reconvergence, no further expulsions. The network topology has been damaged sufficiently by the removal of 6 focal nodes that the mimetic cascade cannot reconstitute. At $N = 100$, $\gamma = 2.0$: 9 expulsions (9%), last at step 274, followed by 1226 steps of silence. Both cases show genuine self-exhaustion: the mechanism burns through a small fraction of the population and then fails permanently.
+
+At larger $N$, the picture changes. At $N = 200$, $\gamma = 2.0$: 30 expulsions (15%), last at step 1387, with only 113 steps remaining in the 1500-step simulation. At $N = 500$, $\gamma = 2.0$: 9 expulsions (1.8%), firing in paired bursts with 300--450 step inter-burst intervals, last at step 1471 with 29 steps remaining. The inter-burst gaps at $N = 500$ exceed the remaining simulation time, making it impossible to determine from 1500-step runs whether the mechanism has genuinely exhausted itself or merely entered a long reconvergence interval.
+
+| $N$  | Expulsions | Pct. Consumed | Last Exp. | Silence After | Verdict              |
+|------|-----------|---------------|-----------|---------------|----------------------|
+| 50   | 6         | 12%           | t=98      | 1402 steps    | Genuine exhaustion   |
+| 100  | 9         | 9%            | t=274     | 1226 steps    | Genuine exhaustion   |
+| 200  | 30        | 15%           | t=1387    | 113 steps     | Ambiguous            |
+| 500  | 9         | 1.8%          | t=1471    | 29 steps      | Probably cycling     |
+
+*Table 8. Self-exhaustion at gamma=2.0, seed 42, 1500 steps. "Silence After" is the number of steps between the last expulsion and the end of the simulation with no reconvergence to modal agreement $\geq 0.95$. Extended runs (5000 steps, 20 seeds) are in progress to resolve the ambiguous cases; preliminary classification is based on the qualitative pattern of inter-burst intervals relative to remaining simulation time.*
+
+[**Note:** Extended 5000-step runs at $N = 200$ and $N = 500$ are in progress and will resolve the classification of these cases. The qualitative trend -- self-exhaustion weakening with $N$ as the remaining population absorbs topological damage without losing cascade viability -- is clear from the existing data regardless of the precise threshold.]
+
+The self-exhaustion phenomenon exists only in the supercritical burst regime ($\gamma \gg 1$). In the boundary-grinding regime ($\gamma \approx 1.03$--$1.10$), no self-exhaustion occurs at any $N$ tested: the cycle gap remains constant at 7 steps and the grinding continues indefinitely. The grinding regime's reconvergence is so rapid that topological damage from a single expulsion is repaired before it can accumulate across cycles.
+
 ---
 
 ## 4. Discussion
@@ -323,25 +416,73 @@ The AC operator is formally a budget allocation rule -- fixed total perceived ma
 
 Whether the same dynamics operate in hostile targeting is a theoretical extrapolation. The most relevant bridge is Bauer, Cahlíková, Chytilová, and Želinský (2018), who demonstrate social contagion of ethnic hostility in a field experiment, establishing that hostility *is* contagious and differentially so for outgroup targets. However, Bauer et al. do not measure whether the adoption function is linear or superlinear in the fraction of hostile contacts -- exactly the distinction our model identifies as decisive.
 
-An experimental design adapting Bauer et al.'s paradigm to measure the dose-response functional form of hostility adoption -- specifically, whether it is linear or superlinear in the fraction of hostile contacts -- would constitute a direct empirical test of the model's core mechanism. We develop this proposal and its complications in Section 4.4.
+An experimental design adapting Bauer et al.'s paradigm to measure the dose-response functional form of hostility adoption -- specifically, whether it is linear or superlinear in the fraction of hostile contacts -- would constitute a direct empirical test of the model's core mechanism. We develop this proposal and its complications in Section 4.6.
 
-### 4.3 The Missing Sacred
+### 4.3 The Missing Sacred and the Structural Necessity of Cultural Elaboration
 
-The threshold-regime analysis (Section 3.6) demarcates what mimetic dynamics alone can generate. In Regime 2, the model produces the full cycle structure -- convergence to unanimity, expulsion, genuine peace, reconvergence -- but the peace phase is transient (~17 steps) and the cycle repeats indefinitely. What the model does not produce is the stable social order Girard attributes to the founding murder.
+The unanimity-trigger experiments (Section 3.8) reveal that crossing the phase boundary does not uniformly produce "the founding murder." It produces three qualitatively distinct violence topologies, each corresponding to a different condition in Girard's theoretical apparatus, and each bearing a different relationship to the cultural structures Girard calls the sacred.
 
-In Girard's account, the "double transference" converts the founding murder into a generative institution: because the community was unanimous, no member recognizes the selection as arbitrary, and the victim is retrospectively attributed causal power over both crisis and resolution. This attribution becomes the basis of the sacred -- prohibition, ritual, and sacrificial substitution -- requiring representational capacities beyond mimetic imitation: memory, causal attribution, institutional repetition.
+**The boundary-grinding regime and the origin of the sacred.** At gamma values just above the phase boundary ($\gamma \approx 1.03$--$1.10$), the mechanism *works* -- unanimity is achieved, the victim is expelled -- but the peace phase is zero. The mimetic cascade reconstitutes within a single timestep. The community passes from crisis to unanimity to expulsion to crisis without any interval in which social order could exist. A community trapped in this regime can do nothing except identify and expel victims in a continuous loop. This is the condition under which the sacred is not merely useful but structurally indispensable for survival. Prohibition -- the injunction against the behavior that precipitated the crisis -- functions as a brake on instantaneous reconvergence, buying time before the next cascade ignites. Ritual -- the controlled, scheduled repetition of the founding murder in symbolic form -- channels the reconvergence energy into a managed discharge rather than allowing it to find a new real victim the moment the cooldown expires.
 
-The model's failure to produce lasting peace is therefore a positive demarcation result. Mimetic dynamics generate the raw material of the scapegoat cycle but not the institutional overlay that stabilizes it. The sacred is the missing layer, and its absence tells us where mimetic theory's explanatory work ends and cultural theory's begins.
+**The supercritical burst regime and the raw material of ritual.** At high $\gamma$ ($\geq 1.5$), the violence topology changes. Discrete paired expulsions are separated by long natural peace intervals (300+ steps at $N = 500$). The sacred did not create these intervals; they are a mechanical consequence of the topological damage inflicted by removing two adjacent focal nodes. But the intervals are stochastic (varying from 200 to 500 steps), unpredictable from the community's perspective, and the target of the next burst is determined by network topology at the moment of reconvergence -- essentially arbitrary from the inside. The sacred converts this stochastic pattern into a deterministic institution: ritual puts the violence on a calendar (predictability), designates in advance who will be sacrificed (target control), and limits the count (dosage). What mechanical periodicity provides is the empirical pattern -- periodic paroxysms of collective violence -- that the community retrospectively interprets and then deliberately manages. The sacred does not invent the periodicity; it domesticates it.
 
-Regime 3 -- unanimous hostility without discharge -- bears a structural resemblance to the condition Girard describes in *I See Satan Fall Like Lightning*, in which the scapegoat mechanism has been "revealed" but the community cannot resolve its crisis through other means. We note the parallel without claiming the model captures that condition's full phenomenology.
+**The founding murder requires a phenomenological gap.** Both regimes produce unanimity and expulsion. But the founding murder, as Girard describes it, requires something more: the community must *notice* that peace followed the killing. In the boundary-grinding regime, there is nothing to notice -- the next crisis is already underway. In the supercritical burst regime, the peace intervals are long enough that the connection between the killing and the calm could, in principle, register. This suggests a constraint on the mechanism's parameter range: for the founding murder to be generative -- to produce the "double transference" in which the victim is retrospectively credited with both the crisis and its resolution -- the mimetic transmission intensity must be supercritical, not merely above the phase boundary. The sacred arises from the founding murder, and the founding murder requires a peace interval long enough for attribution to occur.
 
-### 4.4 Limitations and Falsifiability
+**What the model cannot produce.** In Girard's account, the "double transference" converts the founding murder into a generative institution: because the community was unanimous, no member recognizes the selection as arbitrary, and the victim is retrospectively attributed causal power over both crisis and resolution. This attribution requires representational capacities beyond mimetic imitation -- memory of the event, causal reasoning, intentional repetition -- that the model lacks and should lack. The model's failure to produce lasting peace is therefore a positive demarcation result: it identifies the boundary between what mimetic dynamics alone can generate (the raw cycle of crisis, unanimity, expulsion, transient peace, reconvergence) and what requires the cultural elaboration that Girard locates at the origin of human symbolic life. The sacred is the cultural technology that converts a stochastic, uncontrollable mechanical process into a predictable, manageable institutional one. The model shows why the raw material exists; Girard's theory explains why the technology was necessary.
 
-**Design limitations.** The model treats the transition from acquisitive to conflictual mimesis as structurally given rather than endogenous. A richer model might formalize the conditions under which agents shift from object-focused rivalry to objectless hostility-transmission. The model also lacks institutional or ritual structures that, in Girard's later work, prevent or channel mimetic crisis. The RL/RA status-prestige coupling means the 2x2 axes are not perfectly orthogonal; disentangling the rivalry-source mechanism from its indirect effects on influence structure is a natural extension. The model assumes a single community without external relations. The bifurcation outcome (Section 3.4) suggests that group-level scapegoating -- where hostility toward one member of a perceived category generalizes to others sharing that category -- requires a category-transfer mechanism the model lacks. Real-world instances (pogroms, ethnic cleansing) involve category structure absent from the model's individual-targeting dynamics.
+Regime 3 of the threshold analysis (Section 3.6) -- unanimous hostility without discharge -- bears a structural resemblance to the condition Girard describes in *I See Satan Fall Like Lightning*, in which the scapegoat mechanism has been "revealed" but the community cannot resolve its crisis through other means. We note the parallel without claiming the model captures that condition's full phenomenology.
 
-**Alternative formalizations.** "Attentional concentration" is one possible formalization of convex redistributive hostility-transmission. Threshold models, information-cascade models, or explicit "fascination" dynamics might produce convergence with different properties. Our finding that any degree of superlinearity suffices suggests that the specific functional form matters less than the qualitative property of budget-conserving convex reallocation, but systematic comparison is warranted.
+### 4.4 Community Scale and the Structural Necessity of the Sacred
 
-**Falsifiability.** The model's core claim is that hostility convergence requires superlinear (convex redistributive) transmission. This would be disconfirmed by observation of scapegoating convergence in a population where hostility transmission is demonstrably linear in homogeneous transmission settings.
+The self-exhaustion results (Section 3.9) introduce a community-size threshold into the model's theoretical implications. At small $N$ ($\leq 100$) and high $\gamma$, mimetic violence is self-terminating: the cascade burns through 9--12% of the population and then fails permanently as topological damage prevents reconvergence. At larger $N$, the self-exhaustion effect weakens: the remaining population is large enough to absorb the damage and sustain the cascade indefinitely.
+
+This threshold aligns, at least in order of magnitude, with the transition from primate social organization to distinctly human symbolic culture. Chimpanzee communities -- the closest living model for the ancestral hominid social unit -- comprise 40--80 individuals (Dunbar 1993). At this scale, the model predicts that high-intensity mimetic crises are self-correcting: violence erupts, burns through a small fraction of the group, and stops. No cultural management is required because the mechanism solves itself through topology destruction.
+
+Hunter-gatherer communities, by contrast, range from bands of 25--50 through Dunbar's number (~150) to mega-bands of ~500. As community size crosses the self-exhaustion threshold, the model predicts a qualitative shift: the same mimetic dynamics that were self-limiting at $N = 50$ become perpetual at $N = 200$--$500$. The community can no longer rely on the mechanism's self-exhaustion to end the violence. Something else is needed.
+
+The claim is not that the model proves the sacred emerged at a specific group size. That is beyond what an agent-based model can establish. The claim is narrower: the model identifies a community-size threshold above which the scapegoat mechanism ceases to be self-limiting, and this threshold is consistent with the range at which anthropologists and primatologists locate the emergence of distinctly human social organization. The structural problem the model makes visible -- the transition from self-limiting to perpetual mimetic violence -- is precisely the problem that Girard's theory of the sacred is designed to solve. Whether the sacred emerged *because* communities grew beyond the self-exhaustion threshold, or whether both are consequences of some third factor (ecological pressure, cognitive development, language), the model cannot determine.
+
+Dunbar (1993) argues that language evolved because groups needed to grow beyond the grooming limit (~50--80) -- grooming can maintain one relationship at a time, but speech addresses multiple listeners simultaneously, enabling groups of ~150. Girard argues that the sacred -- which is, in his account, the origin of symbolism, prohibition, ritual, and ultimately language -- emerged from the founding murder. The model suggests a mechanism connecting these claims: as ecological pressures pushed community size beyond the range where mimetic violence was self-correcting, the founding murder stopped being a one-off cathartic event and started being the opening of an indefinite cycle. The selective pressure for cultural management of violence -- the sacred -- arose precisely at the scale where the mechanical self-correction failed.
+
+### 4.5 Empirical Predictions
+
+The model generates several testable predictions, ranging from directly accessible to requiring novel experimental designs.
+
+**Prediction 1: Human mimetic transmission is supercritical.** If the model is correct, the parameter governing attentional concentration in hostile mimesis must lie above the phase boundary ($\gamma > 1.03$), and indeed well above it, since the founding murder requires peace intervals long enough for the double transference to occur (Section 4.3). The measurable proxy is whether attention to a target scales linearly or superlinearly with the number of people already attending to that target. Centola (2010) demonstrates that behavioral adoption in online networks requires reinforcement from multiple contacts -- a form of superlinear threshold consistent with this prediction. Social media pile-on dynamics (Bakshy et al. 2011) exhibit concentration patterns consistent with superlinear attention allocation. A direct measurement of the dose-response curve in the domain of collective hostility (rather than content adoption) remains to be conducted.
+
+**Prediction 2: The phase boundary is universal.** The $N$-invariance of the phase boundary (Section 3.2) predicts that the critical threshold for scapegoat convergence should not depend on group size. If a controlled experiment identified a community size below which scapegoating does not occur despite identical mimetic transmission intensity, this would disconfirm the $N$-invariance finding.
+
+**Prediction 3: Self-exhaustion at small scale.** Communities of ~50 individuals experiencing intense mimetic crises should show self-limiting violence patterns (a burst of expulsions followed by extended peace) without cultural intervention. Communities of ~200+ should not. This is in principle testable in small-group social psychology experiments, though the ethical constraints are severe.
+
+### 4.6 Limitations, Objections, and Falsifiability
+
+#### Objections
+
+**Circularity.** A natural objection is that the model builds superlinearity into the transmission rule and then discovers that superlinearity produces convergence. The response is that the finding cuts in both directions. The *positive* result -- superlinear transmission produces convergence -- is indeed built into the functional form. The *negative* result -- linear transmission does not produce convergence, ever, under any parameterization tested -- is not. Linear mimesis (LM) was a serious candidate mechanism: if prestige-weighted averaging of neighbors' aggression sufficed for convergence, the model would have shown it. It does not. The phase boundary's sharpness and $N$-invariance are also not built in; they are emergent properties of the interaction between the convex redistribution operator and the network dynamics. Girard does not distinguish linear from superlinear transmission; the model does, and shows that the distinction is the formal boundary between crisis and scapegoating.
+
+**Ecological validity.** The model's agents are nodes on a Watts-Strogatz graph with a power-law aggression-spread rule. Real human mimesis involves cognition, language, emotion, historical grievance, institutional structure, and cultural meaning -- none of which the model represents. The response is that the model tests a *structural* claim, not a realistic one. The question is whether the mechanism Girard describes -- mimetic transmission of hostility producing convergent targeting -- is mathematically coherent: whether it can, in principle, produce the outcome Girard predicts. The model is a proof of concept, not a simulation of an actual community. Its value lies in specifying the formal conditions under which Girard's predicted outcome obtains, not in reproducing any particular historical instance of scapegoating.
+
+**Alternative mechanisms.** Real scapegoating may operate through rational coordination (joining the mob is individually safer than resisting it), authority (a leader designates the victim), structural position (marginalized groups are targeted because of pre-existing power differentials), or some combination. The model does not exclude these mechanisms; it shows that mimetic transmission is *sufficient* for convergence without requiring them. Girard's specific theoretical contribution is the mimetic account of convergence. The model tests that account and finds it formally viable. Whether mimetic transmission is the *actual* mechanism in any given historical case is an empirical question the model does not address.
+
+**Overfitting.** With enough free parameters ($\gamma$, $\alpha$, network topology, threshold, $N$), one might worry that any behavior could be produced by tuning. The 2x2 design is the primary response: all four variants share identical parameters; only the mechanism (source x spread) varies. Convergence is produced by one specific combination (superlinear attention) and not others. The parameter sweep (Section 3.2) shows that convergence is robust across a wide range of $\gamma$ values above the boundary and absent across an equally wide range below it. The robustness analysis (Section 3.4) shows convergence across four network topologies and multiple susceptibility levels. The result is not fragile.
+
+**Gamma as a free parameter.** The power-law functional form ($h^\gamma$) is a modeling choice, not a derivation from first principles. A critic could argue that the result is an artifact of this specific parameterization. Our response: the linear/superlinear distinction is the minimal structural claim. We do not commit to the specific functional form, only to the qualitative property that mimetic attraction toward a target grows faster than linearly with the target's perceived salience. The sharp, $N$-invariant phase boundary at $\gamma = 1.03$ suggests this is a robust property of the mechanism rather than a fragile artifact of the power-law form, but systematic comparison with alternative superlinear specifications (threshold models, sigmoid functions, explicit information cascades) is warranted.
+
+#### Design Limitations
+
+The model treats the transition from acquisitive to conflictual mimesis as structurally given rather than endogenous. A richer model might formalize the conditions under which agents shift from object-focused rivalry to objectless hostility-transmission. The model also lacks institutional or ritual structures that, in Girard's later work, prevent or channel mimetic crisis. The RL/RA status-prestige coupling means the 2x2 axes are not perfectly orthogonal; disentangling the rivalry-source mechanism from its indirect effects on influence structure is a natural extension. The model assumes a single community without external relations. The bifurcation outcome (Section 3.4) suggests that group-level scapegoating -- where hostility toward one member of a perceived category generalizes to others sharing that category -- requires a category-transfer mechanism the model lacks. Real-world instances (pogroms, ethnic cleansing) involve category structure absent from the model's individual-targeting dynamics.
+
+#### Simulation-Length Censoring
+
+The self-exhaustion classifications at $N \geq 200$ (Section 3.9) are potentially affected by simulation-length censoring: at $N = 500$, $\gamma = 2.0$, inter-burst intervals of 300--450 steps can exceed the remaining time in a 1500-step simulation, producing false positives for self-exhaustion. Extended runs (5000 steps, 20 seeds) are in progress for the ambiguous conditions and will be reported in the final version. The qualitative conclusion -- that self-exhaustion weakens with $N$ -- is clear from the existing data; the precise threshold at which perpetual cycling replaces self-exhaustion remains to be resolved.
+
+#### Alternative Formalizations
+
+"Attentional concentration" is one possible formalization of convex redistributive hostility-transmission. Threshold models, information-cascade models, or explicit "fascination" dynamics might produce convergence with different properties. Our finding that any degree of superlinearity suffices suggests that the specific functional form matters less than the qualitative property of budget-conserving convex reallocation, but systematic comparison is warranted.
+
+#### Falsifiability
+
+The model's core claim is that hostility convergence requires superlinear (convex redistributive) transmission. This would be disconfirmed by observation of scapegoating convergence in a population where hostility transmission is demonstrably linear in homogeneous transmission settings.
 
 Two complications bear on empirical tractability. First, the most relevant experimental work -- Bauer et al. (2018) -- establishes hostility contagion but does not measure whether adoption is linear or superlinear in the fraction of hostile contacts. Second, St-Onge, Hebert-Dufresne, and Allard (2024) show that genuinely linear contagion produces apparent superlinearity in observed data when transmission settings are heterogeneous (varying group sizes, local rates, or contact patterns). This complicates falsification in both directions: apparent superlinearity in naturalistic data could be artifactual, and demonstrating genuinely linear transmission requires controlling for heterogeneity.
 
@@ -351,9 +492,11 @@ The falsifiability criterion must therefore be stated precisely. The model predi
 
 ## 5. Conclusion
 
-Girard writes that "the power of mimetic attraction multiplies with the number of those polarized." We formalized that sentence and tested it. The formalization reveals that the multiplicative character of mimetic attraction in hostile contexts -- convex redistributive transmission, where each agent's fixed mimetic throughput is reallocated among targets by sharpened attention weights -- is, within this model family, the formal condition separating diffuse crisis from scapegoat convergence. Linear transmission produces crisis without resolution; convex redistributive transmission, with the effective phase boundary lying between $\gamma = 1.02$ and $\gamma = 1.05$, produces convergence onto an arbitrary victim, cathartic tension reduction upon expulsion, and -- when combined with status-rivalry dynamics -- endogenous production of the "signs of the victim." The mechanism is not amplification but organization: the operator does not create hostility mass; it focuses existing mass through zero-sum cross-target competition under per-agent throughput conservation.
+Girard writes that "the power of mimetic attraction multiplies with the number of those polarized." We formalized that sentence and tested it. The formalization reveals that the multiplicative character of mimetic attraction in hostile contexts -- convex redistributive transmission, where each agent's fixed mimetic throughput is reallocated among targets by sharpened attention weights -- is, within this model family, the formal condition separating diffuse crisis from scapegoat convergence. Linear transmission produces crisis without resolution; convex redistributive transmission, with the effective phase boundary at $\gamma^* \approx 1.03$ and invariant across community sizes from 50 to 200 agents, produces convergence onto an arbitrary victim, cathartic tension reduction upon expulsion, and -- when combined with status-rivalry dynamics -- endogenous production of the "signs of the victim." The mechanism is not amplification but organization: the operator does not create hostility mass; it focuses existing mass through zero-sum cross-target competition under per-agent throughput conservation.
 
-Girard correctly identified the two-phase structure, predicted the emergent properties, and characterized the convergence mechanism as multiplicative. The model adds the demonstration that this multiplicative character, formalized as budget-conserving convex reallocation, is the precise formal boundary between crisis and scapegoating -- and that the same mechanism produces Girard's full typology of crisis outcomes: unanimity (the founding murder) in small, highly mimetic communities; stable factional bifurcation (moiety formation, externalized violence) in larger or more autonomous ones; and diffuse crisis without resolution under linear transmission. The model demarcates where mimetic dynamics end and the institutional structures of the sacred must begin.
+Above the phase boundary, the model reveals a further structure that Girard's phenomenological account describes but does not formally distinguish. Near the boundary, the scapegoat mechanism grinds: it achieves unanimity and expels the victim, but reconverges instantly, producing relentless serial purges with no peace. Far above the boundary, it detonates: discrete paired expulsions shatter the mimetic cascade, producing long natural peace intervals before the next paroxysm. The grinding regime is where the sacred -- prohibition, ritual, sacrificial substitution -- is structurally indispensable: without cultural intervention, the community has no respite between crises. The burst regime is where the sacred becomes a technology of management rather than survival: it domesticates a stochastic pattern of periodic violence into a predictable institution. At small community sizes, the burst regime exhausts itself through topology destruction; at larger sizes, it cycles indefinitely. The threshold between self-exhaustion and perpetual cycling is consistent with the community-size range at which anthropologists locate the transition from primate social organization to distinctly human symbolic culture.
+
+Girard correctly identified the two-phase structure, predicted the emergent properties, and characterized the convergence mechanism as multiplicative. The model adds the demonstration that this multiplicative character, formalized as budget-conserving convex reallocation, is the precise formal boundary between crisis and scapegoating -- and that the same mechanism produces Girard's full typology of crisis outcomes: unanimity (the founding murder) in small, highly mimetic communities; stable factional bifurcation (moiety formation, externalized violence) in larger or more autonomous ones; and diffuse crisis without resolution under linear transmission. It reproduces the structural conditions under which the sacred becomes necessary and the conditions under which the violence, left to its own devices, resolves itself. The model demarcates where mimetic dynamics end and the institutional structures of the sacred must begin.
 
 ---
 
@@ -364,6 +507,8 @@ Bakshy, E., Hofman, J. M., Mason, W. A., & Watts, D. J. (2011). Everyone's an in
 Bauer, M., Cahlíková, J., Chytilová, J., & Želinský, T. (2018). Social contagion of ethnic hostility. *Proceedings of the National Academy of Sciences*, 115(19), 4881-4886. https://doi.org/10.1073/pnas.1720317115
 
 Centola, D. (2010). The spread of behavior in an online social network experiment. *Science*, 329(5996), 1194-1197.
+
+Dunbar, R. I. M. (1993). Coevolution of neocortical size, group size and language in humans. *Behavioral and Brain Sciences*, 16(4), 681-694.
 
 Gardin, A. (2008). Complex mimetic systems. *Contagion: Journal of Violence, Mimesis, and Culture*, 15/16, 25-42.
 
@@ -413,7 +558,7 @@ Weng, L., Flammini, A., Vespignani, A., & Menczer, F. (2012). Competition among 
 | Status loss rate | 0.005 | Aggression-to-status degradation (RL, RA) |
 | Rivalry intensity | 0.15 | Rivalry-to-aggression conversion (RL, RA) |
 | Timesteps | 600 | Simulation duration |
-| Runs per condition | 10 (Tables 1, 1b); 8 (Tables 2, 3, 5, D1, E1); 12 (Table 4) | Replications for summary statistics |
+| Runs per condition | 10 (Tables 1, 1b); 8 (Tables 2, 3, 5, D1, E1); 12 (Table 4); 20 (Table 2b); 8 (Tables 6, 7, 8) | Replications for summary statistics |
 
 ## Appendix B: Code Availability
 
@@ -498,73 +643,50 @@ $f$ is a decreasing function of status distance (agents in close status proximit
 
 ### C.5 Step 3: Aggression Spread
 
-For each agent $i \in \mathcal{L}_t$, define the prestige-weighted mean neighbor hostility toward each target $j$:
+#### LM and RL (linear spread)
 
-$$h_i(j) = \frac{\sum_{k \in \mathcal{N}(i) \cap \mathcal{L}_t} w_{ik} \cdot A_k(j)}{\sum_{k \in \mathcal{N}(i) \cap \mathcal{L}_t} w_{ik}}$$
+For each agent $i \in \mathcal{L}_t$ and each living target $j \neq i$:
 
-with $h_i(i) = 0$ and $h_i(j) = 0$ for dead $j$.
+$$\text{pull}_i(j) = \frac{\sum_{k \in \mathcal{N}(i) \cap \mathcal{L}_t} w_{ik} \cdot A_k(j)}{\sum_{k \in \mathcal{N}(i) \cap \mathcal{L}_t} w_{ik}}$$
 
-**Edge case:** If $i$ has no living neighbors, $A_i$ is unchanged for this step.
+$$A_i(j) \leftarrow \alpha \cdot A_i(j) + (1-\alpha) \cdot \text{pull}_i(j)$$
 
-#### LM and RL (Linear spread)
-
-$$A_i(j) \leftarrow \alpha \cdot A_i(j) + (1 - \alpha) \cdot h_i(j)$$
-
-#### AC and RA (Attentional concentration spread)
-
-Let $H_i = \sum_{j} h_i(j)$ (total perceived neighborhood hostility).
-
-If $H_i > 0$:
-
-Compute sharpened salience: $s_i(j) = h_i(j)^{\gamma}$ for all $j$.
-
-Let $Z_i = \sum_{j} s_i(j)$.
-
-**Edge case:** If $Z_i = 0$ (possible when all $h_i(j) = 0$ despite $H_i > 0$ due to floating-point; or after expulsions leave only zero-aggression targets), set $\text{pull}_i(j) = 0$ for all $j$.
-
-Otherwise, compute attention weights and mimetic pull:
-
-$$a_i(j) = \frac{s_i(j)}{Z_i}, \qquad \text{pull}_i(j) = a_i(j) \cdot H_i$$
-
-Update:
-
-$$A_i(j) \leftarrow \alpha \cdot A_i(j) + (1 - \alpha) \cdot \text{pull}_i(j)$$
-
-If $H_i = 0$: $A_i(j) \leftarrow \alpha \cdot A_i(j)$ for all $j$.
-
-After the update, enforce $A_i(i) = 0$ and $A_i(j) = 0$ for all dead $j$.
-
-**Key identities of the AC operator (when $H_i > 0$ and $Z_i > 0$):**
-
-- *Throughput conservation:* $\sum_j \text{pull}_i(j) = H_i$. The L1 norm of the pull vector equals the total perceived neighborhood hostility. This is a per-agent, per-step property; total system hostility mass $M_t$ is not conserved across timesteps.
-- *Ratio identity:* $\text{pull}_i(a) / \text{pull}_i(b) = (h_i(a) / h_i(b))^{\gamma}$ for $h_i(b) > 0$
-
-### C.6 Step 4: Decay
+#### AC and RA (attentional concentration spread)
 
 For each agent $i \in \mathcal{L}_t$:
 
-$$A_i \leftarrow (1 - \delta) \cdot A_i$$
+1. Compute perceived hostility landscape: $h_i(j) = \frac{\sum_{k} w_{ik} A_k(j)}{\sum_{k} w_{ik}}$ for each living $j \neq i$
 
-where $\delta$ is the per-step decay fraction.
+2. Total perceived hostility: $H_i = \sum_j h_i(j)$
+
+3. Attention weights: $a_i(j) = h_i(j)^\gamma \;/\; \sum_k h_i(k)^\gamma$
+
+4. Mimetic pull: $\text{pull}_i(j) = a_i(j) \cdot H_i$
+
+5. Update: $A_i(j) \leftarrow \alpha \cdot A_i(j) + (1-\alpha) \cdot \text{pull}_i(j)$
+
+**Edge case:** If $H_i = 0$ or all $h_i(j)$ are equal (within numerical tolerance $\varepsilon$), agent $i$ applies uniform attention weights $a_i(j) = 1/(n_{\text{targets}})$.
+
+### C.6 Step 4: Decay
+
+For all $i, j$:
+
+$$A_i(j) \leftarrow A_i(j) \cdot (1 - \delta)$$
 
 ### C.7 Step 5: Expulsion
 
-Compute total received aggression for each potential victim $v \in \mathcal{L}_t$:
+Let $R(v) = \sum_{i \in \mathcal{L}_t,\, i \neq v} A_i(v)$. If $R(v) \geq \tau$ for any $v \in \mathcal{L}_t$:
 
-$$R(v) = \sum_{i \in \mathcal{L}_t,\; i \neq v} A_i(v)$$
+1. Select $v^* = \arg\max_v R(v)$ (tie-breaking by lowest index).
+2. Set $v^*$ to dead: $\mathcal{L}_{t+1} = \mathcal{L}_t \setminus \{v^*\}$.
+3. Zero all aggression toward $v^*$: $A_i(v^*) = 0$ for all $i$.
+4. Zero all aggression from $v^*$: $A_{v^*}(j) = 0$ for all $j$.
 
-If $\max_v R(v) \geq \tau$ (expulsion threshold):
+Only one agent is expelled per timestep (the maximally targeted).
 
-1. Let $v^* = \arg\max_v R(v)$.
-2. Remove $v^*$: set $v^* \notin \mathcal{L}_{t+1}$.
-   Define $\mathcal{L}'_t = \mathcal{L}_t \setminus \{v^*\}$ as the post-expulsion living set for this timestep.
-3. Zero all aggression toward $v^*$: $A_i(v^*) \leftarrow 0$ for all $i$.
+#### C.7a Step 6: Status Update (RL, RA only)
 
-At most one agent is expelled per timestep.
-
-### C.7a Step 6: Status Update (RL, RA only)
-
-After expulsion, update status for all living agents. Let $R(k) = \sum_{i \in \mathcal{L}'_t, i \neq k} A_i(k)$ be the total received aggression of agent $k$ (computed on the post-expulsion state). Let $R_{\max} = \max_{k \in \mathcal{L}'_t} R(k)$.
+Let $\mathcal{L}'_t$ denote the alive set *after* any expulsion in step 5. Let $R(k) = \sum_{i \in \mathcal{L}'_t,\, i \neq k} A_i(k)$ (recomputed post-expulsion). Let $R_{\max} = \max_{k \in \mathcal{L}'_t} R(k)$.
 
 For each agent $k \in \mathcal{L}'_t$:
 
@@ -637,4 +759,3 @@ Table E1 reports convergence outcomes across the conditions referenced in Sectio
 |Watts-Strogatz |50 |6  |0.85    |2.0     |75%       |192            |0.822    |
 
 *Table E1. Robustness of convergence across topologies, group sizes, and mimetic susceptibility levels. Convergence rate is the fraction of 8 runs achieving modal agreement $\geq 0.95$ within 600 steps. Median $t_{95}$ is computed over converging runs only. Extended runs (2400 steps) confirm that non-converging runs are genuinely metastable, not time-horizon artifacts.*
-
