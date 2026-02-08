@@ -373,20 +373,18 @@ The paired-burst structure provides a mechanical substrate for Girard's concept 
 
 At high $\gamma$, the paired-burst regime interacts with community size to produce a further qualitative distinction: at small $N$, the mimetic cascade permanently exhausts itself.
 
-At $N = 50$, $\gamma = 2.0$: 6 expulsions (12% consumed), last expulsion at step 98, followed by 1402 steps of silence -- no reconvergence, no further expulsions. The network topology has been damaged sufficiently by the removal of 6 focal nodes that the mimetic cascade cannot reconstitute. At $N = 100$, $\gamma = 2.0$: 9 expulsions (9%), last at step 274, followed by 1226 steps of silence. Both cases show genuine self-exhaustion: the mechanism burns through a small fraction of the population and then fails permanently.
+At $N = 50$, $\gamma = 2.0$ (20 seeds, 10,000 steps each): median 12 expulsions (24% consumed), last expulsion at median step 269, followed by a median 9,730 steps of silence -- no reconvergence, no further expulsions. Of 20 seeds, 18 show genuine self-exhaustion, 2 produce no expulsions at all (modal agreement never reaches 0.95), and zero show perpetual cycling. The expulsion count ranges from 0 to 19 (mean 10.0). The network topology is damaged sufficiently by the removal of ~12 focal nodes that the mimetic cascade cannot reconstitute. At $N = 100$, $\gamma = 2.0$ (single seed, 1,500 steps): 9 expulsions (9%), last at step 274, followed by 1,226 steps of silence -- consistent with self-exhaustion but not yet verified at multi-seed scale.
 
 At larger $N$, the picture changes. At $N = 200$, $\gamma = 2.0$: 30 expulsions (15%), last at step 1387, with only 113 steps remaining in the 1500-step simulation. At $N = 500$, $\gamma = 2.0$: 9 expulsions (1.8%), firing in paired bursts with 300--450 step inter-burst intervals, last at step 1471 with 29 steps remaining. The inter-burst gaps at $N = 500$ exceed the remaining simulation time, making it impossible to determine from 1500-step runs whether the mechanism has genuinely exhausted itself or merely entered a long reconvergence interval.
 
-| $N$  | Expulsions | Pct. Consumed | Last Exp. | Silence After | Verdict              |
-|------|-----------|---------------|-----------|---------------|----------------------|
-| 50   | 6         | 12%           | t=98      | 1402 steps    | Genuine exhaustion   |
-| 100  | 9         | 9%            | t=274     | 1226 steps    | Genuine exhaustion   |
-| 200  | 30        | 15%           | t=1387    | 113 steps     | Ambiguous            |
-| 500  | 9         | 1.8%          | t=1471    | 29 steps      | Probably cycling     |
+| $N$  | Seeds | Steps   | Med. Expulsions | Pct. Consumed | Med. Last Exp. | Med. Silence | Verdict             |
+|------|-------|---------|-----------------|---------------|----------------|--------------|---------------------|
+| 50   | 20    | 10,000  | 12              | 24%           | t=269          | 9,730 steps  | Exhaustion (18/20)  |
+| 100  | 1     | 1,500   | 9               | 9%            | t=274          | 1,226 steps  | Probable exhaustion |
+| 200  | 1     | 1,500   | 30              | 15%           | t=1387         | 113 steps    | Ambiguous           |
+| 500  | 1     | 1,500   | 9               | 1.8%          | t=1471         | 29 steps     | Probably cycling    |
 
-*Table 8. Self-exhaustion at gamma=2.0, seed 42, 1500 steps. "Silence After" is the number of steps between the last expulsion and the end of the simulation with no reconvergence to modal agreement $\geq 0.95$. Extended runs (5000 steps, 20 seeds) are in progress to resolve the ambiguous cases; preliminary classification is based on the qualitative pattern of inter-burst intervals relative to remaining simulation time.*
-
-[**Note:** Extended 5000-step runs at $N = 200$ and $N = 500$ are in progress and will resolve the classification of these cases. The qualitative trend -- self-exhaustion weakening with $N$ as the remaining population absorbs topological damage without losing cascade viability -- is clear from the existing data regardless of the precise threshold.]
+*Table 8. Self-exhaustion at $\gamma = 2.0$. $N = 50$ results are verified across 20 seeds at 10,000 steps each (median silence 9,730 steps, 18/20 seeds exhausted, 0/20 still cycling). $N = 100$--$500$ results are from single seeds at 1,500 steps and should be treated as preliminary. "Silence" is the number of steps between the last expulsion and the end of the simulation with no reconvergence to modal agreement $\geq 0.95$.*
 
 The self-exhaustion phenomenon exists only in the supercritical burst regime ($\gamma \gg 1$). In the boundary-grinding regime ($\gamma \approx 1.03$--$1.10$), no self-exhaustion occurs at any $N$ tested: the cycle gap remains constant at 7 steps and the grinding continues indefinitely. The grinding regime's reconvergence is so rapid that topological damage from a single expulsion is repaired before it can accumulate across cycles.
 
@@ -434,7 +432,7 @@ Regime 3 of the threshold analysis (Section 3.6) -- unanimous hostility without 
 
 ### 4.4 Community Scale and the Structural Necessity of the Sacred
 
-The self-exhaustion results (Section 3.9) introduce a community-size threshold into the model's theoretical implications. At small $N$ ($\leq 100$) and high $\gamma$, mimetic violence is self-terminating: the cascade burns through 9--12% of the population and then fails permanently as topological damage prevents reconvergence. At larger $N$, the self-exhaustion effect weakens: the remaining population is large enough to absorb the damage and sustain the cascade indefinitely.
+The self-exhaustion results (Section 3.9) introduce a community-size threshold into the model's theoretical implications. At $N = 50$ and high $\gamma$, mimetic violence is self-terminating: verified across 20 seeds at 10,000 steps, the cascade burns through a median 24% of the population (12 of 50 agents) and then fails permanently, with a median 9,730 steps of post-exhaustion silence and zero seeds showing perpetual cycling. At larger $N$, the self-exhaustion effect weakens: the remaining population is large enough to absorb the topological damage and sustain the cascade indefinitely.
 
 This threshold aligns, at least in order of magnitude, with the transition from primate social organization to distinctly human symbolic culture. Chimpanzee communities -- the closest living model for the ancestral hominid social unit -- comprise 40--80 individuals (Dunbar 1993). At this scale, the model predicts that high-intensity mimetic crises are self-correcting: violence erupts, burns through a small fraction of the group, and stops. No cultural management is required because the mechanism solves itself through topology destruction.
 
@@ -474,7 +472,7 @@ The model treats the transition from acquisitive to conflictual mimesis as struc
 
 #### Simulation-Length Censoring
 
-The self-exhaustion classifications at $N \geq 200$ (Section 3.9) are potentially affected by simulation-length censoring: at $N = 500$, $\gamma = 2.0$, inter-burst intervals of 300--450 steps can exceed the remaining time in a 1500-step simulation, producing false positives for self-exhaustion. Extended runs (5000 steps, 20 seeds) are in progress for the ambiguous conditions and will be reported in the final version. The qualitative conclusion -- that self-exhaustion weakens with $N$ -- is clear from the existing data; the precise threshold at which perpetual cycling replaces self-exhaustion remains to be resolved.
+At $N = 50$, simulation-length censoring has been ruled out: 20 seeds at 10,000 steps confirm genuine self-exhaustion with median post-exhaustion silence of 9,730 steps (18/20 seeds exhausted, 0/20 still cycling). The self-exhaustion classifications at $N \geq 200$ remain potentially affected by simulation-length censoring: at $N = 500$, $\gamma = 2.0$, inter-burst intervals of 300--450 steps can exceed the remaining time in a 1,500-step simulation, producing false positives for self-exhaustion. Extended runs at larger $N$ are needed to resolve the precise threshold at which perpetual cycling replaces self-exhaustion; the qualitative conclusion -- that self-exhaustion weakens with $N$ -- is clear from the existing data.
 
 #### Alternative Formalizations
 

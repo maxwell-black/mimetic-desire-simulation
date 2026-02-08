@@ -1,0 +1,51 @@
+Self-exhaustion verification: N=50, gamma=2.0, T=10,000, seeds=20
+Unanimity threshold=0.95, cooldown=5
+================================================================================
+
+Seed  42:   6 expulsions,  44 alive (12.0% consumed), last t=    97, silence= 9902  [EXHAUSTED]
+         timestamps: [31, 49, 57, 71, 84, 97]
+         gaps:       [18, 8, 14, 13, 13]
+
+Seed  43:   3 expulsions,  47 alive ( 6.0% consumed), last t=   174, silence= 9825  [EXHAUSTED]
+         timestamps: [15, 168, 174]
+         gaps:       [153, 6]
+
+Seed  44:   5 expulsions,  45 alive (10.0% consumed), last t=    55, silence= 9944  [EXHAUSTED]
+         timestamps: [19, 25, 39, 46, 55]
+         gaps:       [6, 14, 7, 9]
+
+Seed  45:   4 expulsions,  46 alive ( 8.0% consumed), last t=   136, silence= 9863  [EXHAUSTED]
+         timestamps: [94, 100, 130, 136]
+         gaps:       [6, 30, 6]
+
+Seed  46:   8 expulsions,  42 alive (16.0% consumed), last t=   960, silence= 9039  [EXHAUSTED]
+         timestamps: [114, 120, 175, 182, 214, 221, 953, 960]
+         gaps:       [6, 55, 7, 32, 7, 732, 7]
+
+Seed  47:   0 expulsions,  50 alive ( 0.0% consumed), last t=    --, silence=10000  [NO EXPULSIONS]
+Seed  48:  14 expulsions,  36 alive (28.0% consumed), last t=   274, silence= 9725  [EXHAUSTED]
+Seed  49:  19 expulsions,  31 alive (38.0% consumed), last t=   410, silence= 9589  [EXHAUSTED]
+Seed  50:  14 expulsions,  36 alive (28.0% consumed), last t=   337, silence= 9662  [EXHAUSTED]
+Seed  51:  11 expulsions,  39 alive (22.0% consumed), last t=   367, silence= 9632  [EXHAUSTED]
+Seed  52:   4 expulsions,  46 alive ( 8.0% consumed), last t=    96, silence= 9903  [EXHAUSTED]
+Seed  53:   6 expulsions,  44 alive (12.0% consumed), last t=   171, silence= 9828  [EXHAUSTED]
+Seed  54:  13 expulsions,  37 alive (26.0% consumed), last t=   312, silence= 9687  [EXHAUSTED]
+Seed  55:   0 expulsions,  50 alive ( 0.0% consumed), last t=    --, silence=10000  [NO EXPULSIONS]
+Seed  56:  19 expulsions,  31 alive (38.0% consumed), last t=   298, silence= 9701  [EXHAUSTED]
+Seed  57:  12 expulsions,  38 alive (24.0% consumed), last t=   187, silence= 9812  [EXHAUSTED]
+Seed  58:  17 expulsions,  33 alive (34.0% consumed), last t=   282, silence= 9717  [EXHAUSTED]
+Seed  59:  15 expulsions,  35 alive (30.0% consumed), last t=   844, silence= 9155  [EXHAUSTED]
+Seed  60:  15 expulsions,  35 alive (30.0% consumed), last t=   263, silence= 9736  [EXHAUSTED]
+Seed  61:  15 expulsions,  35 alive (30.0% consumed), last t=   245, silence= 9754  [EXHAUSTED]
+
+================================================================================
+SUMMARY
+  Seeds run:        20
+  Steps per seed:   10,000
+  Elapsed:          506s
+
+  Expulsions:       median=12, mean=10.0, range=[0, 19]
+  Silence after:    median=9730, min=9039, max=9944
+  Exhausted:        18/20
+  Still cycling:    0/20
+  No expulsions:    2/20
