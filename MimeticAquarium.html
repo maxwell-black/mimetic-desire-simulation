@@ -1,0 +1,1013 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Mimetic Aquarium</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body, #root { width: 100%; height: 100%; overflow: hidden; background: #000; }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="importmap">
+{
+  "imports": {
+    "react": "https://esm.sh/react@18.3.1",
+    "react-dom/client": "https://esm.sh/react-dom@18.3.1/client",
+    "react/jsx-runtime": "https://esm.sh/react@18.3.1/jsx-runtime"
+  }
+}
+</script>
+<script type="module">
+import React, { useState, useRef, useEffect, useCallback, createElement as h } from 'react';
+import { createRoot } from 'react-dom/client';
+
+// ── Color ramp: dark teal -> amber -> pale cream-yellow ──────────────────
+const RAMP = [
+  [0.0, 26, 74, 74],
+  [0.2, 50, 82, 48],
+  [0.45, 120, 100, 26],
+  [0.7, 200, 144, 32],
+  [1.0, 240, 232, 192],
+];
+
+function rampColor(t, alpha = 1) {
+  const c = t < 0 ? 0 : t > 1 ? 1 : t;
+  let i = 0;
+  while (i < RAMP.length - 2 && RAMP[i + 1][0] < c) i++;
+  const [t0, r0, g0, b0] = RAMP[i];
+  const [t1, r1, g1, b1] = RAMP[i + 1];
+  const f = t1 > t0 ? (c - t0) / (t1 - t0) : 0;
+  return `rgba(${r0 + (r1 - r0) * f | 0},${g0 + (g1 - g0) * f | 0},${b0 + (b1 - b0) * f | 0},${alpha})`;
+}
+
+function clamp(v, lo, hi) { return v < lo ? lo : v > hi ? hi : v; }
+function clamp01(v) { return v < 0 ? 0 : v > 1 ? 1 : v; }
+
+function randN() {
+  let u = 0, v = 0;
+  while (!u) u = Math.random();
+  v = Math.random();
+  return Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * v);
+}
+
+// ── Simulation engine (plain mutable object, no React) ───────────────────
+function createEngine() {
+  const eng = {
+    agents: new Map(),
+    neighbors: new Map(),
+    agg: new Map(),
+    nextId: 0,
+    step: 0,
+    expulsions: [],
+    expCooldown: 0,
+    effects: [],
+    ejecting: [],
+    ghostDots: [],
+    resetCountdown: -1,
+    layoutW: 800,
+    layoutH: 600,
+  };
+
+  function getAgg(i, j) {
+    const row = eng.agg.get(i);
+    return row ? (row.get(j) || 0) : 0;
+  }
+
+  function setAgg(i, j, v) {
+    if (v < 1e-9) {
+      const row = eng.agg.get(i);
+      if (row) row.delete(j);
+      return;
+    }
+    let row = eng.agg.get(i);
+    if (!row) { row = new Map(); eng.agg.set(i, row); }
+    row.set(j, v);
+  }
+
+  function aliveIds() {
+    const out = [];
+    for (const [id, a] of eng.agents) if (a.alive) out.push(id);
+    return out;
+  }
+
+  function aliveCount() {
+    let c = 0;
+    for (const [, a] of eng.agents) if (a.alive) c++;
+    return c;
+  }
+
+  function getAliveNeighbors(id) {
+    const nb = eng.neighbors.get(id);
+    if (!nb) return [];
+    const out = [];
+    for (const n of nb) {
+      const a = eng.agents.get(n);
+      if (a && a.alive) out.push(n);
+    }
+    return out;
+  }
+
+  function generate(p) {
+    eng.agents.clear(); eng.neighbors.clear(); eng.agg.clear();
+    eng.nextId = 0; eng.step = 0; eng.expulsions = [];
+    eng.effects = []; eng.ejecting = []; eng.ghostDots = [];
+    eng.resetCountdown = -1; eng.expCooldown = 0;
+
+    const n = p.N;
+    const halfK = Math.floor(p.K / 2);
+    const cx = eng.layoutW / 2, cy = eng.layoutH / 2;
+    const radius = Math.min(eng.layoutW, eng.layoutH) * 0.3;
+    const ids = [];
+
+    for (let i = 0; i < n; i++) {
+      const angle = (2 * Math.PI * i) / n;
+      const id = eng.nextId++;
+      const desires = [];
+      for (let o = 0; o < p.nRiv; o++) desires.push(Math.random());
+      eng.agents.set(id, {
+        id, alive: true,
+        x: cx + Math.cos(angle) * radius + (Math.random() - 0.5) * 10,
+        y: cy + Math.sin(angle) * radius + (Math.random() - 0.5) * 10,
+        vx: 0, vy: 0,
+        desires,
+        receivedAgg: 0,
+        spawnStep: 0,
+      });
+      eng.neighbors.set(id, new Set());
+      ids.push(id);
+    }
+
+    for (let i = 0; i < n; i++) {
+      for (let j = 1; j <= halfK; j++) {
+        const ni = ids[(i + j) % n];
+        eng.neighbors.get(ids[i]).add(ni);
+        eng.neighbors.get(ni).add(ids[i]);
+      }
+    }
+
+    for (let i = 0; i < n; i++) {
+      for (let j = 1; j <= halfK; j++) {
+        if (Math.random() < p.rewireP) {
+          const src = ids[i];
+          const tgt = ids[(i + j) % n];
+          const nbSet = eng.neighbors.get(src);
+          let att = 0;
+          while (att++ < 40) {
+            const ri = ids[Math.floor(Math.random() * n)];
+            if (ri !== src && !nbSet.has(ri)) {
+              nbSet.delete(tgt);
+              eng.neighbors.get(tgt).delete(src);
+              nbSet.add(ri);
+              eng.neighbors.get(ri).add(src);
+              break;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  function addAgent(p) {
+    const alive = aliveIds();
+    if (alive.length === 0) return;
+    const numNb = Math.min(Math.floor(p.K / 2), alive.length);
+    const shuffled = [...alive].sort(() => Math.random() - 0.5);
+    const chosen = shuffled.slice(0, numNb);
+    let sx = 0, sy = 0;
+    for (const nid of chosen) { const a = eng.agents.get(nid); sx += a.x; sy += a.y; }
+    sx /= chosen.length; sy /= chosen.length;
+
+    const desires = [];
+    for (let o = 0; o < p.nRiv; o++) desires.push(Math.random());
+
+    const id = eng.nextId++;
+    eng.agents.set(id, {
+      id, alive: true,
+      x: sx + (Math.random() - 0.5) * 30,
+      y: sy + (Math.random() - 0.5) * 30,
+      vx: 0, vy: 0,
+      desires,
+      receivedAgg: 0,
+      spawnStep: eng.step,
+    });
+
+    const nbSet = new Set();
+    for (const nid of chosen) {
+      nbSet.add(nid);
+      eng.neighbors.get(nid).add(id);
+    }
+    for (const nid of chosen) {
+      if (Math.random() < p.rewireP) {
+        const others = alive.filter(x => x !== id && x !== nid && !nbSet.has(x));
+        if (others.length > 0) {
+          const ri = others[Math.floor(Math.random() * others.length)];
+          nbSet.add(ri);
+          eng.neighbors.get(ri).add(id);
+        }
+      }
+    }
+    eng.neighbors.set(id, nbSet);
+    eng.effects.push({ type: 'spawn', x: sx, y: sy, progress: 0, max: 24 });
+  }
+
+  function removeLatest() {
+    const alive = aliveIds();
+    if (alive.length === 0) return;
+    let latest = alive[0], latestStep = -1;
+    for (const id of alive) {
+      const a = eng.agents.get(id);
+      if (a.spawnStep > latestStep || (a.spawnStep === latestStep && id > latest)) {
+        latestStep = a.spawnStep; latest = id;
+      }
+    }
+    killAgent(latest, false);
+  }
+
+  function killAgent(id, isExpulsion) {
+    const a = eng.agents.get(id);
+    if (!a || !a.alive) return;
+    a.alive = false;
+
+    eng.agg.delete(id);
+    for (const [, row] of eng.agg) row.delete(id);
+
+    const nb = eng.neighbors.get(id);
+    if (nb) {
+      for (const n of nb) {
+        const ns = eng.neighbors.get(n);
+        if (ns) ns.delete(id);
+      }
+    }
+
+    if (isExpulsion) {
+      const cx = eng.layoutW / 2, cy = eng.layoutH / 2;
+      let dx = a.x - cx, dy = a.y - cy;
+      const d = Math.sqrt(dx * dx + dy * dy) || 1;
+      dx /= d; dy /= d;
+      const angle = Math.atan2(dy, dx) + (Math.random() - 0.5) * 0.6;
+      const speed = 6 + Math.random() * 4;
+      eng.ejecting.push({
+        x: a.x, y: a.y,
+        vx: Math.cos(angle) * speed,
+        vy: Math.sin(angle) * speed,
+        receivedAgg: a.receivedAgg,
+        radius: 8,
+        age: 0,
+        originX: a.x, originY: a.y,
+      });
+      eng.effects.push({ type: 'expulsion', x: a.x, y: a.y, progress: 0, max: 20 });
+    }
+  }
+
+  function tick(p) {
+    if (eng.resetCountdown > 0) {
+      eng.resetCountdown--;
+      if (eng.resetCountdown === 0) { generate(p); eng._prevSliderN = p.N; }
+      return;
+    }
+
+    eng.step++;
+    const alive = aliveIds();
+    const n = alive.length;
+    if (n < 2) return;
+
+    for (const id of alive) {
+      const a = eng.agents.get(id);
+      while (a.desires.length < p.nRiv) a.desires.push(Math.random());
+      if (a.desires.length > p.nRiv) a.desires.length = p.nRiv;
+    }
+
+    const newDesires = new Map();
+    for (const id of alive) {
+      const a = eng.agents.get(id);
+      const nb = getAliveNeighbors(id);
+      const nd = new Float64Array(p.nRiv);
+      if (nb.length > 0) {
+        const mean = new Float64Array(p.nRiv);
+        for (const nid of nb) {
+          const na = eng.agents.get(nid);
+          for (let o = 0; o < p.nRiv; o++) mean[o] += na.desires[o];
+        }
+        for (let o = 0; o < p.nRiv; o++) {
+          mean[o] /= nb.length;
+          nd[o] = clamp(
+            p.alpha * a.desires[o] + (1 - p.alpha) * mean[o] + randN() * p.desireNoise,
+            0, 1
+          );
+        }
+      } else {
+        for (let o = 0; o < p.nRiv; o++)
+          nd[o] = clamp(a.desires[o] + randN() * p.desireNoise, 0, 1);
+      }
+      newDesires.set(id, nd);
+    }
+    for (const [id, nd] of newDesires) {
+      eng.agents.get(id).desires = Array.from(nd);
+    }
+
+    for (const id of alive) {
+      const a = eng.agents.get(id);
+      const nb = getAliveNeighbors(id);
+      for (const nid of nb) {
+        if (nid <= id) continue;
+        const na = eng.agents.get(nid);
+        let shared = 0;
+        for (let o = 0; o < p.nRiv; o++) shared += Math.min(a.desires[o], na.desires[o]);
+        const inc = p.rivToAgg * (1 - p.alpha) * shared;
+        setAgg(id, nid, getAgg(id, nid) + inc);
+        setAgg(nid, id, getAgg(nid, id) + inc);
+      }
+    }
+
+    const pendingAgg = [];
+    for (const i of alive) {
+      const nb = getAliveNeighbors(i);
+      if (nb.length === 0) continue;
+
+      let totalBefore = 0;
+      const meanH = new Map();
+      for (const t of alive) {
+        if (t === i) continue;
+        let sum = 0;
+        for (const j of nb) sum += getAgg(j, t);
+        const m = sum / nb.length;
+        if (m > 1e-12) {
+          meanH.set(t, m);
+          totalBefore += m;
+        }
+      }
+      if (totalBefore < 1e-12) continue;
+
+      let totalPow = 0;
+      const powered = new Map();
+      for (const [t, hv] of meanH) {
+        const pw = Math.pow(hv, p.gamma);
+        powered.set(t, pw);
+        totalPow += pw;
+      }
+      if (totalPow < 1e-12) continue;
+      const scale = totalBefore / totalPow;
+
+      for (const t of alive) {
+        if (t === i) continue;
+        const own = getAgg(i, t);
+        const social = (powered.get(t) || 0) * scale;
+        pendingAgg.push([i, t, p.alpha * own + (1 - p.alpha) * social]);
+      }
+    }
+    for (const [i, t, v] of pendingAgg) setAgg(i, t, v);
+
+    for (const [, row] of eng.agg) {
+      for (const [j, v] of row) {
+        const nv = v * (1 - p.decay);
+        if (nv < 1e-9) row.delete(j);
+        else row.set(j, nv);
+      }
+    }
+
+    const received = new Map();
+    let totalTension = 0;
+    for (const t of alive) received.set(t, 0);
+    for (const [i, row] of eng.agg) {
+      if (!eng.agents.get(i)?.alive) continue;
+      for (const [j, v] of row) {
+        if (!eng.agents.get(j)?.alive) continue;
+        received.set(j, (received.get(j) || 0) + v);
+      }
+    }
+    for (const [id, v] of received) {
+      const a = eng.agents.get(id);
+      if (a) a.receivedAgg = v;
+    }
+
+    const topTargets = new Map();
+    let eligible = 0;
+    for (const id of alive) {
+      const row = eng.agg.get(id);
+      if (!row) continue;
+      let myMax = 0, myTarget = -1;
+      for (const [t, v] of row) {
+        if (eng.agents.get(t)?.alive && v > myMax) { myMax = v; myTarget = t; }
+      }
+      if (myMax < 1e-8) continue;
+      eligible++;
+      topTargets.set(myTarget, (topTargets.get(myTarget) || 0) + 1);
+    }
+
+    let modalTarget = -1, modalCount = 0;
+    for (const [t, c] of topTargets) {
+      if (c > modalCount) { modalCount = c; modalTarget = t; }
+    }
+    const modalAgreement = eligible > 0 ? modalCount / eligible : 0;
+
+    if (eng.expCooldown > 0) eng.expCooldown--;
+
+    if (modalAgreement >= 0.95 && eng.expCooldown <= 0 && modalTarget >= 0) {
+      const recAgg = received.get(modalTarget) || 0;
+      eng.expulsions.push({ step: eng.step, victimId: modalTarget, receivedAgg: recAgg });
+      killAgent(modalTarget, true);
+      eng.expCooldown = p.cooldown;
+      if (aliveCount() < p.resetBelow) eng.resetCountdown = 60;
+    }
+  }
+
+  function computeStats() {
+    const alive = aliveIds();
+    const n = alive.length;
+    const received = new Map();
+    let totalTension = 0;
+    for (const t of alive) received.set(t, 0);
+    for (const [i, row] of eng.agg) {
+      if (!eng.agents.get(i)?.alive) continue;
+      for (const [j, v] of row) {
+        if (!eng.agents.get(j)?.alive) continue;
+        received.set(j, (received.get(j) || 0) + v);
+        totalTension += v;
+      }
+    }
+
+    let agreement = 0;
+    let targetId = -1;
+    {
+      const topTargets = new Map();
+      let elig = 0;
+      for (const id of alive) {
+        const row = eng.agg.get(id);
+        if (!row) continue;
+        let myMax = 0, myTarget = -1;
+        for (const [t, v] of row) {
+          if (eng.agents.get(t)?.alive && v > myMax) { myMax = v; myTarget = t; }
+        }
+        if (myMax < 1e-8) continue;
+        elig++;
+        topTargets.set(myTarget, (topTargets.get(myTarget) || 0) + 1);
+      }
+      let modalCount = 0;
+      for (const [t, c] of topTargets) {
+        if (c > modalCount) { modalCount = c; targetId = t; }
+      }
+      agreement = elig > 0 ? modalCount / elig : 0;
+    }
+
+    let maxR = 0;
+    const vals = [];
+    for (const [id, v] of received) {
+      vals.push(v);
+      if (v > maxR) { maxR = v; }
+    }
+    const topShare = totalTension > 0 ? maxR / totalTension : 0;
+
+    let gini = 0;
+    if (n > 1 && totalTension > 0) {
+      vals.sort((a, b) => a - b);
+      let num = 0;
+      for (let i = 0; i < n; i++) num += (2 * (i + 1) - n - 1) * vals[i];
+      const denom = n * vals.reduce((s, v) => s + v, 0);
+      gini = denom > 0 ? num / denom : 0;
+    }
+
+    return {
+      step: eng.step, alive: n, expelled: eng.expulsions.length,
+      tension: totalTension, gini, topShare, agreement, targetId,
+      cooldown: eng.expCooldown,
+      resetting: eng.resetCountdown > 0,
+    };
+  }
+
+  function updateForces() {
+    const alive = aliveIds();
+    const w = eng.layoutW, hh = eng.layoutH;
+    const cx = w / 2, cy = hh / 2;
+    const idealLen = Math.min(w, hh) / (Math.sqrt(alive.length) * 1.1 + 1);
+
+    for (let i = 0; i < alive.length; i++) {
+      const ai = eng.agents.get(alive[i]);
+      for (let j = i + 1; j < alive.length; j++) {
+        const aj = eng.agents.get(alive[j]);
+        let dx = ai.x - aj.x, dy = ai.y - aj.y;
+        let d2 = dx * dx + dy * dy;
+        if (d2 < 4) {
+          dx += (Math.random() - 0.5) * 4;
+          dy += (Math.random() - 0.5) * 4;
+          d2 = dx * dx + dy * dy;
+        }
+        if (d2 < 1) d2 = 1;
+        const d = Math.sqrt(d2);
+        const f = (idealLen * idealLen) / d2;
+        const scale = 0.4;
+        ai.vx += (dx / d) * f * scale;
+        ai.vy += (dy / d) * f * scale;
+        aj.vx -= (dx / d) * f * scale;
+        aj.vy -= (dy / d) * f * scale;
+      }
+    }
+
+    for (const id of alive) {
+      const a = eng.agents.get(id);
+      const nb = eng.neighbors.get(id);
+      if (!nb) continue;
+      for (const nid of nb) {
+        const na = eng.agents.get(nid);
+        if (!na?.alive) continue;
+        const dx = na.x - a.x, dy = na.y - a.y;
+        const d = Math.sqrt(dx * dx + dy * dy) || 1;
+        const displacement = d - idealLen;
+        const f = displacement * 0.008;
+        a.vx += (dx / d) * f;
+        a.vy += (dy / d) * f;
+      }
+    }
+
+    for (const id of alive) {
+      const a = eng.agents.get(id);
+      a.vx += (cx - a.x) * 0.002;
+      a.vy += (cy - a.y) * 0.002;
+      a.vx *= 0.82;
+      a.vy *= 0.82;
+      const sp = Math.sqrt(a.vx * a.vx + a.vy * a.vy);
+      if (sp > 5) { a.vx = (a.vx / sp) * 5; a.vy = (a.vy / sp) * 5; }
+      a.x += a.vx;
+      a.y += a.vy;
+      a.x = clamp(a.x, 20, w - 20);
+      a.y = clamp(a.y, 20, hh - 20);
+    }
+  }
+
+  function tickEffects() {
+    for (let i = eng.effects.length - 1; i >= 0; i--) {
+      eng.effects[i].progress++;
+      if (eng.effects[i].progress >= eng.effects[i].max) eng.effects.splice(i, 1);
+    }
+  }
+
+  function tickEjecting() {
+    const margin = 60;
+    for (let i = eng.ejecting.length - 1; i >= 0; i--) {
+      const e = eng.ejecting[i];
+      e.x += e.vx;
+      e.y += e.vy;
+      e.vx *= 1.04;
+      e.vy *= 1.04;
+      e.age++;
+      if (e.x < -margin || e.x > eng.layoutW + margin ||
+          e.y < -margin || e.y > eng.layoutH + margin || e.age > 120) {
+        eng.ghostDots.push({ x: e.originX, y: e.originY });
+        if (eng.ghostDots.length > 30) eng.ghostDots.shift();
+        eng.ejecting.splice(i, 1);
+      }
+    }
+  }
+
+  eng.getAgg = getAgg;
+  eng.aliveIds = aliveIds;
+  eng.aliveCount = aliveCount;
+  eng.generate = generate;
+  eng.addAgent = addAgent;
+  eng.removeLatest = removeLatest;
+  eng.tick = tick;
+  eng.computeStats = computeStats;
+  eng.updateForces = updateForces;
+  eng.tickEffects = tickEffects;
+  eng.tickEjecting = tickEjecting;
+
+  return eng;
+}
+
+// ── Canvas drawing ───────────────────────────────────────────────────────
+function drawScene(ctx, eng, params, st, frame, w, hh) {
+  ctx.clearRect(0, 0, w, hh);
+
+  const alive = eng.aliveIds();
+  let maxRec = 0;
+  for (const id of alive) {
+    const r = eng.agents.get(id).receivedAgg;
+    if (r > maxRec) maxRec = r;
+  }
+  if (maxRec < 0.1) maxRec = 0.1;
+
+  ctx.lineCap = 'round';
+  const aggThreshVis = 0.05;
+  for (const id of alive) {
+    const row = eng.agg.get(id);
+    if (!row) continue;
+    const a = eng.agents.get(id);
+    if (!a?.alive) continue;
+    for (const [tid, v] of row) {
+      if (v < aggThreshVis) continue;
+      const ta = eng.agents.get(tid);
+      if (!ta?.alive) continue;
+      const dx = ta.x - a.x, dy = ta.y - a.y;
+      const d = Math.sqrt(dx * dx + dy * dy);
+      if (d < 1) continue;
+      const ux = dx / d, uy = dy / d;
+      const heat = clamp01(v / (maxRec * 0.5));
+      const alpha = 0.08 + heat * 0.55;
+      const lw = 1 + heat * 3;
+
+      const srcR = 5 + clamp01(a.receivedAgg / maxRec) * 6;
+      const tgtR = 5 + clamp01(ta.receivedAgg / maxRec) * 6;
+      const x0 = a.x + ux * (srcR + 2);
+      const y0 = a.y + uy * (srcR + 2);
+      const x1 = ta.x - ux * (tgtR + 4);
+      const y1 = ta.y - uy * (tgtR + 4);
+
+      const col = rampColor(0.55 + heat * 0.45, alpha);
+
+      ctx.beginPath();
+      ctx.moveTo(x0, y0);
+      ctx.lineTo(x1, y1);
+      ctx.strokeStyle = col;
+      ctx.lineWidth = lw;
+      ctx.stroke();
+
+      const headLen = 4 + heat * 6;
+      const headW = 2 + heat * 3;
+      const px = -ux, py = -uy;
+      const nx = -uy, ny = ux;
+      ctx.beginPath();
+      ctx.moveTo(x1, y1);
+      ctx.lineTo(x1 + px * headLen + nx * headW, y1 + py * headLen + ny * headW);
+      ctx.lineTo(x1 + px * headLen - nx * headW, y1 + py * headLen - ny * headW);
+      ctx.closePath();
+      ctx.fillStyle = col;
+      ctx.fill();
+    }
+  }
+
+  for (const id of alive) {
+    const a = eng.agents.get(id);
+    const nb = eng.neighbors.get(id);
+    if (!nb) continue;
+    for (const nid of nb) {
+      if (nid <= id) continue;
+      const na = eng.agents.get(nid);
+      if (!na?.alive) continue;
+      ctx.beginPath();
+      ctx.moveTo(a.x, a.y);
+      ctx.lineTo(na.x, na.y);
+      ctx.strokeStyle = 'rgba(60,60,50,0.08)';
+      ctx.lineWidth = 0.5;
+      ctx.stroke();
+    }
+  }
+
+  for (const g of eng.ghostDots) {
+    ctx.beginPath();
+    ctx.arc(g.x, g.y, 2, 0, Math.PI * 2);
+    ctx.fillStyle = 'rgba(100,90,60,0.22)';
+    ctx.fill();
+  }
+
+  for (const e of eng.effects) {
+    const t = e.progress / e.max;
+    if (e.type === 'expulsion') {
+      ctx.beginPath();
+      ctx.arc(e.x, e.y, t * 20, 0, Math.PI * 2);
+      ctx.strokeStyle = rampColor(0.85, (1 - t) * 0.4);
+      ctx.lineWidth = 1.5 * (1 - t);
+      ctx.stroke();
+    } else {
+      const r = (1 - t) * 28;
+      const a = t < 0.4 ? (t / 0.4) * 0.4 : ((1 - t) / 0.6) * 0.4;
+      ctx.beginPath();
+      ctx.arc(e.x, e.y, r, 0, Math.PI * 2);
+      ctx.strokeStyle = rampColor(0.15, a);
+      ctx.lineWidth = 1.5;
+      ctx.stroke();
+    }
+  }
+
+  for (const e of eng.ejecting) {
+    const fade = clamp01(1 - e.age / 80);
+    const heat = clamp01(e.receivedAgg / maxRec);
+    const r = e.radius * (0.6 + 0.4 * fade);
+
+    if (fade > 0.2) {
+      const glowR = r + 10 + heat * 12;
+      const grad = ctx.createRadialGradient(e.x, e.y, r * 0.3, e.x, e.y, glowR);
+      grad.addColorStop(0, rampColor(Math.max(heat, 0.7), fade * 0.3));
+      grad.addColorStop(1, 'rgba(0,0,0,0)');
+      ctx.beginPath();
+      ctx.arc(e.x, e.y, glowR, 0, Math.PI * 2);
+      ctx.fillStyle = grad;
+      ctx.fill();
+    }
+
+    ctx.beginPath();
+    ctx.arc(e.x, e.y, r, 0, Math.PI * 2);
+    ctx.fillStyle = rampColor(Math.max(heat, 0.7), fade * 0.85);
+    ctx.fill();
+  }
+
+  for (const id of alive) {
+    const a = eng.agents.get(id);
+    const heat = clamp01(a.receivedAgg / maxRec);
+    const baseR = 5 + heat * 6;
+
+    if (heat > 0.25) {
+      const glowR = baseR + 12 + heat * 18;
+      const grad = ctx.createRadialGradient(a.x, a.y, baseR * 0.5, a.x, a.y, glowR);
+      grad.addColorStop(0, rampColor(heat, heat * 0.2));
+      grad.addColorStop(1, 'rgba(0,0,0,0)');
+      ctx.beginPath();
+      ctx.arc(a.x, a.y, glowR, 0, Math.PI * 2);
+      ctx.fillStyle = grad;
+      ctx.fill();
+    }
+
+    if (id === st.targetId && st.targetId >= 0) {
+      const pulse = 0.35 + 0.3 * Math.sin(frame * 0.055);
+      const ringR = baseR + 8 + Math.sin(frame * 0.035) * 3;
+      ctx.beginPath();
+      ctx.arc(a.x, a.y, ringR, 0, Math.PI * 2);
+      ctx.strokeStyle = rampColor(0.9, pulse);
+      ctx.lineWidth = 1.5;
+      ctx.stroke();
+    }
+
+    ctx.beginPath();
+    ctx.arc(a.x, a.y, baseR, 0, Math.PI * 2);
+    ctx.fillStyle = rampColor(heat, 0.75 + heat * 0.25);
+    ctx.fill();
+  }
+}
+
+// ── Slider definitions ───────────────────────────────────────────────────
+const SLIDER_DEFS = [
+  { key: 'N', label: 'N', min: 6, max: 100, step: 1 },
+  { key: 'K', label: 'K', min: 2, max: 14, step: 2 },
+  { key: 'rewireP', label: 'rewire', min: 0, max: 1, step: 0.01 },
+  { key: 'gamma', label: 'gamma', min: 0.01, max: 2, step: 0.01 },
+  { key: 'alpha', label: 'alpha', min: 0.01, max: 0.6, step: 0.01 },
+  { key: 'rivToAgg', label: 'riv>agg', min: 0.01, max: 1, step: 0.01 },
+  { key: 'decay', label: 'decay', min: 0, max: 0.15, step: 0.005 },
+  { key: 'cooldown', label: 'cooldown', min: 0, max: 20, step: 1 },
+  { key: 'nRiv', label: 'nRiv', min: 1, max: 20, step: 1 },
+  { key: 'desireNoise', label: 'noise', min: 0, max: 0.1, step: 0.002 },
+  { key: 'speed', label: 'speed', min: 0.1, max: 20, step: 0.1 },
+  { key: 'resetBelow', label: 'autoRst', min: 2, max: 30, step: 1 },
+];
+
+const DEFAULTS = {
+  N: 40, K: 6, rewireP: 0.15, gamma: 2.0, alpha: 0.15,
+  rivToAgg: 0.2, decay: 0.03, cooldown: 5, nRiv: 5,
+  desireNoise: 0.02, speed: 1, resetBelow: 6,
+};
+
+const MONO = '"SF Mono","Fira Code","Cascadia Code","Menlo","Consolas",monospace';
+
+// ── React component (using createElement instead of JSX) ─────────────────
+function MimeticAquarium() {
+  const canvasRef = useRef(null);
+  const engineRef = useRef(null);
+  const rafRef = useRef(null);
+  const frameRef = useRef(0);
+  const paramsRef = useRef({ ...DEFAULTS });
+  const pausedRef = useRef(false);
+
+  const [params, setParams] = useState({ ...DEFAULTS });
+  const [paused, setPaused] = useState(false);
+  const [hud, setHud] = useState(null);
+  const [logEntries, setLogEntries] = useState([]);
+
+  paramsRef.current = params;
+  pausedRef.current = paused;
+
+  const doReset = useCallback(() => {
+    const eng = engineRef.current;
+    if (!eng) return;
+    const canvas = canvasRef.current;
+    eng.layoutW = (canvas ? canvas.width / (window.devicePixelRatio || 1) : 800) - 152;
+    eng.layoutH = canvas ? canvas.height / (window.devicePixelRatio || 1) : 600;
+    eng.generate(paramsRef.current);
+    eng._prevSliderN = paramsRef.current.N;
+    setLogEntries([]);
+  }, []);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const resize = () => {
+      const dpr = window.devicePixelRatio || 1;
+      canvas.width = window.innerWidth * dpr;
+      canvas.height = window.innerHeight * dpr;
+      canvas.style.width = window.innerWidth + 'px';
+      canvas.style.height = window.innerHeight + 'px';
+      if (engineRef.current) {
+        engineRef.current.layoutW = window.innerWidth - 152;
+        engineRef.current.layoutH = window.innerHeight;
+      }
+    };
+    resize();
+    engineRef.current = createEngine();
+    doReset();
+    window.addEventListener('resize', resize);
+    return () => window.removeEventListener('resize', resize);
+  }, [doReset]);
+
+  useEffect(() => {
+    let prevLogLen = 0;
+    let hudTick = 0;
+
+    function loop() {
+      const eng = engineRef.current;
+      const canvas = canvasRef.current;
+      if (!eng || !canvas) { rafRef.current = requestAnimationFrame(loop); return; }
+
+      const ctx = canvas.getContext('2d');
+      const dpr = window.devicePixelRatio || 1;
+      const p = paramsRef.current;
+      const drawW = window.innerWidth - 152;
+      const drawH = window.innerHeight;
+
+      frameRef.current++;
+
+      if (eng.resetCountdown <= 0) {
+        const sliderN = p.N;
+        const prevSliderN = eng._prevSliderN ?? sliderN;
+        const delta = sliderN - prevSliderN;
+        if (delta > 0) {
+          for (let i = 0, n = Math.min(delta, 2); i < n; i++) eng.addAgent(p);
+          eng._prevSliderN = prevSliderN + Math.min(delta, 2);
+        } else if (delta < 0) {
+          for (let i = 0, n = Math.min(-delta, 2); i < n; i++) eng.removeLatest();
+          eng._prevSliderN = prevSliderN - Math.min(-delta, 2);
+        } else {
+          eng._prevSliderN = sliderN;
+        }
+      }
+
+      if (!pausedRef.current) {
+        eng._speedAccum = (eng._speedAccum || 0) + p.speed;
+        while (eng._speedAccum >= 1) {
+          eng.tick(p);
+          eng._speedAccum -= 1;
+        }
+      }
+
+      eng.updateForces();
+      eng.tickEffects();
+      eng.tickEjecting();
+
+      const st = eng.computeStats();
+
+      ctx.save();
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      ctx.fillStyle = '#000';
+      ctx.fillRect(0, 0, window.innerWidth, window.innerHeight);
+      ctx.save();
+      ctx.translate(152, 0);
+      drawScene(ctx, eng, p, st, frameRef.current, drawW, drawH);
+      ctx.restore();
+      ctx.restore();
+
+      hudTick++;
+      if (hudTick % 5 === 0) {
+        setHud(st);
+        if (eng.expulsions.length !== prevLogLen) {
+          prevLogLen = eng.expulsions.length;
+          setLogEntries(eng.expulsions.slice(-12));
+        }
+      }
+
+      rafRef.current = requestAnimationFrame(loop);
+    }
+
+    rafRef.current = requestAnimationFrame(loop);
+    return () => { if (rafRef.current) cancelAnimationFrame(rafRef.current); };
+  }, []);
+
+  useEffect(() => {
+    const handler = (e) => {
+      if (e.target.tagName === 'INPUT') return;
+      if (e.code === 'Space') { e.preventDefault(); setPaused(prev => !prev); }
+      if (e.code === 'KeyR') { doReset(); setPaused(false); }
+    };
+    window.addEventListener('keydown', handler);
+    return () => window.removeEventListener('keydown', handler);
+  }, [doReset]);
+
+  const setP = (key, val) => setParams(prev => ({ ...prev, [key]: val }));
+
+  const st = hud || {
+    step: 0, alive: 0, expelled: 0, tension: 0,
+    gini: 0, topShare: 0, agreement: 0, targetId: -1,
+  };
+
+  return h('div', { style: { position: 'fixed', inset: 0, background: '#000', overflow: 'hidden', fontFamily: MONO } },
+    h('canvas', { ref: canvasRef, style: { display: 'block', position: 'absolute', inset: 0 } }),
+
+    // Left panel: sliders
+    h('div', { style: {
+      position: 'absolute', left: 0, top: 0, bottom: 0, width: 152,
+      background: 'rgba(0,0,0,0.92)', borderRight: '1px solid #181818',
+      padding: '10px 8px', overflowY: 'auto', zIndex: 10,
+      fontFamily: MONO, fontSize: 10, color: '#555',
+    }},
+      ...SLIDER_DEFS.map(({ key, label, min, max, step }) =>
+        h('div', { key, style: { marginBottom: 7 } },
+          h('div', { style: { display: 'flex', justifyContent: 'space-between', marginBottom: 1 } },
+            h('span', { style: { color: '#484848' } }, label),
+            h('span', { style: { color: '#626262' } },
+              step >= 1 && Number.isInteger(step) ? params[key] : params[key].toFixed(step < 0.01 ? 3 : 2)
+            ),
+          ),
+          h('input', {
+            className: 'maq-slider',
+            type: 'range', min, max, step,
+            value: params[key],
+            onChange: e => setP(key, parseFloat(e.target.value)),
+          }),
+        )
+      ),
+      h('button', {
+        className: 'maq-btn',
+        style: { marginTop: 10, fontFamily: MONO },
+        onClick: () => { doReset(); setPaused(false); },
+      }, 'reset'),
+      h('div', { style: { marginTop: 8, color: '#333', fontSize: 9, textAlign: 'center', letterSpacing: '0.5px' } },
+        paused ? 'paused' : 'running', ' \u00B7 SPC / R'
+      ),
+    ),
+
+    // Top-left watermark
+    h('div', { style: {
+      position: 'absolute', left: 164, top: 14, zIndex: 5, pointerEvents: 'none',
+      fontFamily: MONO, fontSize: 11, color: 'rgba(255,255,255,0.09)', letterSpacing: '1px',
+    }},
+      'mimetic aquarium',
+      h('span', { style: { marginLeft: 12, color: 'rgba(255,255,255,0.06)' } },
+        '\u03B3=' + params.gamma.toFixed(2) + ' N=' + params.N
+      ),
+    ),
+
+    // Right HUD
+    h('div', { style: {
+      position: 'absolute', right: 18, top: 14, zIndex: 5, pointerEvents: 'none',
+      fontFamily: MONO, fontSize: 10, lineHeight: '16px', textAlign: 'right',
+    }},
+      ...[
+        ['step', st.step],
+        ['alive', st.alive],
+        ['expelled', st.expelled],
+        ['tension', st.tension.toFixed(1)],
+        ['gini', st.gini.toFixed(3)],
+        ['top-tgt', (st.topShare * 100).toFixed(1) + '%'],
+        ['target', st.targetId >= 0 ? '#' + st.targetId : '--'],
+      ].map(([label, val]) =>
+        h('div', { key: label },
+          h('span', { style: { color: '#333' } }, label + ' '),
+          h('span', { style: { color: '#5a5a5a' } }, val),
+        )
+      ),
+      h('div', { key: 'modal' },
+        h('span', { style: { color: '#333' } }, 'modal '),
+        h('span', { style: { color: st.agreement >= 0.95 ? '#d4aa40' : st.agreement >= 0.5 ? '#8a7a30' : '#555' } },
+          (st.agreement * 100).toFixed(0) + '%'
+        ),
+        st.cooldown > 0 ? h('span', { style: { color: '#555', fontSize: 9 } }, ' cd:' + st.cooldown) : null,
+      ),
+      st.resetting ? h('div', { style: { color: '#7a5a18', marginTop: 4, fontSize: 9 } }, 'resetting...') : null,
+    ),
+
+    // Bottom-right: expulsion log
+    h('div', { style: {
+      position: 'absolute', right: 18, bottom: 18, zIndex: 5, pointerEvents: 'none',
+      fontFamily: MONO, fontSize: 9, lineHeight: '14px', textAlign: 'right',
+    }},
+      ...logEntries.map((e, i) => {
+        const age = logEntries.length - 1 - i;
+        const a = Math.max(0.1, 0.65 - age * 0.055);
+        return h('div', { key: e.step + '-' + e.victimId, style: { color: `rgba(150,125,55,${a})` } },
+          e.step + ':#' + e.victimId + ' (' + e.receivedAgg.toFixed(1) + ')'
+        );
+      }),
+    ),
+  );
+}
+
+// ── Inject slider/button styles ──
+const styleEl = document.createElement('style');
+styleEl.textContent = `
+  .maq-slider{-webkit-appearance:none;appearance:none;width:100%;height:3px;
+    background:#222;outline:none;border-radius:1px;cursor:pointer;margin:3px 0}
+  .maq-slider::-webkit-slider-thumb{-webkit-appearance:none;width:8px;height:14px;
+    background:#4a4a4a;border:none;border-radius:2px;cursor:pointer}
+  .maq-slider::-moz-range-thumb{width:8px;height:14px;background:#4a4a4a;
+    border:none;border-radius:2px;cursor:pointer}
+  .maq-slider:hover::-webkit-slider-thumb{background:#6a6a6a}
+  .maq-slider:hover::-moz-range-thumb{background:#6a6a6a}
+  .maq-btn{background:#0e0e0e;border:1px solid #252525;color:#555;cursor:pointer;
+    font-size:10px;border-radius:2px;padding:5px 0;width:100%;transition:border-color .15s}
+  .maq-btn:hover{border-color:#444}
+`;
+document.head.appendChild(styleEl);
+
+// ── Mount ──
+createRoot(document.getElementById('root')).render(h(MimeticAquarium));
+</script>
+</body>
+</html>
