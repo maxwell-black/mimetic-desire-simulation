@@ -1,0 +1,148 @@
+====================================================================================================
+GAP TREND ANALYSIS
+Steps: 5000, Seeds: 20
+Started: 2026-02-08 08:01:58
+====================================================================================================
+
+====================================================================================================
+  N=200 g=1.5 [positive control]
+====================================================================================================
+  seed=42: 124 gaps | MK: S=+2585 p=0.0000 (increasing) | Half: 1->1 p=0.0000 (shortening) | OLS slope=+1.45 R2=0.110
+  seed=1042: 128 gaps | MK: S=+2400 p=0.0000 (increasing) | Half: 1->1 p=0.0000 (shortening) | OLS slope=+1.09 R2=0.082
+  seed=2042: 130 gaps | MK: S=+2885 p=0.0000 (increasing) | Half: 1->1 p=0.0000 (shortening) | OLS slope=+1.15 R2=0.092
+  seed=3042: 127 gaps | MK: S=+2491 p=0.0000 (increasing) | Half: 1->1 p=0.0000 (shortening) | OLS slope=+1.36 R2=0.104
+  seed=4042: 125 gaps | MK: S=+2220 p=0.0000 (increasing) | Half: 1->1 p=0.0000 (shortening) | OLS slope=+0.39 R2=0.085
+  seed=5042: 126 gaps | MK: S=+2197 p=0.0000 (increasing) | Half: 1->1 p=0.0000 (shortening) | OLS slope=+1.14 R2=0.071
+  seed=6042: 130 gaps | MK: S=+2700 p=0.0000 (increasing) | Half: 1->1 p=0.0000 (shortening) | OLS slope=+1.53 R2=0.149
+  seed=7042: 128 gaps | MK: S=+2429 p=0.0000 (increasing) | Half: 1->1 p=0.0000 (shortening) | OLS slope=+1.45 R2=0.084
+  seed=8042: 128 gaps | MK: S=+2911 p=0.0000 (increasing) | Half: 1->1 p=0.0000 (shortening) | OLS slope=+1.50 R2=0.175
+  seed=9042: 132 gaps | MK: S=+2379 p=0.0000 (increasing) | Half: 1->1 p=0.0000 (shortening) | OLS slope=+1.28 R2=0.101
+  seed=10042: 132 gaps | MK: S=+2891 p=0.0000 (increasing) | Half: 1->1 p=0.0000 (shortening) | OLS slope=+1.33 R2=0.122
+  seed=11042: 131 gaps | MK: S=+2480 p=0.0000 (increasing) | Half: 1->1 p=0.0000 (shortening) | OLS slope=+1.53 R2=0.086
+  seed=12042: 134 gaps | MK: S=+3628 p=0.0000 (increasing) | Half: 1->1 p=0.0000 (shortening) | OLS slope=+1.32 R2=0.212
+  seed=13042: 129 gaps | MK: S=+2395 p=0.0000 (increasing) | Half: 1->1 p=0.0000 (shortening) | OLS slope=+1.00 R2=0.077
+  seed=14042: 126 gaps | MK: S=+2856 p=0.0000 (increasing) | Half: 1->1 p=0.0000 (shortening) | OLS slope=+1.13 R2=0.214
+  seed=15042: 127 gaps | MK: S=+2048 p=0.0000 (increasing) | Half: 1->1 p=0.0000 (shortening) | OLS slope=+1.76 R2=0.039
+  seed=16042: 127 gaps | MK: S=+3120 p=0.0000 (increasing) | Half: 1->1 p=0.0000 (shortening) | OLS slope=+1.43 R2=0.090
+  seed=17042: 134 gaps | MK: S=+3127 p=0.0000 (increasing) | Half: 1->1 p=0.0000 (shortening) | OLS slope=+0.76 R2=0.140
+  seed=18042: 124 gaps | MK: S=+2728 p=0.0000 (increasing) | Half: 1->1 p=0.0000 (shortening) | OLS slope=+0.84 R2=0.132
+  seed=19042: 129 gaps | MK: S=+2615 p=0.0000 (increasing) | Half: 1->1 p=0.0000 (shortening) | OLS slope=+1.18 R2=0.139
+
+  --- Aggregate for N=200 g=1.5 [positive control] (632s) ---
+    Mann-Kendall increasing: 20/20 seeds
+    Mann-Kendall decreasing: 0/20 seeds
+    Mann-Kendall no_trend: 0/20 seeds
+    Half-split lengthening: 0/20 seeds
+    Half-split shortening: 20/20 seeds
+    Half-split no_difference: 0/20 seeds
+    OLS slope: median=+1.297, mean=+1.231, range=[+0.389, +1.763]
+    Pooled gap medians: first_half=1, second_half=1
+    VERDICT: GAPS LENGTHENING -> likely eventual exhaustion
+
+====================================================================================================
+  N=200 g=2.0 [positive control]
+====================================================================================================
+  seed=42: 127 gaps | MK: S=+2732 p=0.0000 (increasing) | Half: 1->1 p=0.0000 (shortening) | OLS slope=+1.42 R2=0.090
+  seed=1042: 130 gaps | MK: S=+2866 p=0.0000 (increasing) | Half: 1->1 p=0.0000 (shortening) | OLS slope=+1.12 R2=0.083
+  seed=2042: 126 gaps | MK: S=+2139 p=0.0000 (increasing) | Half: 1->1 p=0.0000 (shortening) | OLS slope=+1.40 R2=0.111
+  seed=3042: 126 gaps | MK: S=+1888 p=0.0001 (increasing) | Half: 1->1 p=0.0000 (shortening) | OLS slope=+1.05 R2=0.098
+  seed=4042: 127 gaps | MK: S=+2289 p=0.0000 (increasing) | Half: 1->1 p=0.0000 (shortening) | OLS slope=+1.12 R2=0.107
+  seed=5042: 121 gaps | MK: S=+1822 p=0.0000 (increasing) | Half: 1->1 p=0.0000 (shortening) | OLS slope=+1.43 R2=0.092
+  seed=6042: 122 gaps | MK: S=+2392 p=0.0000 (increasing) | Half: 1->1 p=0.0000 (shortening) | OLS slope=+1.61 R2=0.151
+  seed=7042: 133 gaps | MK: S=+2616 p=0.0000 (increasing) | Half: 1->1 p=0.0000 (shortening) | OLS slope=+1.48 R2=0.103
+  seed=8042: 128 gaps | MK: S=+2197 p=0.0000 (increasing) | Half: 1->1 p=0.0000 (shortening) | OLS slope=+1.34 R2=0.096
+  seed=9042: 126 gaps | MK: S=+2331 p=0.0000 (increasing) | Half: 1->1 p=0.0000 (shortening) | OLS slope=+1.10 R2=0.125
+  seed=10042: 129 gaps | MK: S=+2760 p=0.0000 (increasing) | Half: 1->1 p=0.0000 (shortening) | OLS slope=+0.77 R2=0.167
+  seed=11042: 130 gaps | MK: S=+2605 p=0.0000 (increasing) | Half: 1->1 p=0.0000 (shortening) | OLS slope=+0.96 R2=0.148
+  seed=12042: 128 gaps | MK: S=+2503 p=0.0000 (increasing) | Half: 1->1 p=0.0000 (shortening) | OLS slope=+1.55 R2=0.092
+  seed=13042: 132 gaps | MK: S=+2837 p=0.0000 (increasing) | Half: 1->1 p=0.0000 (shortening) | OLS slope=+1.32 R2=0.073
+  seed=14042: 122 gaps | MK: S=+1733 p=0.0001 (increasing) | Half: 1->1 p=0.0000 (shortening) | OLS slope=+1.78 R2=0.112
+  seed=15042: 126 gaps | MK: S=+2216 p=0.0000 (increasing) | Half: 1->1 p=0.0000 (shortening) | OLS slope=+1.70 R2=0.082
+  seed=16042: 117 gaps | MK: S=+1684 p=0.0001 (increasing) | Half: 1->1 p=0.0000 (shortening) | OLS slope=+1.55 R2=0.065
+  seed=17042: 131 gaps | MK: S=+2252 p=0.0000 (increasing) | Half: 1->1 p=0.0000 (shortening) | OLS slope=+1.45 R2=0.069
+  seed=18042: 117 gaps | MK: S=+1734 p=0.0000 (increasing) | Half: 1->1 p=0.0000 (shortening) | OLS slope=+1.85 R2=0.082
+  seed=19042: 125 gaps | MK: S=+2065 p=0.0000 (increasing) | Half: 1->1 p=0.0000 (shortening) | OLS slope=+1.38 R2=0.082
+
+  --- Aggregate for N=200 g=2.0 [positive control] (664s) ---
+    Mann-Kendall increasing: 20/20 seeds
+    Mann-Kendall decreasing: 0/20 seeds
+    Mann-Kendall no_trend: 0/20 seeds
+    Half-split lengthening: 0/20 seeds
+    Half-split shortening: 20/20 seeds
+    Half-split no_difference: 0/20 seeds
+    OLS slope: median=+1.412, mean=+1.369, range=[+0.766, +1.853]
+    Pooled gap medians: first_half=1, second_half=1
+    VERDICT: GAPS LENGTHENING -> likely eventual exhaustion
+
+====================================================================================================
+  N=500 g=1.5 [ambiguous]
+====================================================================================================
+  seed=42: 312 gaps | MK: S=+11052 p=0.0000 (increasing) | Half: 1->1 p=0.0000 (shortening) | OLS slope=+0.22 R2=0.112
+  seed=1042: 320 gaps | MK: S=+10859 p=0.0000 (increasing) | Half: 1->1 p=0.0000 (shortening) | OLS slope=+0.24 R2=0.074
+  seed=2042: 321 gaps | MK: S=+9818 p=0.0000 (increasing) | Half: 1->1 p=0.0000 (shortening) | OLS slope=+0.21 R2=0.074
+  seed=3042: 322 gaps | MK: S=+13706 p=0.0000 (increasing) | Half: 1->1 p=0.0000 (shortening) | OLS slope=+0.23 R2=0.089
+  seed=4042: 316 gaps | MK: S=+11700 p=0.0000 (increasing) | Half: 1->1 p=0.0000 (shortening) | OLS slope=+0.22 R2=0.082
+  seed=5042: 316 gaps | MK: S=+11790 p=0.0000 (increasing) | Half: 1->1 p=0.0000 (shortening) | OLS slope=+0.25 R2=0.114
+  seed=6042: 324 gaps | MK: S=+12304 p=0.0000 (increasing) | Half: 1->1 p=0.0000 (shortening) | OLS slope=+0.21 R2=0.080
+  seed=7042: 315 gaps | MK: S=+10638 p=0.0000 (increasing) | Half: 1->1 p=0.0000 (shortening) | OLS slope=+0.23 R2=0.116
+  seed=8042: 316 gaps | MK: S=+10810 p=0.0000 (increasing) | Half: 1->1 p=0.0000 (shortening) | OLS slope=+0.26 R2=0.047
+  seed=9042: 317 gaps | MK: S=+12197 p=0.0000 (increasing) | Half: 1->1 p=0.0000 (shortening) | OLS slope=+0.21 R2=0.074
+  seed=10042: 316 gaps | MK: S=+11212 p=0.0000 (increasing) | Half: 1->1 p=0.0000 (shortening) | OLS slope=+0.24 R2=0.088
+  seed=11042: 320 gaps | MK: S=+12166 p=0.0000 (increasing) | Half: 1->1 p=0.0000 (shortening) | OLS slope=+0.23 R2=0.071
+  seed=12042: 315 gaps | MK: S=+9036 p=0.0000 (increasing) | Half: 1->1 p=0.0000 (shortening) | OLS slope=+0.25 R2=0.043
+  seed=13042: 319 gaps | MK: S=+12326 p=0.0000 (increasing) | Half: 1->1 p=0.0000 (shortening) | OLS slope=+0.23 R2=0.095
+  seed=14042: 318 gaps | MK: S=+11165 p=0.0000 (increasing) | Half: 1->1 p=0.0000 (shortening) | OLS slope=+0.25 R2=0.062
+  seed=15042: 317 gaps | MK: S=+12063 p=0.0000 (increasing) | Half: 1->1 p=0.0000 (shortening) | OLS slope=+0.23 R2=0.088
+  seed=16042: 324 gaps | MK: S=+13272 p=0.0000 (increasing) | Half: 1->1 p=0.0000 (shortening) | OLS slope=+0.22 R2=0.107
+  seed=17042: 319 gaps | MK: S=+11257 p=0.0000 (increasing) | Half: 1->1 p=0.0000 (shortening) | OLS slope=+0.26 R2=0.062
+  seed=18042: 324 gaps | MK: S=+11989 p=0.0000 (increasing) | Half: 1->1 p=0.0000 (shortening) | OLS slope=+0.23 R2=0.095
+  seed=19042: 319 gaps | MK: S=+11059 p=0.0000 (increasing) | Half: 1->1 p=0.0000 (shortening) | OLS slope=+0.21 R2=0.132
+
+  --- Aggregate for N=500 g=1.5 [ambiguous] (3579s) ---
+    Mann-Kendall increasing: 20/20 seeds
+    Mann-Kendall decreasing: 0/20 seeds
+    Mann-Kendall no_trend: 0/20 seeds
+    Half-split lengthening: 0/20 seeds
+    Half-split shortening: 20/20 seeds
+    Half-split no_difference: 0/20 seeds
+    OLS slope: median=+0.229, mean=+0.232, range=[+0.206, +0.263]
+    Pooled gap medians: first_half=1, second_half=1
+    VERDICT: GAPS LENGTHENING -> likely eventual exhaustion
+
+====================================================================================================
+  N=500 g=2.0 [mixed]
+====================================================================================================
+  seed=42: 312 gaps | MK: S=+8136 p=0.0000 (increasing) | Half: 1->1 p=0.0000 (shortening) | OLS slope=+0.27 R2=0.051
+  seed=1042: 308 gaps | MK: S=+11016 p=0.0000 (increasing) | Half: 1->1 p=0.0000 (shortening) | OLS slope=+0.27 R2=0.058
+  seed=2042: 322 gaps | MK: S=+9264 p=0.0000 (increasing) | Half: 1->1 p=0.0000 (shortening) | OLS slope=+0.24 R2=0.103
+  seed=3042: 323 gaps | MK: S=+10420 p=0.0000 (increasing) | Half: 1->1 p=0.0000 (shortening) | OLS slope=+0.22 R2=0.090
+  seed=4042: 319 gaps | MK: S=+11303 p=0.0000 (increasing) | Half: 1->1 p=0.0000 (shortening) | OLS slope=+0.23 R2=0.067
+  seed=5042: 318 gaps | MK: S=+9948 p=0.0000 (increasing) | Half: 1->1 p=0.0000 (shortening) | OLS slope=+0.21 R2=0.066
+  seed=6042: 309 gaps | MK: S=+9927 p=0.0000 (increasing) | Half: 1->1 p=0.0000 (shortening) | OLS slope=+0.23 R2=0.081
+  seed=7042: 323 gaps | MK: S=+11600 p=0.0000 (increasing) | Half: 1->1 p=0.0000 (shortening) | OLS slope=+0.25 R2=0.061
+  seed=8042: 326 gaps | MK: S=+11931 p=0.0000 (increasing) | Half: 1->1 p=0.0000 (shortening) | OLS slope=+0.24 R2=0.085
+  seed=9042: 318 gaps | MK: S=+8573 p=0.0000 (increasing) | Half: 1->1 p=0.0000 (shortening) | OLS slope=+0.26 R2=0.051
+  seed=10042: 325 gaps | MK: S=+8193 p=0.0000 (increasing) | Half: 1->1 p=0.0000 (shortening) | OLS slope=+0.23 R2=0.080
+  seed=11042: 312 gaps | MK: S=+10392 p=0.0000 (increasing) | Half: 1->1 p=0.0000 (shortening) | OLS slope=+0.25 R2=0.073
+  seed=12042: 322 gaps | MK: S=+9987 p=0.0000 (increasing) | Half: 1->1 p=0.0000 (shortening) | OLS slope=+0.20 R2=0.054
+  seed=13042: 318 gaps | MK: S=+9960 p=0.0000 (increasing) | Half: 1->1 p=0.0000 (shortening) | OLS slope=+0.26 R2=0.103
+  seed=14042: 318 gaps | MK: S=+8894 p=0.0000 (increasing) | Half: 1->1 p=0.0000 (shortening) | OLS slope=+0.24 R2=0.084
+  seed=15042: 315 gaps | MK: S=+9295 p=0.0000 (increasing) | Half: 1->1 p=0.0000 (shortening) | OLS slope=+0.24 R2=0.074
+  seed=16042: 321 gaps | MK: S=+9551 p=0.0000 (increasing) | Half: 1->1 p=0.0000 (shortening) | OLS slope=+0.24 R2=0.084
+  seed=17042: 318 gaps | MK: S=+9658 p=0.0000 (increasing) | Half: 1->1 p=0.0000 (shortening) | OLS slope=+0.24 R2=0.090
+  seed=18042: 318 gaps | MK: S=+10730 p=0.0000 (increasing) | Half: 1->1 p=0.0000 (shortening) | OLS slope=+0.24 R2=0.091
+  seed=19042: 317 gaps | MK: S=+8332 p=0.0000 (increasing) | Half: 1->1 p=0.0000 (shortening) | OLS slope=+0.24 R2=0.063
+
+  --- Aggregate for N=500 g=2.0 [mixed] (3899s) ---
+    Mann-Kendall increasing: 20/20 seeds
+    Mann-Kendall decreasing: 0/20 seeds
+    Mann-Kendall no_trend: 0/20 seeds
+    Half-split lengthening: 0/20 seeds
+    Half-split shortening: 20/20 seeds
+    Half-split no_difference: 0/20 seeds
+    OLS slope: median=+0.242, mean=+0.241, range=[+0.200, +0.274]
+    Pooled gap medians: first_half=1, second_half=1
+    VERDICT: GAPS LENGTHENING -> likely eventual exhaustion
+
+
+Completed: 2026-02-08 10:28:13
