@@ -1,0 +1,287 @@
+==============================================================================================================
+SELF-EXHAUSTION INTERPOLATION: N=200, 300, 400, 500
+Steps: 5000, Seeds per condition: 20
+Started: 2026-02-08 11:29:57
+==============================================================================================================
+
+N      gamma     Med Exp  Pct Consumed  Genuine  Cycling  Censored  NoExp  Med Silence  Med Long Gap
+--------------------------------------------------------------------------------------------------------------
+200    1.5           129         64.5%       16        0         4      0         1396           128  (581s)
+200    2.0           128         63.8%       13        0         7      0         1248           182  (715s)
+300    1.5           190         63.3%       11        0         9      0         1240            91  (1688s)
+300    2.0           192         64.0%        7        0        13      0          841           150  (1611s)
+400    1.5           255         63.7%       12        0         8      0         1182           100  (2844s)
+400    2.0           258         64.5%        6        0        14      0          941           118  (2789s)
+500    1.5           320         63.9%       10        0        10      0          773            84  (4432s)
+500    2.0           319         63.8%        6        0        14      0          732            96  (4092s)
+
+==============================================================================================================
+DETAILED: N=300, gamma=1.5
+==============================================================================================================
+
+  seed=42: 189 expulsions, 111 alive (63.0% consumed)
+    Status: genuine_exhaustion
+    Last exp: t=3721, silence after: 1279 steps
+    Gaps: 169 short (<=14), 19 long
+    Long gap range: 16-952, median: 149
+
+  seed=1042: 192 expulsions, 108 alive (64.0% consumed)
+    Status: genuine_exhaustion
+    Last exp: t=3583, silence after: 1417 steps
+    Gaps: 178 short (<=14), 13 long
+    Long gap range: 16-1163, median: 89
+
+  seed=2042: 198 expulsions, 102 alive (66.0% consumed)
+    Status: censored
+    Last exp: t=4503, silence after: 497 steps
+    Gaps: 181 short (<=14), 16 long
+    Long gap range: 16-1075, median: 130
+
+  seed=3042: 193 expulsions, 107 alive (64.3% consumed)
+    Status: censored
+    Last exp: t=4653, silence after: 347 steps
+    Gaps: 175 short (<=14), 17 long
+    Long gap range: 16-1462, median: 120
+
+  seed=4042: 188 expulsions, 112 alive (62.7% consumed)
+    Status: genuine_exhaustion
+    Last exp: t=3839, silence after: 1161 steps
+    Gaps: 165 short (<=14), 22 long
+    Long gap range: 15-676, median: 90
+
+  seed=5042: 192 expulsions, 108 alive (64.0% consumed)
+    Status: censored
+    Last exp: t=4653, silence after: 347 steps
+    Gaps: 175 short (<=14), 16 long
+    Long gap range: 15-1044, median: 108
+
+  seed=6042: 189 expulsions, 111 alive (63.0% consumed)
+    Status: genuine_exhaustion
+    Last exp: t=4015, silence after: 985 steps
+    Gaps: 175 short (<=14), 13 long
+    Long gap range: 15-1501, median: 91
+
+  seed=7042: 195 expulsions, 105 alive (65.0% consumed)
+    Status: genuine_exhaustion
+    Last exp: t=3778, silence after: 1222 steps
+    Gaps: 177 short (<=14), 17 long
+    Long gap range: 15-704, median: 117
+
+  seed=8042: 188 expulsions, 112 alive (62.7% consumed)
+    Status: censored
+    Last exp: t=4954, silence after: 46 steps
+    Gaps: 172 short (<=14), 15 long
+    Long gap range: 20-1074, median: 83
+
+  seed=9042: 190 expulsions, 110 alive (63.3% consumed)
+    Status: genuine_exhaustion
+    Last exp: t=2795, silence after: 2205 steps
+    Gaps: 170 short (<=14), 19 long
+    Long gap range: 15-649, median: 67
+
+==============================================================================================================
+DETAILED: N=300, gamma=2.0
+==============================================================================================================
+
+  seed=42: 193 expulsions, 107 alive (64.3% consumed)
+    Status: censored
+    Last exp: t=4692, silence after: 308 steps
+    Gaps: 174 short (<=14), 18 long
+    Long gap range: 21-875, median: 177
+
+  seed=1042: 194 expulsions, 106 alive (64.7% consumed)
+    Status: censored
+    Last exp: t=4710, silence after: 290 steps
+    Gaps: 180 short (<=14), 13 long
+    Long gap range: 17-2448, median: 156
+
+  seed=2042: 195 expulsions, 105 alive (65.0% consumed)
+    Status: genuine_exhaustion
+    Last exp: t=3634, silence after: 1366 steps
+    Gaps: 185 short (<=14), 9 long
+    Long gap range: 17-1064, median: 293
+
+  seed=3042: 188 expulsions, 112 alive (62.7% consumed)
+    Status: censored
+    Last exp: t=4898, silence after: 102 steps
+    Gaps: 168 short (<=14), 19 long
+    Long gap range: 16-1429, median: 48
+
+  seed=4042: 187 expulsions, 113 alive (62.3% consumed)
+    Status: genuine_exhaustion
+    Last exp: t=4440, silence after: 560 steps
+    Gaps: 172 short (<=14), 14 long
+    Long gap range: 16-2083, median: 142
+
+  seed=5042: 187 expulsions, 113 alive (62.3% consumed)
+    Status: genuine_exhaustion
+    Last exp: t=4159, silence after: 841 steps
+    Gaps: 172 short (<=14), 14 long
+    Long gap range: 41-662, median: 182
+
+  seed=6042: 194 expulsions, 106 alive (64.7% consumed)
+    Status: censored
+    Last exp: t=4934, silence after: 66 steps
+    Gaps: 180 short (<=14), 13 long
+    Long gap range: 18-3032, median: 78
+
+  seed=7042: 194 expulsions, 106 alive (64.7% consumed)
+    Status: censored
+    Last exp: t=4539, silence after: 461 steps
+    Gaps: 178 short (<=14), 15 long
+    Long gap range: 27-1447, median: 138
+
+  seed=8042: 189 expulsions, 111 alive (63.0% consumed)
+    Status: censored
+    Last exp: t=4548, silence after: 452 steps
+    Gaps: 170 short (<=14), 18 long
+    Long gap range: 29-705, median: 194
+
+  seed=9042: 191 expulsions, 109 alive (63.7% consumed)
+    Status: censored
+    Last exp: t=4984, silence after: 16 steps
+    Gaps: 183 short (<=14), 7 long
+    Long gap range: 130-1451, median: 489
+
+==============================================================================================================
+DETAILED: N=400, gamma=1.5
+==============================================================================================================
+
+  seed=42: 258 expulsions, 142 alive (64.5% consumed)
+    Status: genuine_exhaustion
+    Last exp: t=3842, silence after: 1158 steps
+    Gaps: 240 short (<=14), 17 long
+    Long gap range: 23-985, median: 133
+
+  seed=1042: 263 expulsions, 137 alive (65.8% consumed)
+    Status: censored
+    Last exp: t=4959, silence after: 41 steps
+    Gaps: 240 short (<=14), 22 long
+    Long gap range: 20-803, median: 114
+
+  seed=2042: 253 expulsions, 147 alive (63.2% consumed)
+    Status: genuine_exhaustion
+    Last exp: t=3578, silence after: 1422 steps
+    Gaps: 229 short (<=14), 23 long
+    Long gap range: 15-477, median: 66
+
+  seed=3042: 265 expulsions, 135 alive (66.2% consumed)
+    Status: genuine_exhaustion
+    Last exp: t=4236, silence after: 764 steps
+    Gaps: 243 short (<=14), 21 long
+    Long gap range: 17-1154, median: 91
+
+  seed=4042: 254 expulsions, 146 alive (63.5% consumed)
+    Status: genuine_exhaustion
+    Last exp: t=3795, silence after: 1205 steps
+    Gaps: 230 short (<=14), 23 long
+    Long gap range: 18-700, median: 98
+
+  seed=5042: 263 expulsions, 137 alive (65.8% consumed)
+    Status: censored
+    Last exp: t=4985, silence after: 15 steps
+    Gaps: 240 short (<=14), 22 long
+    Long gap range: 20-755, median: 126
+
+  seed=6042: 252 expulsions, 148 alive (63.0% consumed)
+    Status: censored
+    Last exp: t=4940, silence after: 60 steps
+    Gaps: 234 short (<=14), 17 long
+    Long gap range: 15-1167, median: 121
+
+  seed=7042: 260 expulsions, 140 alive (65.0% consumed)
+    Status: censored
+    Last exp: t=4719, silence after: 281 steps
+    Gaps: 242 short (<=14), 17 long
+    Long gap range: 21-1075, median: 138
+
+  seed=8042: 257 expulsions, 143 alive (64.2% consumed)
+    Status: censored
+    Last exp: t=4966, silence after: 34 steps
+    Gaps: 231 short (<=14), 25 long
+    Long gap range: 21-1515, median: 59
+
+  seed=9042: 255 expulsions, 145 alive (63.7% consumed)
+    Status: genuine_exhaustion
+    Last exp: t=3989, silence after: 1011 steps
+    Gaps: 231 short (<=14), 23 long
+    Long gap range: 16-1060, median: 67
+
+==============================================================================================================
+DETAILED: N=400, gamma=2.0
+==============================================================================================================
+
+  seed=42: 253 expulsions, 147 alive (63.2% consumed)
+    Status: genuine_exhaustion
+    Last exp: t=4478, silence after: 522 steps
+    Gaps: 230 short (<=14), 22 long
+    Long gap range: 15-940, median: 94
+
+  seed=1042: 257 expulsions, 143 alive (64.2% consumed)
+    Status: censored
+    Last exp: t=4707, silence after: 293 steps
+    Gaps: 239 short (<=14), 17 long
+    Long gap range: 27-1220, median: 73
+
+  seed=2042: 258 expulsions, 142 alive (64.5% consumed)
+    Status: censored
+    Last exp: t=4952, silence after: 48 steps
+    Gaps: 237 short (<=14), 20 long
+    Long gap range: 19-856, median: 188
+
+  seed=3042: 263 expulsions, 137 alive (65.8% consumed)
+    Status: censored
+    Last exp: t=4620, silence after: 380 steps
+    Gaps: 238 short (<=14), 24 long
+    Long gap range: 17-719, median: 102
+
+  seed=4042: 250 expulsions, 150 alive (62.5% consumed)
+    Status: genuine_exhaustion
+    Last exp: t=3930, silence after: 1070 steps
+    Gaps: 229 short (<=14), 20 long
+    Long gap range: 16-817, median: 110
+
+  seed=5042: 263 expulsions, 137 alive (65.8% consumed)
+    Status: censored
+    Last exp: t=4550, silence after: 450 steps
+    Gaps: 244 short (<=14), 18 long
+    Long gap range: 24-1217, median: 120
+
+  seed=6042: 258 expulsions, 142 alive (64.5% consumed)
+    Status: censored
+    Last exp: t=4999, silence after: 1 steps
+    Gaps: 232 short (<=14), 25 long
+    Long gap range: 18-1360, median: 88
+
+  seed=7042: 259 expulsions, 141 alive (64.8% consumed)
+    Status: censored
+    Last exp: t=4720, silence after: 280 steps
+    Gaps: 243 short (<=14), 15 long
+    Long gap range: 16-1370, median: 62
+
+  seed=8042: 258 expulsions, 142 alive (64.5% consumed)
+    Status: genuine_exhaustion
+    Last exp: t=3884, silence after: 1116 steps
+    Gaps: 238 short (<=14), 19 long
+    Long gap range: 15-1367, median: 57
+
+  seed=9042: 251 expulsions, 149 alive (62.7% consumed)
+    Status: censored
+    Last exp: t=4702, silence after: 298 steps
+    Gaps: 231 short (<=14), 19 long
+    Long gap range: 18-999, median: 139
+
+
+==============================================================================================================
+VERDICTS
+==============================================================================================================
+  N=200  gamma=1.5: MOSTLY EXHAUSTION (16G/4C/0N)
+  N=200  gamma=2.0: MOSTLY EXHAUSTION (13G/7C/0N)
+  N=300  gamma=1.5: MIXED (11G/9C/0N)
+  N=300  gamma=2.0: MIXED (7G/13C/0N)
+  N=400  gamma=1.5: MOSTLY EXHAUSTION (12G/8C/0N)
+  N=400  gamma=2.0: MIXED (6G/14C/0N)
+  N=500  gamma=1.5: MIXED (10G/10C/0N)
+  N=500  gamma=2.0: MIXED (6G/14C/0N)
+
+Completed: 2026-02-08 16:42:30

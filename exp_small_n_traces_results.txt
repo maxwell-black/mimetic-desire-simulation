@@ -1,0 +1,284 @@
+====================================================================================================
+SMALL-N FULL TRACES FOR FIGURES
+Seeds: 5
+Trigger: adaptive unanimity threshold
+Started: 2026-02-09 14:03:32
+====================================================================================================
+
+--- N=5, gamma=1.05, k=4, threshold=0.800, 2000 steps ---
+  seed=42: 3 exp, 2/5 alive, status=still_cycling, pk_modal=0.800 (0.2s)
+    Exp 1 at t=1: peace_after=0 steps
+    Exp 2 at t=8: peace_after=0 steps
+    Exp 3 at t=15: peace_after=0 steps
+  seed=1042: 1 exp, 4/5 alive, status=genuine_exhaustion, pk_modal=0.800 (0.5s)
+    Exp 1 at t=5: peace_after=0 steps
+  seed=2042: 1 exp, 4/5 alive, status=still_cycling, pk_modal=0.800 (0.5s)
+    Exp 1 at t=24: peace_after=0 steps
+  seed=3042: 3 exp, 2/5 alive, status=still_cycling, pk_modal=0.800 (0.2s)
+    Exp 1 at t=2: peace_after=0 steps
+    Exp 2 at t=9: peace_after=0 steps
+    Exp 3 at t=16: peace_after=0 steps
+  seed=4042: 3 exp, 2/5 alive, status=still_cycling, pk_modal=0.800 (0.2s)
+    Exp 1 at t=32: peace_after=0 steps
+    Exp 2 at t=39: peace_after=0 steps
+    Exp 3 at t=46: peace_after=0 steps
+
+--- N=5, gamma=2.0, k=4, threshold=0.800, 2000 steps ---
+  seed=42: 3 exp, 2/5 alive, status=still_cycling, pk_modal=0.800 (0.2s)
+    Exp 1 at t=1: peace_after=0 steps
+    Exp 2 at t=8: peace_after=0 steps
+    Exp 3 at t=15: peace_after=0 steps
+  seed=1042: 3 exp, 2/5 alive, status=still_cycling, pk_modal=0.800 (0.2s)
+    Exp 1 at t=3: peace_after=0 steps
+    Exp 2 at t=10: peace_after=0 steps
+    Exp 3 at t=17: peace_after=0 steps
+  seed=2042: 3 exp, 2/5 alive, status=still_cycling, pk_modal=0.800 (0.2s)
+    Exp 1 at t=5: peace_after=0 steps
+    Exp 2 at t=12: peace_after=1 steps
+    Exp 3 at t=19: peace_after=0 steps
+  seed=3042: 3 exp, 2/5 alive, status=still_cycling, pk_modal=0.800 (0.1s)
+    Exp 1 at t=2: peace_after=0 steps
+    Exp 2 at t=9: peace_after=0 steps
+    Exp 3 at t=16: peace_after=0 steps
+  seed=4042: 3 exp, 2/5 alive, status=still_cycling, pk_modal=0.800 (0.2s)
+    Exp 1 at t=4: peace_after=0 steps
+    Exp 2 at t=11: peace_after=0 steps
+    Exp 3 at t=18: peace_after=0 steps
+
+--- N=10, gamma=1.05, k=6, threshold=0.900, 3000 steps ---
+  seed=42: 0 exp, 10/10 alive, status=no_expulsions, pk_modal=0.800 (2.2s)
+  seed=1042: 1 exp, 9/10 alive, status=genuine_exhaustion, pk_modal=0.900 (2.0s)
+    Exp 1 at t=24: peace_after=0 steps
+  seed=2042: 2 exp, 8/10 alive, status=genuine_exhaustion, pk_modal=0.900 (1.6s)
+    Exp 1 at t=9: peace_after=8 steps
+    Exp 2 at t=28: peace_after=0 steps
+  seed=3042: 1 exp, 9/10 alive, status=genuine_exhaustion, pk_modal=0.900 (2.0s)
+    Exp 1 at t=22: peace_after=0 steps
+  seed=4042: 0 exp, 10/10 alive, status=no_expulsions, pk_modal=0.800 (2.3s)
+
+--- N=10, gamma=2.0, k=6, threshold=0.900, 3000 steps ---
+  seed=42: 6 exp, 4/10 alive, status=genuine_exhaustion, pk_modal=0.900 (0.6s)
+    Exp 1 at t=5: peace_after=0 steps
+    Exp 2 at t=12: peace_after=2 steps
+    Exp 3 at t=19: peace_after=0 steps
+    Exp 4 at t=40: peace_after=0 steps
+    Exp 5 at t=47: peace_after=0 steps
+  seed=1042: 8 exp, 2/10 alive, status=still_cycling, pk_modal=0.900 (0.3s)
+    Exp 1 at t=7: peace_after=0 steps
+    Exp 2 at t=14: peace_after=1 steps
+    Exp 3 at t=21: peace_after=5 steps
+    Exp 4 at t=34: peace_after=0 steps
+    Exp 5 at t=41: peace_after=1 steps
+  seed=2042: 8 exp, 2/10 alive, status=still_cycling, pk_modal=0.900 (0.3s)
+    Exp 1 at t=4: peace_after=2 steps
+    Exp 2 at t=11: peace_after=0 steps
+    Exp 3 at t=18: peace_after=3 steps
+    Exp 4 at t=27: peace_after=0 steps
+    Exp 5 at t=34: peace_after=1 steps
+  seed=3042: 6 exp, 4/10 alive, status=genuine_exhaustion, pk_modal=0.900 (0.6s)
+    Exp 1 at t=6: peace_after=0 steps
+    Exp 2 at t=13: peace_after=0 steps
+    Exp 3 at t=20: peace_after=1 steps
+    Exp 4 at t=27: peace_after=0 steps
+    Exp 5 at t=48: peace_after=0 steps
+  seed=4042: 5 exp, 5/10 alive, status=genuine_exhaustion, pk_modal=0.900 (0.9s)
+    Exp 1 at t=6: peace_after=0 steps
+    Exp 2 at t=15: peace_after=0 steps
+    Exp 3 at t=22: peace_after=4 steps
+    Exp 4 at t=42: peace_after=0 steps
+    Exp 5 at t=49: peace_after=1 steps
+
+--- N=20, gamma=1.05, k=6, threshold=0.950, 5000 steps ---
+  seed=42: 4 exp, 16/20 alive, status=genuine_exhaustion, pk_modal=0.950 (6.0s)
+    Exp 1 at t=203: peace_after=2 steps
+    Exp 2 at t=307: peace_after=0 steps
+    Exp 3 at t=650: peace_after=0 steps
+    Exp 4 at t=3147: peace_after=19 steps
+  seed=1042: 4 exp, 16/20 alive, status=genuine_exhaustion, pk_modal=0.950 (5.6s)
+    Exp 1 at t=117: peace_after=0 steps
+    Exp 2 at t=124: peace_after=0 steps
+    Exp 3 at t=249: peace_after=0 steps
+    Exp 4 at t=788: peace_after=0 steps
+  seed=2042: 3 exp, 17/20 alive, status=genuine_exhaustion, pk_modal=0.950 (6.1s)
+    Exp 1 at t=63: peace_after=0 steps
+    Exp 2 at t=84: peace_after=0 steps
+    Exp 3 at t=406: peace_after=0 steps
+  seed=3042: 2 exp, 18/20 alive, status=genuine_exhaustion, pk_modal=0.950 (6.8s)
+    Exp 1 at t=107: peace_after=0 steps
+    Exp 2 at t=639: peace_after=0 steps
+  seed=4042: 4 exp, 16/20 alive, status=genuine_exhaustion, pk_modal=0.950 (6.1s)
+    Exp 1 at t=78: peace_after=0 steps
+    Exp 2 at t=385: peace_after=0 steps
+    Exp 3 at t=1449: peace_after=0 steps
+    Exp 4 at t=2406: peace_after=0 steps
+
+--- N=20, gamma=2.0, k=6, threshold=0.950, 5000 steps ---
+  seed=42: 9 exp, 11/20 alive, status=still_cycling, pk_modal=0.950 (3.2s)
+    Exp 1 at t=11: peace_after=0 steps
+    Exp 2 at t=18: peace_after=3 steps
+    Exp 3 at t=25: peace_after=1 steps
+    Exp 4 at t=32: peace_after=0 steps
+    Exp 5 at t=39: peace_after=18 steps
+  seed=1042: 12 exp, 8/20 alive, status=genuine_exhaustion, pk_modal=0.950 (2.3s)
+    Exp 1 at t=17: peace_after=0 steps
+    Exp 2 at t=24: peace_after=11 steps
+    Exp 3 at t=52: peace_after=0 steps
+    Exp 4 at t=59: peace_after=6 steps
+    Exp 5 at t=79: peace_after=0 steps
+  seed=2042: 7 exp, 13/20 alive, status=genuine_exhaustion, pk_modal=0.950 (4.0s)
+    Exp 1 at t=14: peace_after=0 steps
+    Exp 2 at t=21: peace_after=0 steps
+    Exp 3 at t=28: peace_after=5 steps
+    Exp 4 at t=39: peace_after=0 steps
+    Exp 5 at t=46: peace_after=3 steps
+  seed=3042: 9 exp, 11/20 alive, status=genuine_exhaustion, pk_modal=0.950 (3.3s)
+    Exp 1 at t=23: peace_after=0 steps
+    Exp 2 at t=30: peace_after=11 steps
+    Exp 3 at t=52: peace_after=0 steps
+    Exp 4 at t=59: peace_after=4 steps
+    Exp 5 at t=71: peace_after=0 steps
+  seed=4042: 3 exp, 17/20 alive, status=genuine_exhaustion, pk_modal=0.950 (6.0s)
+    Exp 1 at t=9: peace_after=2 steps
+    Exp 2 at t=17: peace_after=0 steps
+    Exp 3 at t=24: peace_after=199 steps
+
+--- N=30, gamma=1.05, k=6, threshold=0.950, 5000 steps ---
+  seed=42: 10 exp, 20/30 alive, status=genuine_exhaustion, pk_modal=0.967 (7.2s)
+    Exp 1 at t=70: peace_after=19 steps
+    Exp 2 at t=128: peace_after=0 steps
+    Exp 3 at t=187: peace_after=0 steps
+    Exp 4 at t=194: peace_after=0 steps
+    Exp 5 at t=278: peace_after=0 steps
+  seed=1042: 11 exp, 19/30 alive, status=genuine_exhaustion, pk_modal=0.967 (7.0s)
+    Exp 1 at t=105: peace_after=0 steps
+    Exp 2 at t=112: peace_after=0 steps
+    Exp 3 at t=216: peace_after=0 steps
+    Exp 4 at t=291: peace_after=7 steps
+    Exp 5 at t=381: peace_after=0 steps
+  seed=2042: 13 exp, 17/30 alive, status=genuine_exhaustion, pk_modal=0.967 (6.3s)
+    Exp 1 at t=68: peace_after=0 steps
+    Exp 2 at t=145: peace_after=0 steps
+    Exp 3 at t=312: peace_after=0 steps
+    Exp 4 at t=336: peace_after=0 steps
+    Exp 5 at t=428: peace_after=1 steps
+  seed=3042: 12 exp, 18/30 alive, status=genuine_exhaustion, pk_modal=0.967 (6.6s)
+    Exp 1 at t=67: peace_after=105 steps
+    Exp 2 at t=263: peace_after=0 steps
+    Exp 3 at t=350: peace_after=0 steps
+    Exp 4 at t=357: peace_after=0 steps
+    Exp 5 at t=364: peace_after=22 steps
+  seed=4042: 15 exp, 15/30 alive, status=genuine_exhaustion, pk_modal=0.967 (5.3s)
+    Exp 1 at t=124: peace_after=0 steps
+    Exp 2 at t=131: peace_after=0 steps
+    Exp 3 at t=175: peace_after=0 steps
+    Exp 4 at t=274: peace_after=0 steps
+    Exp 5 at t=281: peace_after=0 steps
+
+--- N=30, gamma=2.0, k=6, threshold=0.950, 5000 steps ---
+  seed=42: 8 exp, 22/30 alive, status=genuine_exhaustion, pk_modal=0.967 (7.6s)
+    Exp 1 at t=16: peace_after=1 steps
+    Exp 2 at t=23: peace_after=12 steps
+    Exp 3 at t=46: peace_after=0 steps
+    Exp 4 at t=53: peace_after=18 steps
+    Exp 5 at t=87: peace_after=1 steps
+  seed=1042: 11 exp, 19/30 alive, status=genuine_exhaustion, pk_modal=0.967 (6.2s)
+    Exp 1 at t=27: peace_after=0 steps
+    Exp 2 at t=34: peace_after=47 steps
+    Exp 3 at t=217: peace_after=1 steps
+    Exp 4 at t=224: peace_after=11 steps
+    Exp 5 at t=261: peace_after=1 steps
+  seed=2042: 2 exp, 28/30 alive, status=genuine_exhaustion, pk_modal=0.967 (10.5s)
+    Exp 1 at t=60: peace_after=1 steps
+    Exp 2 at t=67: peace_after=10 steps
+  seed=3042: 0 exp, 30/30 alive, status=no_expulsions, pk_modal=0.667 (11.7s)
+  seed=4042: 6 exp, 24/30 alive, status=genuine_exhaustion, pk_modal=0.967 (8.7s)
+    Exp 1 at t=23: peace_after=0 steps
+    Exp 2 at t=30: peace_after=8 steps
+    Exp 3 at t=43: peace_after=0 steps
+    Exp 4 at t=50: peace_after=12 steps
+    Exp 5 at t=102: peace_after=1 steps
+
+--- N=50, gamma=1.05, k=6, threshold=0.950, 5000 steps ---
+  seed=42: 20 exp, 30/50 alive, status=genuine_exhaustion, pk_modal=0.979 (11.3s)
+    Exp 1 at t=88: peace_after=0 steps
+    Exp 2 at t=142: peace_after=0 steps
+    Exp 3 at t=151: peace_after=0 steps
+    Exp 4 at t=158: peace_after=0 steps
+    Exp 5 at t=165: peace_after=0 steps
+  seed=1042: 24 exp, 26/50 alive, status=genuine_exhaustion, pk_modal=0.978 (10.5s)
+    Exp 1 at t=51: peace_after=10 steps
+    Exp 2 at t=92: peace_after=1 steps
+    Exp 3 at t=132: peace_after=0 steps
+    Exp 4 at t=197: peace_after=0 steps
+    Exp 5 at t=204: peace_after=0 steps
+  seed=2042: 18 exp, 32/50 alive, status=genuine_exhaustion, pk_modal=0.979 (12.2s)
+    Exp 1 at t=90: peace_after=0 steps
+    Exp 2 at t=143: peace_after=0 steps
+    Exp 3 at t=150: peace_after=0 steps
+    Exp 4 at t=157: peace_after=53 steps
+    Exp 5 at t=234: peace_after=62 steps
+  seed=3042: 21 exp, 29/50 alive, status=genuine_exhaustion, pk_modal=0.979 (11.0s)
+    Exp 1 at t=138: peace_after=0 steps
+    Exp 2 at t=198: peace_after=0 steps
+    Exp 3 at t=205: peace_after=0 steps
+    Exp 4 at t=212: peace_after=27 steps
+    Exp 5 at t=266: peace_after=0 steps
+  seed=4042: 25 exp, 25/50 alive, status=genuine_exhaustion, pk_modal=0.979 (9.8s)
+    Exp 1 at t=117: peace_after=0 steps
+    Exp 2 at t=147: peace_after=0 steps
+    Exp 3 at t=154: peace_after=0 steps
+    Exp 4 at t=161: peace_after=0 steps
+    Exp 5 at t=264: peace_after=0 steps
+
+--- N=50, gamma=2.0, k=6, threshold=0.950, 5000 steps ---
+  seed=42: 6 exp, 44/50 alive, status=genuine_exhaustion, pk_modal=0.980 (17.4s)
+    Exp 1 at t=32: peace_after=2 steps
+    Exp 2 at t=50: peace_after=3 steps
+    Exp 3 at t=58: peace_after=4 steps
+    Exp 4 at t=72: peace_after=3 steps
+    Exp 5 at t=85: peace_after=4 steps
+  seed=1042: 2 exp, 48/50 alive, status=genuine_exhaustion, pk_modal=0.980 (19.5s)
+    Exp 1 at t=21: peace_after=1 steps
+    Exp 2 at t=28: peace_after=25 steps
+  seed=2042: 6 exp, 44/50 alive, status=genuine_exhaustion, pk_modal=0.980 (17.2s)
+    Exp 1 at t=30: peace_after=1 steps
+    Exp 2 at t=40: peace_after=2 steps
+    Exp 3 at t=56: peace_after=2 steps
+    Exp 4 at t=65: peace_after=3 steps
+    Exp 5 at t=86: peace_after=1 steps
+  seed=3042: 6 exp, 44/50 alive, status=genuine_exhaustion, pk_modal=0.980 (17.0s)
+    Exp 1 at t=31: peace_after=1 steps
+    Exp 2 at t=38: peace_after=10 steps
+    Exp 3 at t=59: peace_after=2 steps
+    Exp 4 at t=66: peace_after=4 steps
+    Exp 5 at t=81: peace_after=2 steps
+  seed=4042: 11 exp, 39/50 alive, status=genuine_exhaustion, pk_modal=0.980 (14.6s)
+    Exp 1 at t=24: peace_after=1 steps
+    Exp 2 at t=31: peace_after=20 steps
+    Exp 3 at t=245: peace_after=1 steps
+    Exp 4 at t=252: peace_after=15 steps
+    Exp 5 at t=280: peace_after=2 steps
+
+Saved 150 arrays to small_n_traces.npz
+Keys: ['n10_g105_s1042_alive', 'n10_g105_s1042_exps', 'n10_g105_s1042_modal', 'n10_g105_s2042_alive', 'n10_g105_s2042_exps', 'n10_g105_s2042_modal', 'n10_g105_s3042_alive', 'n10_g105_s3042_exps', 'n10_g105_s3042_modal', 'n10_g105_s4042_alive', 'n10_g105_s4042_exps', 'n10_g105_s4042_modal', 'n10_g105_s42_alive', 'n10_g105_s42_exps', 'n10_g105_s42_modal', 'n10_g20_s1042_alive', 'n10_g20_s1042_exps', 'n10_g20_s1042_modal', 'n10_g20_s2042_alive', 'n10_g20_s2042_exps', 'n10_g20_s2042_modal', 'n10_g20_s3042_alive', 'n10_g20_s3042_exps', 'n10_g20_s3042_modal', 'n10_g20_s4042_alive', 'n10_g20_s4042_exps', 'n10_g20_s4042_modal', 'n10_g20_s42_alive', 'n10_g20_s42_exps', 'n10_g20_s42_modal', 'n20_g105_s1042_alive', 'n20_g105_s1042_exps', 'n20_g105_s1042_modal', 'n20_g105_s2042_alive', 'n20_g105_s2042_exps', 'n20_g105_s2042_modal', 'n20_g105_s3042_alive', 'n20_g105_s3042_exps', 'n20_g105_s3042_modal', 'n20_g105_s4042_alive', 'n20_g105_s4042_exps', 'n20_g105_s4042_modal', 'n20_g105_s42_alive', 'n20_g105_s42_exps', 'n20_g105_s42_modal', 'n20_g20_s1042_alive', 'n20_g20_s1042_exps', 'n20_g20_s1042_modal', 'n20_g20_s2042_alive', 'n20_g20_s2042_exps', 'n20_g20_s2042_modal', 'n20_g20_s3042_alive', 'n20_g20_s3042_exps', 'n20_g20_s3042_modal', 'n20_g20_s4042_alive', 'n20_g20_s4042_exps', 'n20_g20_s4042_modal', 'n20_g20_s42_alive', 'n20_g20_s42_exps', 'n20_g20_s42_modal', 'n30_g105_s1042_alive', 'n30_g105_s1042_exps', 'n30_g105_s1042_modal', 'n30_g105_s2042_alive', 'n30_g105_s2042_exps', 'n30_g105_s2042_modal', 'n30_g105_s3042_alive', 'n30_g105_s3042_exps', 'n30_g105_s3042_modal', 'n30_g105_s4042_alive', 'n30_g105_s4042_exps', 'n30_g105_s4042_modal', 'n30_g105_s42_alive', 'n30_g105_s42_exps', 'n30_g105_s42_modal', 'n30_g20_s1042_alive', 'n30_g20_s1042_exps', 'n30_g20_s1042_modal', 'n30_g20_s2042_alive', 'n30_g20_s2042_exps', 'n30_g20_s2042_modal', 'n30_g20_s3042_alive', 'n30_g20_s3042_exps', 'n30_g20_s3042_modal', 'n30_g20_s4042_alive', 'n30_g20_s4042_exps', 'n30_g20_s4042_modal', 'n30_g20_s42_alive', 'n30_g20_s42_exps', 'n30_g20_s42_modal', 'n50_g105_s1042_alive', 'n50_g105_s1042_exps', 'n50_g105_s1042_modal', 'n50_g105_s2042_alive', 'n50_g105_s2042_exps', 'n50_g105_s2042_modal', 'n50_g105_s3042_alive', 'n50_g105_s3042_exps', 'n50_g105_s3042_modal', 'n50_g105_s4042_alive', 'n50_g105_s4042_exps', 'n50_g105_s4042_modal', 'n50_g105_s42_alive', 'n50_g105_s42_exps', 'n50_g105_s42_modal', 'n50_g20_s1042_alive', 'n50_g20_s1042_exps', 'n50_g20_s1042_modal', 'n50_g20_s2042_alive', 'n50_g20_s2042_exps', 'n50_g20_s2042_modal', 'n50_g20_s3042_alive', 'n50_g20_s3042_exps', 'n50_g20_s3042_modal', 'n50_g20_s4042_alive', 'n50_g20_s4042_exps', 'n50_g20_s4042_modal', 'n50_g20_s42_alive', 'n50_g20_s42_exps', 'n50_g20_s42_modal', 'n5_g105_s1042_alive', 'n5_g105_s1042_exps', 'n5_g105_s1042_modal', 'n5_g105_s2042_alive', 'n5_g105_s2042_exps', 'n5_g105_s2042_modal', 'n5_g105_s3042_alive', 'n5_g105_s3042_exps', 'n5_g105_s3042_modal', 'n5_g105_s4042_alive', 'n5_g105_s4042_exps', 'n5_g105_s4042_modal', 'n5_g105_s42_alive', 'n5_g105_s42_exps', 'n5_g105_s42_modal', 'n5_g20_s1042_alive', 'n5_g20_s1042_exps', 'n5_g20_s1042_modal', 'n5_g20_s2042_alive', 'n5_g20_s2042_exps', 'n5_g20_s2042_modal', 'n5_g20_s3042_alive', 'n5_g20_s3042_exps', 'n5_g20_s3042_modal', 'n5_g20_s4042_alive', 'n5_g20_s4042_exps', 'n5_g20_s4042_modal', 'n5_g20_s42_alive', 'n5_g20_s42_exps', 'n5_g20_s42_modal']
+
+
+====================================================================================================
+SUMMARY: FOUNDING MURDER DYNAMICS BY N
+====================================================================================================
+
+N       gamma  thresh   k  Med Exp  Med Alive      Med Status
+----------------------------------------------------------------------
+5        1.05   0.800   4        3          2   still_cycling
+5         2.0   0.800   4        3          2   still_cycling
+10       1.05   0.900   6        1          9 genuine_exhaustion
+10        2.0   0.900   6        6          4 genuine_exhaustion
+20       1.05   0.950   6        4         16 genuine_exhaustion
+20        2.0   0.950   6        9         11 genuine_exhaustion
+30       1.05   0.950   6       12         18 genuine_exhaustion
+30        2.0   0.950   6        6         24 genuine_exhaustion
+50       1.05   0.950   6       21         29 genuine_exhaustion
+50        2.0   0.950   6        6         44 genuine_exhaustion
+
+
+Completed: 2026-02-09 14:12:56

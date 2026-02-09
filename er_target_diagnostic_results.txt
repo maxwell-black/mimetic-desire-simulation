@@ -1,0 +1,180 @@
+
+================================================================================
+TOPOLOGY: erdos_renyi, N=200, gamma=2.0
+================================================================================
+
+  --- seed=42 ---
+  erdos_renyi/seed=42:
+    Valid steps: 4146
+    Target changes: 153 (0.0369/step)
+    Median tenure: 1 steps, mean: 26.9, max: 2445
+    Peak agreement: 0.9948, median: 0.1429
+    Steps with agreement >= 0.90: 0.3%
+    Max consecutive steps >= 0.95: 4
+    High-agreement stretches (>=0.90): 9
+    Target changes WITHIN high-agreement stretches: 4/4 (1.0000/step)
+    Unique targets in trace: 140
+    >> VERDICT: MIXED (moderate rotation + moderate oscillation)
+    Expulsions: 175, Alive: 25
+
+  --- seed=1042 ---
+  erdos_renyi/seed=1042:
+    Valid steps: 2341
+    Target changes: 147 (0.0628/step)
+    Median tenure: 1 steps, mean: 15.8, max: 1663
+    Peak agreement: 0.9948, median: 0.1220
+    Steps with agreement >= 0.90: 0.7%
+    Max consecutive steps >= 0.95: 2
+    High-agreement stretches (>=0.90): 9
+    Target changes WITHIN high-agreement stretches: 7/7 (1.0000/step)
+    Unique targets in trace: 133
+    >> VERDICT: ROTATION (target identity unstable)
+    Expulsions: 158, Alive: 42
+
+  --- seed=2042 ---
+  erdos_renyi/seed=2042:
+    Valid steps: 4360
+    Target changes: 139 (0.0319/step)
+    Median tenure: 1 steps, mean: 31.1, max: 3115
+    Peak agreement: 0.9948, median: 0.1034
+    Steps with agreement >= 0.90: 0.3%
+    Max consecutive steps >= 0.95: 3
+    High-agreement stretches (>=0.90): 11
+    Target changes WITHIN high-agreement stretches: 3/3 (1.0000/step)
+    Unique targets in trace: 129
+    >> VERDICT: MIXED (moderate rotation + moderate oscillation)
+    Expulsions: 165, Alive: 35
+
+  --- seed=3042 ---
+  erdos_renyi/seed=3042:
+    Valid steps: 3081
+    Target changes: 151 (0.0490/step)
+    Median tenure: 1 steps, mean: 20.3, max: 1592
+    Peak agreement: 0.9948, median: 0.1250
+    Steps with agreement >= 0.90: 0.6%
+    Max consecutive steps >= 0.95: 3
+    High-agreement stretches (>=0.90): 12
+    Target changes WITHIN high-agreement stretches: 5/5 (1.0000/step)
+    Unique targets in trace: 134
+    >> VERDICT: MIXED (moderate rotation + moderate oscillation)
+    Expulsions: 172, Alive: 28
+
+================================================================================
+TOPOLOGY: complete, N=200, gamma=2.0
+================================================================================
+
+  --- seed=42 ---
+  complete/seed=42:
+    Valid steps: 5000
+    Target changes: 192 (0.0384/step)
+    Median tenure: 1 steps, mean: 25.9, max: 2916
+    Peak agreement: 0.9948, median: 0.7500
+    Steps with agreement >= 0.90: 2.9%
+    Max consecutive steps >= 0.95: 16
+    High-agreement stretches (>=0.90): 24
+    Target changes WITHIN high-agreement stretches: 122/122 (1.0000/step)
+    Unique targets in trace: 186
+    >> VERDICT: CONVERGED
+    Expulsions: 197, Alive: 3
+
+  --- seed=1042 ---
+  complete/seed=1042:
+    Valid steps: 5000
+    Target changes: 190 (0.0380/step)
+    Median tenure: 1 steps, mean: 26.2, max: 3876
+    Peak agreement: 0.9949, median: 0.6667
+    Steps with agreement >= 0.90: 2.9%
+    Max consecutive steps >= 0.95: 27
+    High-agreement stretches (>=0.90): 22
+    Target changes WITHIN high-agreement stretches: 123/123 (1.0000/step)
+    Unique targets in trace: 188
+    >> VERDICT: CONVERGED
+    Expulsions: 197, Alive: 3
+
+  --- seed=2042 ---
+  complete/seed=2042:
+    Valid steps: 5000
+    Target changes: 191 (0.0382/step)
+    Median tenure: 1 steps, mean: 26.0, max: 3599
+    Peak agreement: 0.9949, median: 0.6667
+    Steps with agreement >= 0.90: 3.0%
+    Max consecutive steps >= 0.95: 32
+    High-agreement stretches (>=0.90): 21
+    Target changes WITHIN high-agreement stretches: 127/129 (0.9845/step)
+    Unique targets in trace: 190
+    >> VERDICT: CONVERGED
+    Expulsions: 197, Alive: 3
+
+  --- seed=3042 ---
+  complete/seed=3042:
+    Valid steps: 5000
+    Target changes: 194 (0.0388/step)
+    Median tenure: 1 steps, mean: 25.6, max: 3637
+    Peak agreement: 0.9948, median: 0.6667
+    Steps with agreement >= 0.90: 3.0%
+    Max consecutive steps >= 0.95: 18
+    High-agreement stretches (>=0.90): 21
+    Target changes WITHIN high-agreement stretches: 128/129 (0.9922/step)
+    Unique targets in trace: 190
+    >> VERDICT: CONVERGED
+    Expulsions: 197, Alive: 3
+
+================================================================================
+TOPOLOGY: watts_strogatz, N=200, gamma=2.0
+================================================================================
+
+  --- seed=42 ---
+  watts_strogatz/seed=42:
+    Valid steps: 3532
+    Target changes: 630 (0.1784/step)
+    Median tenure: 1 steps, mean: 5.6, max: 2464
+    Peak agreement: 0.8533, median: 0.1071
+    Steps with agreement >= 0.90: 0.0%
+    Max consecutive steps >= 0.95: 0
+    High-agreement stretches (>=0.90): 0
+    (No high-agreement stretches to analyze)
+    Unique targets in trace: 105
+    >> VERDICT: ROTATION (target identity unstable)
+    Expulsions: 169, Alive: 31
+
+  --- seed=1042 ---
+  watts_strogatz/seed=1042:
+    Valid steps: 3666
+    Target changes: 128 (0.0349/step)
+    Median tenure: 1 steps, mean: 28.4, max: 3332
+    Peak agreement: 0.7027, median: 0.1429
+    Steps with agreement >= 0.90: 0.0%
+    Max consecutive steps >= 0.95: 0
+    High-agreement stretches (>=0.90): 0
+    (No high-agreement stretches to analyze)
+    Unique targets in trace: 115
+    >> VERDICT: MIXED (moderate rotation + moderate oscillation)
+    Expulsions: 172, Alive: 28
+
+  --- seed=2042 ---
+  watts_strogatz/seed=2042:
+    Valid steps: 4980
+    Target changes: 148 (0.0297/step)
+    Median tenure: 1 steps, mean: 33.4, max: 3985
+    Peak agreement: 0.6465, median: 0.1304
+    Steps with agreement >= 0.90: 0.0%
+    Max consecutive steps >= 0.95: 0
+    High-agreement stretches (>=0.90): 0
+    (No high-agreement stretches to analyze)
+    Unique targets in trace: 132
+    >> VERDICT: MIXED (moderate rotation + moderate oscillation)
+    Expulsions: 173, Alive: 27
+
+  --- seed=3042 ---
+  watts_strogatz/seed=3042:
+    Valid steps: 4964
+    Target changes: 126 (0.0254/step)
+    Median tenure: 1 steps, mean: 39.1, max: 2225
+    Peak agreement: 0.8383, median: 0.1579
+    Steps with agreement >= 0.90: 0.0%
+    Max consecutive steps >= 0.95: 0
+    High-agreement stretches (>=0.90): 0
+    (No high-agreement stretches to analyze)
+    Unique targets in trace: 112
+    >> VERDICT: MIXED (moderate rotation + moderate oscillation)
+    Expulsions: 175, Alive: 25
