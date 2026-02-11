@@ -231,6 +231,8 @@ This $`N`$-invariance is not a generic property of convex conserving operators. 
 
 We accordingly revise our characterization of the effective phase boundary from the $`N = 50`$ interval $`[1.02, 1.05]`$ to the $`N`$-invariant interval $`[1.02, 1.03]`$, noting that the upper bound represents essentially a point transition at $`N \geq 100`$.
 
+![Figure 4. Phase boundary N-invariance. The convergence rate transition sharpens with increasing N but the critical threshold remains stable at gamma* approx 1.03, confirming that the phase boundary is a property of the convex redistribution operator rather than a finite-size artifact.](../figures/fig4_phase_boundary_N.png)
+
 #### Phase Boundary Robustness Across Parameters
 
 The $`N`$-invariance results hold alpha and decay at defaults ($`\alpha = 0.15`$, $`\delta = 0.03`$). To test whether the boundary location is fragile to these choices, we swept alpha across $`\{0.05, 0.10, 0.15, 0.20, 0.30\}`$ and decay across $`\{0.01, 0.03, 0.05, 0.10\}`$ in a full 5x4 grid (10 seeds per condition, $`N = 50`$, 800 steps, no expulsion), measuring the gamma value at which convergence first reaches 100%.
@@ -407,6 +409,8 @@ The mechanism fires in bursts of 2--3, each burst separated by 300--450 steps of
 *Table 7. Supercritical burst regime: unanimity-triggered expulsion at high gamma. Same conditions as Table 6. Peace intervals emerge naturally from topology disruption and increase with both $`\gamma`$ and $`N`$. $`\dagger`$ The $`N = 500`$ consumed fractions (3% and 1.2%) are censored at 1500 steps. Extended runs (Section 3.9) show that the supercritical burst regime at $`N = 500`$ eventually consumes $`{\sim}64\%`$ of the population when run to completion.*
 
 The paired-burst structure provides a mechanical substrate for Girard's concept of "doubles" -- the paired victims who appear in founding myths (Cain and Abel, Romulus and Remus, Eteocles and Polynices). In the model, the pairing is not psychological (the two victims do not fight each other) but structural: at high $`\gamma`$, the hostility landscape is so steep that when the primary victim is removed, the runner-up is already primed as the consensus target. The group's attention snaps to the second victim with no intervening deliberation. The model produces the *fact* of paired victims; myth, in Girard's account, provides the retrospective narrative that makes sense of it. Whether the mythological pattern of founding doubles reflects a structural feature of the underlying violence (as the model suggests) or is a purely narrative device is a question the model cannot resolve, but the mechanical availability of the pattern is worth noting.
+
+![Figure 5. Violence topologies above the phase boundary. (a) Boundary-grinding regime (N=200, gamma=1.05): relentless serial expulsions with zero peace intervals. (b) Supercritical burst regime (N=500, gamma=2.0): discrete paired expulsions separated by long natural peace intervals.](../figures/fig5_violence_topologies.png)
 
 ### 3.9 Community Scale and Self-Exhaustion
 
@@ -1040,6 +1044,8 @@ Table G2 reports convergence rates across $`N`$ and $`T`$ (10 seeds per cell, st
 
 *Table G2. Convergence rate heatmap: $`N`$ (rows) $`\times`$ $`T`$ (columns). Produced by `exp_softmax_band_n_dependence.py`.*
 
+![Figure G1. Softmax convergence heatmap: convergence rate by population size N and temperature T.](../figures/fig_softmax_heatmap.png)
+
 Phase boundaries (interpolated at 50% convergence threshold):
 
 | $`N`$ | $`T_{\text{lower}}`$ | $`T_{\text{upper}}`$ | Band Width |
@@ -1052,6 +1058,8 @@ Phase boundaries (interpolated at 50% convergence threshold):
 | 200 | -- | -- | 0 (no $`T`$ converges) |
 
 *Table G3. Softmax convergence band as a function of population size. Band width is monotonically decreasing. Both boundaries squeeze inward: $`T_{\text{lower}}`$ increases (argmax oscillation worsens with more targets) and $`T_{\text{upper}}`$ decreases (higher entropy of the uniform distribution requires sharper concentration to overcome). Produced by `exp_softmax_band_n_dependence.py`.*
+
+![Figure G2. Softmax convergence band width vs. population size. Band width decreases monotonically and vanishes at N >= 150.](../figures/fig_softmax_band_width.png)
 
 The band narrows monotonically and vanishes at $`N \geq 150`$. The softmax operator cannot produce scapegoat convergence at population sizes above approximately 100, regardless of temperature. By contrast, the power-law phase boundary is $`N`$-invariant from $`N = 5`$ to $`N = 500`$ (Sections 3.2, 3.11.3).
 
@@ -1116,6 +1124,8 @@ The entropy trajectory reveals the transient structure directly. Table H2 report
 | 2.00 | 0.988 | 0.092 | 0.000 | 0.000 | 0.000 | 0.000 | 0.000 |
 
 *Table H2. Entropy trajectories (mean over 20 seeds, sampled every 25 steps). All runs begin at high entropy ($`{\sim}1.0\text{--}1.3`$) reflecting the initially random hostility landscape. The decay to zero -- the resolution of the "monstrous doubles" into a single victim -- is progressively faster at higher $`\gamma`$. Produced by `exp_modal_entropy_transient.py`.*
+
+![Figure H1. Modal-target entropy decay by superlinearity. Higher gamma produces faster collapse from diffuse hostility to single-victim lock-in.](../figures/fig_entropy_transient.png)
 
 ### H.3 Interpretation
 
