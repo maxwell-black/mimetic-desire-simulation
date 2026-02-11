@@ -1,0 +1,277 @@
+﻿========================================================================================================================
+SOFTMAX BAND N-DEPENDENCE EXPERIMENT
+Question: Does the convergence band [T_lower, T_upper] narrow with N?
+Population sizes: [10, 20, 30, 50, 75, 100, 150, 200]
+Temperatures: 25 values from 0.05 to 1.0
+Seeds per (N,T): 10
+Started: 2026-02-10 10:04:03
+========================================================================================================================
+
+--- N=10, steps=400 ---
+  N= 10  T=0.050   conv=   0%  peak_modal=0.860  (4s)
+  N= 10  T=0.080   conv=   0%  peak_modal=0.900  (4s)
+  N= 10  T=0.100   conv=   0%  peak_modal=0.900  (4s)
+  N= 10  T=0.120   conv=   0%  peak_modal=0.900  (4s)
+  N= 10  T=0.150   conv=   0%  peak_modal=0.900  (4s)
+  N= 10  T=0.180   conv=   0%  peak_modal=0.900  (4s)
+  N= 10  T=0.200   conv=   0%  peak_modal=0.900  (3s)
+  N= 10  T=0.220   conv=   0%  peak_modal=0.900  (4s)
+  N= 10  T=0.250   conv=   0%  peak_modal=0.900  (4s)
+  N= 10  T=0.280   conv=   0%  peak_modal=0.900  (4s)
+  N= 10  T=0.300   conv=   0%  peak_modal=0.900  (4s)
+  N= 10  T=0.350   conv=   0%  peak_modal=0.900  (4s)
+  N= 10  T=0.400   conv=   0%  peak_modal=0.900  (4s)
+  N= 10  T=0.450   conv=   0%  peak_modal=0.900  (4s)
+  N= 10  T=0.500   conv=   0%  peak_modal=0.900  (4s)
+  N= 10  T=0.550   conv=   0%  peak_modal=0.900  (4s)
+  N= 10  T=0.600   conv=   0%  peak_modal=0.900  (4s)
+  N= 10  T=0.630   conv=   0%  peak_modal=0.900  (4s)
+  N= 10  T=0.650   conv=   0%  peak_modal=0.900  (4s)
+  N= 10  T=0.680   conv=   0%  peak_modal=0.900  (4s)
+  N= 10  T=0.700   conv=   0%  peak_modal=0.900  (4s)
+  N= 10  T=0.750   conv=   0%  peak_modal=0.900  (4s)
+  N= 10  T=0.800   conv=   0%  peak_modal=0.880  (4s)
+  N= 10  T=0.900   conv=   0%  peak_modal=0.780  (4s)
+  N= 10  T=1.000   conv=   0%  peak_modal=0.740  (4s)
+  N=10 total: 89s
+
+--- N=20, steps=400 ---
+  N= 20  T=0.050   conv=  70%  peak_modal=0.835  (7s)
+  N= 20  T=0.080   conv=  70%  peak_modal=0.840  (7s)
+  N= 20  T=0.100   conv=  70%  peak_modal=0.845  (7s)
+  N= 20  T=0.120   conv=  70%  peak_modal=0.845  (7s)
+  N= 20  T=0.150   conv=  60%  peak_modal=0.795  (7s)
+  N= 20  T=0.180   conv=  60%  peak_modal=0.805  (7s)
+  N= 20  T=0.200   conv=  60%  peak_modal=0.795  (7s)
+  N= 20  T=0.220   conv=  70%  peak_modal=0.825  (7s)
+  N= 20  T=0.250   conv=  80%  peak_modal=0.875  (7s)
+  N= 20  T=0.280   conv=  80%  peak_modal=0.875  (7s)
+  N= 20  T=0.300   conv=  80%  peak_modal=0.875  (7s)
+  N= 20  T=0.350   conv=  80%  peak_modal=0.870  (7s)
+  N= 20  T=0.400   conv= 100%  peak_modal=0.950  (7s)
+  N= 20  T=0.450   conv= 100%  peak_modal=0.950  (7s)
+  N= 20  T=0.500   conv= 100%  peak_modal=0.950  (7s)
+  N= 20  T=0.550   conv= 100%  peak_modal=0.950  (7s)
+  N= 20  T=0.600   conv= 100%  peak_modal=0.950  (7s)
+  N= 20  T=0.630   conv= 100%  peak_modal=0.950  (7s)
+  N= 20  T=0.650   conv= 100%  peak_modal=0.950  (7s)
+  N= 20  T=0.680   conv= 100%  peak_modal=0.950  (7s)
+  N= 20  T=0.700   conv= 100%  peak_modal=0.950  (7s)
+  N= 20  T=0.750   conv=  80%  peak_modal=0.940  (7s)
+  N= 20  T=0.800   conv=  50%  peak_modal=0.905  (7s)
+  N= 20  T=0.900   conv=   0%  peak_modal=0.640  (7s)
+  N= 20  T=1.000   conv=   0%  peak_modal=0.510  (7s)
+  N=20 total: 178s
+
+--- N=30, steps=400 ---
+  N= 30  T=0.050   conv=  50%  peak_modal=0.787  (11s)
+  N= 30  T=0.080   conv=  30%  peak_modal=0.697  (11s)
+  N= 30  T=0.100   conv=  60%  peak_modal=0.797  (11s)
+  N= 30  T=0.120   conv=  50%  peak_modal=0.770  (11s)
+  N= 30  T=0.150   conv=  80%  peak_modal=0.873  (11s)
+  N= 30  T=0.180   conv=  90%  peak_modal=0.917  (11s)
+  N= 30  T=0.200   conv=  70%  peak_modal=0.847  (10s)
+  N= 30  T=0.220   conv=  90%  peak_modal=0.930  (10s)
+  N= 30  T=0.250   conv=  90%  peak_modal=0.930  (10s)
+  N= 30  T=0.280   conv= 100%  peak_modal=0.967  (10s)
+  N= 30  T=0.300   conv= 100%  peak_modal=0.967  (10s)
+  N= 30  T=0.350   conv= 100%  peak_modal=0.967  (10s)
+  N= 30  T=0.400   conv= 100%  peak_modal=0.967  (10s)
+  N= 30  T=0.450   conv= 100%  peak_modal=0.967  (10s)
+  N= 30  T=0.500   conv= 100%  peak_modal=0.967  (10s)
+  N= 30  T=0.550   conv= 100%  peak_modal=0.967  (10s)
+  N= 30  T=0.600   conv= 100%  peak_modal=0.967  (10s)
+  N= 30  T=0.630   conv= 100%  peak_modal=0.967  (10s)
+  N= 30  T=0.650   conv=  90%  peak_modal=0.967  (10s)
+  N= 30  T=0.680   conv=  90%  peak_modal=0.960  (10s)
+  N= 30  T=0.700   conv=  80%  peak_modal=0.960  (10s)
+  N= 30  T=0.750   conv=  90%  peak_modal=0.960  (10s)
+  N= 30  T=0.800   conv=  10%  peak_modal=0.733  (10s)
+  N= 30  T=0.900   conv=   0%  peak_modal=0.377  (10s)
+  N= 30  T=1.000   conv=   0%  peak_modal=0.233  (10s)
+  N=30 total: 253s
+
+--- N=50, steps=500 ---
+  N= 50  T=0.050   conv=  10%  peak_modal=0.512  (22s)
+  N= 50  T=0.080   conv=  30%  peak_modal=0.622  (22s)
+  N= 50  T=0.100   conv=  30%  peak_modal=0.718  (22s)
+  N= 50  T=0.120   conv=  30%  peak_modal=0.730  (22s)
+  N= 50  T=0.150   conv=  20%  peak_modal=0.638  (22s)
+  N= 50  T=0.180   conv=  40%  peak_modal=0.660  (22s)
+  N= 50  T=0.200   conv=  50%  peak_modal=0.712  (22s)
+  N= 50  T=0.220   conv=  70%  peak_modal=0.854  (22s)
+  N= 50  T=0.250   conv=  70%  peak_modal=0.858  (22s)
+  N= 50  T=0.280   conv=  80%  peak_modal=0.918  (22s)
+  N= 50  T=0.300   conv= 100%  peak_modal=0.980  (22s)
+  N= 50  T=0.350   conv=  90%  peak_modal=0.912  (22s)
+  N= 50  T=0.400   conv= 100%  peak_modal=0.980  (22s)
+  N= 50  T=0.450   conv=  90%  peak_modal=0.920  (22s)
+  N= 50  T=0.500   conv=  80%  peak_modal=0.916  (22s)
+  N= 50  T=0.550   conv=  90%  peak_modal=0.962  (22s)
+  N= 50  T=0.600   conv= 100%  peak_modal=0.980  (22s)
+  N= 50  T=0.630   conv=  80%  peak_modal=0.868  (22s)
+  N= 50  T=0.650   conv=  60%  peak_modal=0.758  (22s)
+  N= 50  T=0.680   conv=  30%  peak_modal=0.622  (22s)
+  N= 50  T=0.700   conv=  10%  peak_modal=0.498  (22s)
+  N= 50  T=0.750   conv=  10%  peak_modal=0.356  (22s)
+  N= 50  T=0.800   conv=   0%  peak_modal=0.256  (22s)
+  N= 50  T=0.900   conv=   0%  peak_modal=0.162  (22s)
+  N= 50  T=1.000   conv=   0%  peak_modal=0.142  (22s)
+  N=50 total: 554s
+
+--- N=75, steps=750 ---
+  N= 75  T=0.050   conv=   0%  peak_modal=0.433  (54s)
+  N= 75  T=0.080   conv=   0%  peak_modal=0.417  (54s)
+  N= 75  T=0.100   conv=   0%  peak_modal=0.429  (54s)
+  N= 75  T=0.120   conv=  10%  peak_modal=0.485  (53s)
+  N= 75  T=0.150   conv=  30%  peak_modal=0.640  (54s)
+  N= 75  T=0.180   conv=  40%  peak_modal=0.729  (54s)
+  N= 75  T=0.200   conv=  30%  peak_modal=0.655  (53s)
+  N= 75  T=0.220   conv=  30%  peak_modal=0.696  (53s)
+  N= 75  T=0.250   conv=  20%  peak_modal=0.625  (53s)
+  N= 75  T=0.280   conv=  20%  peak_modal=0.692  (53s)
+  N= 75  T=0.300   conv=  20%  peak_modal=0.657  (54s)
+  N= 75  T=0.350   conv=  40%  peak_modal=0.744  (52s)
+  N= 75  T=0.400   conv=  70%  peak_modal=0.852  (52s)
+  N= 75  T=0.450   conv=  60%  peak_modal=0.804  (53s)
+  N= 75  T=0.500   conv=  80%  peak_modal=0.905  (54s)
+  N= 75  T=0.550   conv=  50%  peak_modal=0.823  (54s)
+  N= 75  T=0.600   conv=  30%  peak_modal=0.624  (53s)
+  N= 75  T=0.630   conv=  30%  peak_modal=0.493  (54s)
+  N= 75  T=0.650   conv=  10%  peak_modal=0.385  (54s)
+  N= 75  T=0.680   conv=   0%  peak_modal=0.185  (53s)
+  N= 75  T=0.700   conv=   0%  peak_modal=0.165  (54s)
+  N= 75  T=0.750   conv=   0%  peak_modal=0.120  (53s)
+  N= 75  T=0.800   conv=   0%  peak_modal=0.101  (54s)
+  N= 75  T=0.900   conv=   0%  peak_modal=0.088  (54s)
+  N= 75  T=1.000   conv=   0%  peak_modal=0.080  (54s)
+  N=75 total: 1337s
+
+--- N=100, steps=1000 ---
+  N=100  T=0.050   conv=   0%  peak_modal=0.233  (103s)
+  N=100  T=0.080   conv=   0%  peak_modal=0.315  (103s)
+  N=100  T=0.100   conv=   0%  peak_modal=0.355  (104s)
+  N=100  T=0.120   conv=   0%  peak_modal=0.351  (104s)
+  N=100  T=0.150   conv=   0%  peak_modal=0.361  (105s)
+  N=100  T=0.180   conv=   0%  peak_modal=0.310  (104s)
+  N=100  T=0.200   conv=  10%  peak_modal=0.387  (103s)
+  N=100  T=0.220   conv=  10%  peak_modal=0.351  (104s)
+  N=100  T=0.250   conv=  30%  peak_modal=0.569  (104s)
+  N=100  T=0.280   conv=  40%  peak_modal=0.591  (104s)
+  N=100  T=0.300   conv=  40%  peak_modal=0.627  (103s)
+  N=100  T=0.350   conv=  30%  peak_modal=0.627  (103s)
+  N=100  T=0.400   conv=  30%  peak_modal=0.618  (103s)
+  N=100  T=0.450   conv=  50%  peak_modal=0.683  (103s)
+  N=100  T=0.500   conv=  60%  peak_modal=0.735  (103s)
+  N=100  T=0.550   conv=  30%  peak_modal=0.509  (104s)
+  N=100  T=0.600   conv=  10%  peak_modal=0.257  (104s)
+  N=100  T=0.630   conv=   0%  peak_modal=0.192  (104s)
+  N=100  T=0.650   conv=   0%  peak_modal=0.133  (103s)
+  N=100  T=0.680   conv=   0%  peak_modal=0.117  (103s)
+  N=100  T=0.700   conv=   0%  peak_modal=0.104  (103s)
+  N=100  T=0.750   conv=   0%  peak_modal=0.084  (103s)
+  N=100  T=0.800   conv=   0%  peak_modal=0.076  (103s)
+  N=100  T=0.900   conv=   0%  peak_modal=0.068  (103s)
+  N=100  T=1.000   conv=   0%  peak_modal=0.062  (103s)
+  N=100 total: 2586s
+
+--- N=150, steps=1500 ---
+  N=150  T=0.050   conv=   0%  peak_modal=0.246  (269s)
+  N=150  T=0.080   conv=   0%  peak_modal=0.245  (270s)
+  N=150  T=0.100   conv=   0%  peak_modal=0.250  (271s)
+  N=150  T=0.120   conv=   0%  peak_modal=0.194  (269s)
+  N=150  T=0.150   conv=   0%  peak_modal=0.211  (270s)
+  N=150  T=0.180   conv=   0%  peak_modal=0.211  (269s)
+  N=150  T=0.200   conv=   0%  peak_modal=0.254  (270s)
+  N=150  T=0.220   conv=   0%  peak_modal=0.243  (270s)
+  N=150  T=0.250   conv=   0%  peak_modal=0.315  (269s)
+  N=150  T=0.280   conv=   0%  peak_modal=0.377  (271s)
+  N=150  T=0.300   conv=   0%  peak_modal=0.399  (271s)
+  N=150  T=0.350   conv=   0%  peak_modal=0.382  (271s)
+  N=150  T=0.400   conv=  20%  peak_modal=0.436  (270s)
+  N=150  T=0.450   conv=  20%  peak_modal=0.321  (274s)
+  N=150  T=0.500   conv=   0%  peak_modal=0.177  (279s)
+  N=150  T=0.550   conv=   0%  peak_modal=0.105  (267s)
+  N=150  T=0.600   conv=   0%  peak_modal=0.079  (263s)
+  N=150  T=0.630   conv=   0%  peak_modal=0.071  (264s)
+  N=150  T=0.650   conv=   0%  peak_modal=0.069  (265s)
+  N=150  T=0.680   conv=   0%  peak_modal=0.061  (270s)
+  N=150  T=0.700   conv=   0%  peak_modal=0.059  (275s)
+  N=150  T=0.750   conv=   0%  peak_modal=0.053  (271s)
+  N=150  T=0.800   conv=   0%  peak_modal=0.051  (271s)
+  N=150  T=0.900   conv=   0%  peak_modal=0.046  (271s)
+  N=150  T=1.000   conv=   0%  peak_modal=0.045  (271s)
+  N=150 total: 6749s
+
+--- N=200, steps=2000 ---
+  N=200  T=0.050   conv=   0%  peak_modal=0.166  (542s)
+  N=200  T=0.080   conv=   0%  peak_modal=0.183  (549s)
+  N=200  T=0.100   conv=   0%  peak_modal=0.197  (544s)
+  N=200  T=0.120   conv=   0%  peak_modal=0.193  (543s)
+  N=200  T=0.150   conv=   0%  peak_modal=0.177  (546s)
+  N=200  T=0.180   conv=   0%  peak_modal=0.171  (545s)
+  N=200  T=0.200   conv=   0%  peak_modal=0.158  (544s)
+  N=200  T=0.220   conv=   0%  peak_modal=0.159  (544s)
+  N=200  T=0.250   conv=   0%  peak_modal=0.162  (538s)
+  N=200  T=0.280   conv=   0%  peak_modal=0.178  (535s)
+  N=200  T=0.300   conv=   0%  peak_modal=0.172  (539s)
+  N=200  T=0.350   conv=   0%  peak_modal=0.199  (536s)
+  N=200  T=0.400   conv=   0%  peak_modal=0.124  (532s)
+  N=200  T=0.450   conv=   0%  peak_modal=0.107  (535s)
+  N=200  T=0.500   conv=   0%  peak_modal=0.079  (536s)
+  N=200  T=0.550   conv=   0%  peak_modal=0.061  (522s)
+  N=200  T=0.600   conv=   0%  peak_modal=0.049  (523s)
+  N=200  T=0.630   conv=   0%  peak_modal=0.044  (527s)
+  N=200  T=0.650   conv=   0%  peak_modal=0.041  (525s)
+  N=200  T=0.680   conv=   0%  peak_modal=0.038  (517s)
+  N=200  T=0.700   conv=   0%  peak_modal=0.037  (523s)
+  N=200  T=0.750   conv=   0%  peak_modal=0.035  (519s)
+  N=200  T=0.800   conv=   0%  peak_modal=0.033  (520s)
+  N=200  T=0.900   conv=   0%  peak_modal=0.032  (515s)
+  N=200  T=1.000   conv=   0%  peak_modal=0.031  (516s)
+  N=200 total: 13315s
+
+========================================================================================================================
+PHASE BOUNDARIES BY N
+========================================================================================================================
+  N= 10:  NO temperatures converge
+  N= 20:  T_lower=???   T_upper=0.800  (no lower boundary found)
+  N= 30:  T_lower=0.093  T_upper=0.775  band_width=0.682
+  N= 50:  T_lower=0.200  T_upper=0.660  band_width=0.460
+  N= 75:  T_lower=0.367  T_upper=0.550  band_width=0.183
+  N=100:  T_lower=0.450  T_upper=0.517  band_width=0.067
+  N=150:  NO temperatures converge
+  N=200:  NO temperatures converge
+
+========================================================================================================================
+CONVERGENCE RATE TABLE: N (rows) x T (columns)
+========================================================================================================================
+    N |  0.05  0.10  0.15  0.20  0.25  0.30  0.40  0.50  0.60  0.65  0.70  0.80  1.00
+------------------------------------------------------------------------------------------------------------------------
+   10 |    0%    0%    0%    0%    0%    0%    0%    0%    0%    0%    0%    0%    0%
+   20 |   70%   70%   60%   60%   80%   80%  100%  100%  100%  100%  100%   50%    0%
+   30 |   50%   60%   80%   70%   90%  100%  100%  100%  100%   90%   80%   10%    0%
+   50 |   10%   30%   20%   50%   70%  100%  100%   80%  100%   60%   10%    0%    0%
+   75 |    0%    0%   30%   30%   20%   20%   70%   80%   30%   10%    0%    0%    0%
+  100 |    0%    0%    0%   10%   30%   40%   30%   60%   10%    0%    0%    0%    0%
+  150 |    0%    0%    0%    0%    0%    0%   20%    0%    0%    0%    0%    0%    0%
+  200 |    0%    0%    0%    0%    0%    0%    0%    0%    0%    0%    0%    0%    0%
+
+========================================================================================================================
+BAND WIDTH TREND
+========================================================================================================================
+    N |  T_lower  T_upper    Width
+----------------------------------------
+   30 |    0.093    0.775    0.682
+   50 |    0.200    0.660    0.460
+   75 |    0.367    0.550    0.183
+  100 |    0.450    0.517    0.067
+
+  Band width is MONOTONICALLY DECREASING with N.
+  The softmax operator becomes MORE fragile at larger populations.
+  This strongly supports the power-law operator choice.
+  T_lower is INCREASING with N (argmax oscillation gets worse).
+  T_upper is DECREASING with N (upper boundary also shifts).
+
+
+Completed: 2026-02-10 17:01:43

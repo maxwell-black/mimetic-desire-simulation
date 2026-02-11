@@ -1,0 +1,110 @@
+﻿==============================================================================================================
+SOFTMAX OPERATOR SWEEP: ALTERNATIVE CONVEX CONSERVING OPERATOR
+Agents: 50, Steps: 800, Seeds: 10
+Temperatures: [0.05, 0.1, 0.12, 0.15, 0.18, 0.2, 0.22, 0.25, 0.28, 0.3, 0.35, 0.4, 0.45, 0.5, 0.55, 0.6, 0.63, 0.65, 0.68, 0.7, 0.75, 0.8, 1.0, 2.0]
+Operator: w_j = exp((h_j/max(h))/T) / sum(exp((h_j/max(h))/T)) * total_h
+  (h normalized to [0,1] for scale invariance)
+Convergence criterion: modal agreement >= 0.95 for 10 consecutive steps
+Started: 2026-02-09 17:35:26
+==============================================================================================================
+  T=0.0500    conv=  10%  peak_modal=0.514  final_modal=0.507  peak_gini=0.936  med_t95=    25  (34s)
+  T=0.1000    conv=  30%  peak_modal=0.718  final_modal=0.714  peak_gini=0.952  med_t95=    20  (34s)
+  T=0.1200    conv=  30%  peak_modal=0.730  final_modal=0.726  peak_gini=0.945  med_t95=    19  (35s)
+  T=0.1500    conv=  20%  peak_modal=0.638  final_modal=0.629  peak_gini=0.892  med_t95=   217  (35s)
+  T=0.1800    conv=  40%  peak_modal=0.660  final_modal=0.650  peak_gini=0.793  med_t95=    34  (35s)
+  T=0.2000    conv=  50%  peak_modal=0.712  final_modal=0.709  peak_gini=0.708  med_t95=    39  (35s)
+  T=0.2200    conv=  70%  peak_modal=0.854  final_modal=0.853  peak_gini=0.622  med_t95=    41  (35s)
+  T=0.2500    conv=  70%  peak_modal=0.858  final_modal=0.858  peak_gini=0.490  med_t95=    42  (35s)
+  T=0.2800    conv=  80%  peak_modal=0.918  final_modal=0.918  peak_gini=0.385  med_t95=    47  (35s)
+  T=0.3000    conv= 100%  peak_modal=0.980  final_modal=0.980  peak_gini=0.326  med_t95=    50  (35s)
+  T=0.3500    conv=  90%  peak_modal=0.912  final_modal=0.912  peak_gini=0.218  med_t95=    51  (35s)
+  T=0.4000    conv= 100%  peak_modal=0.980  final_modal=0.980  peak_gini=0.156  med_t95=    56  (35s)
+  T=0.4500    conv=  90%  peak_modal=0.920  final_modal=0.920  peak_gini=0.120  med_t95=    54  (35s)
+  T=0.5000    conv=  90%  peak_modal=0.934  final_modal=0.934  peak_gini=0.106  med_t95=    71  (35s)
+  T=0.5500    conv= 100%  peak_modal=0.980  final_modal=0.979  peak_gini=0.102  med_t95=    83  (35s)
+  T=0.6000    conv= 100%  peak_modal=0.980  final_modal=0.980  peak_gini=0.100  med_t95=   117  (35s)
+  T=0.6300    conv=  80%  peak_modal=0.870  final_modal=0.868  peak_gini=0.099  med_t95=   152  (35s)
+  T=0.6500    conv=  60%  peak_modal=0.762  final_modal=0.749  peak_gini=0.099  med_t95=   128  (35s)
+  T=0.6800    conv=  30%  peak_modal=0.624  final_modal=0.608  peak_gini=0.098  med_t95=   146  (35s)
+  T=0.7000    conv=  10%  peak_modal=0.498  final_modal=0.477  peak_gini=0.097  med_t95=    59  (35s)
+  T=0.7500    conv=  10%  peak_modal=0.362  final_modal=0.329  peak_gini=0.097  med_t95=   171  (35s)
+  T=0.8000    conv=   0%  peak_modal=0.258  final_modal=0.217  peak_gini=0.096  med_t95=   nan  (35s)
+  T=1.0000    conv=   0%  peak_modal=0.142  final_modal=0.113  peak_gini=0.095  med_t95=   nan  (35s)
+  T=2.0000    conv=   0%  peak_modal=0.106  final_modal=0.081  peak_gini=0.097  med_t95=   nan  (35s)
+
+==============================================================================================================
+RESULTS TABLE
+==============================================================================================================
+       T | Pk Modal   (sd) | Fin Modal   (sd) | Pk Gini | Med t95 | %Conv
+--------------------------------------------------------------------------------------------------------------
+  0.0500 |    0.514 0.214 |     0.507 0.217 |   0.936 |      25 |   10%
+  0.1000 |    0.718 0.247 |     0.714 0.251 |   0.952 |      20 |   30%
+  0.1200 |    0.730 0.225 |     0.726 0.232 |   0.945 |      19 |   30%
+  0.1500 |    0.638 0.236 |     0.629 0.236 |   0.892 |     217 |   20%
+  0.1800 |    0.660 0.282 |     0.650 0.291 |   0.793 |      34 |   40%
+  0.2000 |    0.712 0.291 |     0.709 0.295 |   0.708 |      39 |   50%
+  0.2200 |    0.854 0.199 |     0.853 0.201 |   0.622 |      41 |   70%
+  0.2500 |    0.858 0.211 |     0.858 0.211 |   0.490 |      42 |   70%
+  0.2800 |    0.918 0.128 |     0.918 0.128 |   0.385 |      47 |   80%
+  0.3000 |    0.980 0.000 |     0.980 0.000 |   0.326 |      50 |  100%
+  0.3500 |    0.912 0.204 |     0.912 0.204 |   0.218 |      51 |   90%
+  0.4000 |    0.980 0.000 |     0.980 0.000 |   0.156 |      56 |  100%
+  0.4500 |    0.920 0.180 |     0.920 0.180 |   0.120 |      54 |   90%
+  0.5000 |    0.934 0.138 |     0.934 0.138 |   0.106 |      71 |   90%
+  0.5500 |    0.980 0.000 |     0.979 0.002 |   0.102 |      83 |  100%
+  0.6000 |    0.980 0.000 |     0.980 0.000 |   0.100 |     117 |  100%
+  0.6300 |    0.870 0.220 |     0.868 0.224 |   0.099 |     152 |   80%
+  0.6500 |    0.762 0.269 |     0.749 0.284 |   0.099 |     128 |   60%
+  0.6800 |    0.624 0.288 |     0.608 0.291 |   0.098 |     146 |   30%
+  0.7000 |    0.498 0.287 |     0.477 0.289 |   0.097 |      59 |   10%
+  0.7500 |    0.362 0.248 |     0.329 0.243 |   0.097 |     171 |   10%
+  0.8000 |    0.258 0.149 |     0.217 0.137 |   0.096 |      -- |    0%
+  1.0000 |    0.142 0.017 |     0.113 0.021 |   0.095 |      -- |    0%
+  2.0000 |    0.106 0.013 |     0.081 0.010 |   0.097 |      -- |    0%
+
+==============================================================================================================
+PHASE BOUNDARIES (softmax)
+==============================================================================================================
+  Lower boundary (sharp -> converge): T=0.1800 (40%) -> T=0.2000 (50%)
+  Upper boundary (converge -> flat):   T=0.6500 (60%) -> T=0.6800 (30%)
+
+  Convergence BAND: T in [0.200, 0.650]
+  This differs from the power-law, which has only an upper boundary
+  (gamma* ~ 1.02-1.05) with convergence at all gamma > gamma*.
+
+==============================================================================================================
+COMPARISON: SOFTMAX vs POWER-LAW
+==============================================================================================================
+  Power-law gamma sweep: boundary at gamma* ~ 1.02-1.05
+  Power-law: gamma > gamma* always converges (no upper limit)
+  Softmax: convergence only in a BAND of temperatures
+
+  SHARED PROPERTY:
+    Both operators produce a sharp upper boundary (too flat -> no convergence)
+    This confirms the boundary is a property of convex conserving operators
+
+  DIFFERENCE:
+    Power-law: no lower boundary (arbitrarily high gamma converges)
+    Softmax: lower boundary exists (too-sharp softmax oscillates)
+    Likely cause: power-law is scale-invariant and preserves relative
+    rankings multiplicatively, while softmax (even normalized) produces
+    near-argmax behavior at low T, causing target oscillation
+
+  Softmax band:           T in [0.200, 0.650]
+  Power-law half-line:    gamma in [~1.03, inf)
+
+==============================================================================================================
+REFERENCE: POWER-LAW GAMMA SWEEP (same N, seeds, steps)
+==============================================================================================================
+  gamma=0.90   conv=   0%  peak_modal=0.156  (30s)
+  gamma=0.95   conv=   0%  peak_modal=0.182  (30s)
+  gamma=1.00   conv=   0%  peak_modal=0.250  (30s)
+  gamma=1.02   conv=  10%  peak_modal=0.500  (30s)
+  gamma=1.03   conv=  80%  peak_modal=0.968  (30s)
+  gamma=1.05   conv= 100%  peak_modal=0.980  (30s)
+  gamma=1.10   conv= 100%  peak_modal=0.980  (30s)
+  gamma=1.25   conv= 100%  peak_modal=0.980  (30s)
+  gamma=2.00   conv= 100%  peak_modal=0.980  (30s)
+
+
+Completed: 2026-02-09 17:53:54
