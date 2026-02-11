@@ -135,13 +135,13 @@ $$G = \frac{\sum_{i=1}^{m} (2i - m - 1) \cdot r_i}{m \cdot \sum_{i=1}^{m} r_i}$$
 
 computed over living agents only. If $\sum r_i = 0$, $G = 0$.
 
-**Top-target share:** $R(v^*) / \sum_v R(v)$, where $v^* = \arg\max_v R(v)$.
+**Top-target share:** $R(v^\ast) / \sum_v R(v)$, where $v^\ast = \arg\max_v R(v)$.
 
-**Convergence ratio:** $R(v^*) / R(v^{**})$, where $v^{**}$ is the second-most-targeted living agent.
+**Convergence ratio:** $R(v^\ast) / R(v^{\ast\ast})$, where $v^{\ast\ast}$ is the second-most-targeted living agent.
 
 **Shannon entropy of targeting:** $H = -\sum_v p_v \log_2 p_v$, where $p_v = R(v) / \sum_v R(v)$, computed over living agents with $R(v) > 0$.
 
-**Modal-target agreement:** Let $T_i = \arg\max_j A_i(j)$ be agent $i$'s top target. Let $\mathcal{A}_t = \{i \in \mathcal{L}_t : \sum_j A_i(j) > 10^{-8}\}$ be the set of agents with nontrivial aggression. The modal target is $t^* = \text{mode}(\{T_i : i \in \mathcal{A}_t\})$. Modal-target agreement is $\lvert\{i \in \mathcal{A}_t : T_i = t^*\}\rvert / \lvert\mathcal{A}_t\rvert$.
+**Modal-target agreement:** Let $T_i = \arg\max_j A_i(j)$ be agent $i$'s top target. Let $\mathcal{A}_t = \{i \in \mathcal{L}_t : \sum_j A_i(j) > 10^{-8}\}$ be the set of agents with nontrivial aggression. The modal target is $t^\ast = \text{mode}(\{T_i : i \in \mathcal{A}_t\})$. Modal-target agreement is $\lvert\{i \in \mathcal{A}_t : T_i = t^\ast\}\rvert / \lvert\mathcal{A}_t\rvert$.
 
 
 
@@ -225,13 +225,13 @@ To test whether the phase boundary is a property of the attention-allocation mec
 
 The boundary does not shift with $N$; it *sharpens*. At $N = 50$, a fuzzy zone spans $\gamma \in [1.02, 1.04]$: 10% convergence at 1.02, 90% at 1.03, 100% at 1.04. At $N \geq 100$, the transition collapses to a clean step function between 1.02 (0%) and 1.03 (100%). Convergence speed is also approximately $N$-independent: median $t_{95}$ at $\gamma = 1.05$ is 88, 98, and 102 for $N = 50, 100, 200$ respectively.
 
-The $N$-invariance strengthens the interpretation that $\gamma^*$ is a property of the convex redistribution operator itself, not a finite-size artifact. The slight fuzziness at $N = 50$ is the expected signature of a small system near a critical threshold, where stochastic fluctuations occasionally tip individual runs across the boundary. At larger $N$, these fluctuations average out and the boundary sharpens.
+The $N$-invariance strengthens the interpretation that $\gamma^\ast$ is a property of the convex redistribution operator itself, not a finite-size artifact. The slight fuzziness at $N = 50$ is the expected signature of a small system near a critical threshold, where stochastic fluctuations occasionally tip individual runs across the boundary. At larger $N$, these fluctuations average out and the boundary sharpens.
 
-This $N$-invariance is not a generic property of convex conserving operators. When the power-law is replaced by a normalized softmax operator (Appendix G), the convergence region takes the form of a finite temperature band that narrows monotonically with $N$ and vanishes entirely at $N \geq 150$. The power-law's scale invariance -- the fact that ratios $h_i(a)/h_i(b)$ are preserved under uniform rescaling of the hostility vector -- eliminates the argmax-oscillation failure mode that afflicts softmax at low temperatures, producing the open half-line $[\gamma^*, \infty)$ rather than a closed band. The $N$-invariant phase boundary reported here is therefore a consequence of scale invariance specifically, not of convexity in general.
+This $N$-invariance is not a generic property of convex conserving operators. When the power-law is replaced by a normalized softmax operator (Appendix G), the convergence region takes the form of a finite temperature band that narrows monotonically with $N$ and vanishes entirely at $N \geq 150$. The power-law's scale invariance -- the fact that ratios $h_i(a)/h_i(b)$ are preserved under uniform rescaling of the hostility vector -- eliminates the argmax-oscillation failure mode that afflicts softmax at low temperatures, producing the open half-line $[\gamma^\ast, \infty)$ rather than a closed band. The $N$-invariant phase boundary reported here is therefore a consequence of scale invariance specifically, not of convexity in general.
 
 We accordingly revise our characterization of the effective phase boundary from the $N = 50$ interval $[1.02, 1.05]$ to the $N$-invariant interval $[1.02, 1.03]$, noting that the upper bound represents essentially a point transition at $N \geq 100$.
 
-![Figure 4. Phase boundary N-invariance. (a) Convergence rate vs. salience exponent $\gamma$ for $N = 50, 100, 200$: the sharp transition from 0% to 100% convergence occurs in the same narrow interval $\gamma^* \in [1.02, 1.03]$ regardless of community size. (b) Median $t_{95}$ vs. $\gamma$: convergence speed is approximately $N$-independent once the boundary is crossed.](../figures/fig4_phase_boundary_N.png)
+![Figure 4. Phase boundary N-invariance. (a) Convergence rate vs. salience exponent $\gamma$ for $N = 50, 100, 200$: the sharp transition from 0% to 100% convergence occurs in the same narrow interval $\gamma^\ast \in [1.02, 1.03]$ regardless of community size. (b) Median $t_{95}$ vs. $\gamma$: convergence speed is approximately $N$-independent once the boundary is crossed.](../figures/fig4_phase_boundary_N.png)
 
 #### Phase Boundary Robustness Across Parameters
 
@@ -245,13 +245,13 @@ The $N$-invariance results hold alpha and decay at defaults ($\alpha = 0.15$, $\
 | $\alpha = 0.20$ | 1.02 | 1.03 | 1.05 | 1.10 |
 | $\alpha = 0.30$ | 1.02 | 1.04 | 1.08 | 1.25 |
 
-*Table 2c. Phase boundary $\gamma^*$ (lowest gamma achieving 100% convergence in 10 seeds) across alpha and decay. $N = 50$, 800 steps, no expulsion. Produced by `exp3_param_sensitivity.py`.*
+*Table 2c. Phase boundary $\gamma^\ast$ (lowest gamma achieving 100% convergence in 10 seeds) across alpha and decay. $N = 50$, 800 steps, no expulsion. Produced by `exp3_param_sensitivity.py`.*
 
-The boundary is nearly invariant to $\alpha$ for $\alpha \leq 0.20$: across the entire range from highly mimetic ($\alpha = 0.05$) to predominantly autonomous ($\alpha = 0.20$), $\gamma^*$ shifts by at most one grid increment. At $\alpha = 0.30$, the boundary shifts upward at high decay rates, consistent with a regime where mimetic throughput is too weak to overcome rapid dissipation. The boundary scales monotonically with decay rate -- higher decay requires stronger superlinearity to sustain the cascade against dissipation -- but the scaling is gentle: a ninefold increase in decay (0.01 to 0.09) shifts $\gamma^*$ by roughly 0.08 at typical alpha values. A cross-check at $N = 200$ with default parameters ($\alpha = 0.15$, $\delta = 0.03$) confirms $\gamma^* = 1.03$, identical to the $N = 50$ and $N = 100$ values (Table 2b).
+The boundary is nearly invariant to $\alpha$ for $\alpha \leq 0.20$: across the entire range from highly mimetic ($\alpha = 0.05$) to predominantly autonomous ($\alpha = 0.20$), $\gamma^\ast$ shifts by at most one grid increment. At $\alpha = 0.30$, the boundary shifts upward at high decay rates, consistent with a regime where mimetic throughput is too weak to overcome rapid dissipation. The boundary scales monotonically with decay rate -- higher decay requires stronger superlinearity to sustain the cascade against dissipation -- but the scaling is gentle: a ninefold increase in decay (0.01 to 0.09) shifts $\gamma^\ast$ by roughly 0.08 at typical alpha values. A cross-check at $N = 200$ with default parameters ($\alpha = 0.15$, $\delta = 0.03$) confirms $\gamma^\ast = 1.03$, identical to the $N = 50$ and $N = 100$ values (Table 2b).
 
 This robustness indicates that $\gamma > 1$ is a structural property of convex redistribution under L1 conservation, not an artifact of parameter tuning. The boundary *location* depends weakly on the balance between mimetic intake and dissipation, but the *existence* of a sharp transition just above linearity is invariant across the parameter space tested.
 
-![Figure 2. The effective phase boundary near linearity. (a) Convergence rate as a function of salience exponent $\gamma$, showing the sharp transition from 0% to 100% within the interval $\gamma^* \in [1.02, 1.03]$ (shaded). (b) Median time to convergence ($t_{95}$) for converging conditions, with min--max bars across 20 runs. The approximate $N$-independence of convergence speed ($t_{95} \approx 90$--$102$ at $\gamma = 1.05$ across all $N$) confirms that the mechanism, once triggered, operates on a timescale set by the convex redistribution operator rather than by community size.](../figures/fig2_phase_transition.png)
+![Figure 2. The effective phase boundary near linearity. (a) Convergence rate as a function of salience exponent $\gamma$, showing the sharp transition from 0% to 100% within the interval $\gamma^\ast \in [1.02, 1.03]$ (shaded). (b) Median time to convergence ($t_{95}$) for converging conditions, with min--max bars across 20 runs. The approximate $N$-independence of convergence speed ($t_{95} \approx 90$--$102$ at $\gamma = 1.05$ across all $N$) confirms that the mechanism, once triggered, operates on a timescale set by the convex redistribution operator rather than by community size.](../figures/fig2_phase_transition.png)
 
 ### 3.3 Operator Ablation
 
@@ -500,7 +500,7 @@ The linear variants (LM, RL) serve as a diagnostic control. At $N = 5$, the adap
 
 To test whether the phase boundary shifts at small community sizes, we swept $\gamma$ from 0.95 to 2.0 at each $N \in \{5, 10, 15, 20, 25, 30, 35, 40\}$ (AC variant, no expulsion, 20 seeds, 800 steps). Table 11 reports the lowest $\gamma$ at which $\geq 50\%$ of seeds achieve convergence (modal agreement $\geq 0.95$).
 
-| $N$ | $k$ | $\theta$ | $\gamma^*$ |
+| $N$ | $k$ | $\theta$ | $\gamma^\ast$ |
 |-----|-----|----------|------------|
 | 5 | 4 | 0.800 | 1.03 |
 | 10 | 6 | 0.900 | 1.03 |
@@ -511,9 +511,9 @@ To test whether the phase boundary shifts at small community sizes, we swept $\g
 | 35 | 6 | 0.950 | 1.03 |
 | 40 | 6 | 0.950 | 1.03 |
 
-*Table 11. Phase boundary at small community sizes. $\gamma^*$ is the lowest tested $\gamma$ at which $\geq 50\%$ of 20 seeds converge (modal agreement $\geq 0.95$) within 800 steps. AC variant, no expulsion. $k$ is the Watts-Strogatz mean degree, $\theta$ the adaptive unanimity threshold. Produced by `exp_small_n_phase_boundary.py`.*
+*Table 11. Phase boundary at small community sizes. $\gamma^\ast$ is the lowest tested $\gamma$ at which $\geq 50\%$ of 20 seeds converge (modal agreement $\geq 0.95$) within 800 steps. AC variant, no expulsion. $k$ is the Watts-Strogatz mean degree, $\theta$ the adaptive unanimity threshold. Produced by `exp_small_n_phase_boundary.py`.*
 
-The phase boundary remains in the narrow range $\gamma^* \in [1.03, 1.05]$ across all tested community sizes, extending the $N$-invariance documented in Section 3.2 downward by a full order of magnitude ($N = 5$--$40$ vs. $N = 50$--$500$). The convexity threshold is a property of the redistribution operator, not of the population.
+The phase boundary remains in the narrow range $\gamma^\ast \in [1.03, 1.05]$ across all tested community sizes, extending the $N$-invariance documented in Section 3.2 downward by a full order of magnitude ($N = 5$--$40$ vs. $N = 50$--$500$). The convexity threshold is a property of the redistribution operator, not of the population.
 
 One caveat: at $N = 5$, below-threshold convergence rates are elevated (35% at $\gamma = 0.95$, 40% at $\gamma = 1.0$) relative to larger $N$ ($< 5\%$ for $N \geq 15$). This reflects the low adaptive threshold ($\theta = 0.800$): with five agents, random fluctuation can produce four-of-five agreement without mimetic coordination. The jump to reliable convergence nonetheless occurs at $\gamma = 1.03$, so the boundary location is preserved even though below-threshold noise is higher.
 
@@ -628,7 +628,7 @@ The model generates several testable predictions, ranging from directly accessib
 
 **Overfitting.** With enough free parameters ($\gamma$, $\alpha$, network topology, threshold, $N$), one might worry that any behavior could be produced by tuning. The 2x2 design is the primary response: all four variants share identical parameters; only the mechanism (source x spread) varies. Convergence is produced by one specific combination (superlinear attention) and not others. The parameter sweep (Section 3.2) shows that convergence is robust across a wide range of $\gamma$ values above the boundary and absent across an equally wide range below it. The robustness analysis (Section 3.4) shows convergence across four network topologies and multiple susceptibility levels. The result is not fragile.
 
-**Gamma as a free parameter.** The power-law functional form ($h^\gamma$) is a modeling choice, not a derivation from first principles. A critic could argue that the result is an artifact of this specific parameterization. Our response is twofold. First, the linear/superlinear distinction is the minimal structural claim: we do not commit to the specific functional form, only to the qualitative property that mimetic attraction toward a target grows faster than linearly with the target's perceived salience. Second, we have now tested an alternative convex conserving operator -- a normalized softmax (Boltzmann/Gibbs) with temperature parameter $T$ controlling sharpness (Appendix G). The softmax produces the same sharp upper boundary separating diffuse crisis from convergence, confirming that the phase transition is a generic property of the operator class. However, the softmax also exhibits a *lower* boundary (argmax oscillation at low $T$), producing a finite convergence band rather than the power-law's open half-line. This band narrows monotonically with population size and vanishes entirely at $N \geq 150$. The power-law's scale invariance -- which eliminates the lower boundary -- is therefore not merely convenient but necessary for the mechanism to operate at anthropologically relevant population sizes. The sharp, $N$-invariant phase boundary at $\gamma^* \approx 1.03$ is a consequence of scale invariance specifically, not of convexity in general.
+**Gamma as a free parameter.** The power-law functional form ($h^\gamma$) is a modeling choice, not a derivation from first principles. A critic could argue that the result is an artifact of this specific parameterization. Our response is twofold. First, the linear/superlinear distinction is the minimal structural claim: we do not commit to the specific functional form, only to the qualitative property that mimetic attraction toward a target grows faster than linearly with the target's perceived salience. Second, we have now tested an alternative convex conserving operator -- a normalized softmax (Boltzmann/Gibbs) with temperature parameter $T$ controlling sharpness (Appendix G). The softmax produces the same sharp upper boundary separating diffuse crisis from convergence, confirming that the phase transition is a generic property of the operator class. However, the softmax also exhibits a *lower* boundary (argmax oscillation at low $T$), producing a finite convergence band rather than the power-law's open half-line. This band narrows monotonically with population size and vanishes entirely at $N \geq 150$. The power-law's scale invariance -- which eliminates the lower boundary -- is therefore not merely convenient but necessary for the mechanism to operate at anthropologically relevant population sizes. The sharp, $N$-invariant phase boundary at $\gamma^\ast \approx 1.03$ is a consequence of scale invariance specifically, not of convexity in general.
 
 #### Design Limitations
 
@@ -658,7 +658,7 @@ The falsifiability criterion must therefore be stated precisely. The model predi
 
 ## 5. Conclusion
 
-Girard writes that "the power of mimetic attraction multiplies with the number of those polarized." We formalized that sentence and tested it. The formalization reveals that the multiplicative character of mimetic attraction in hostile contexts -- convex redistributive transmission, where each agent's fixed mimetic throughput is reallocated among targets by sharpened attention weights -- is, within this model family, the formal condition separating diffuse crisis from scapegoat convergence. Linear transmission produces crisis without resolution; convex redistributive transmission, with the effective phase boundary at $\gamma^* \approx 1.03$ and invariant across community sizes from 5 to 500 agents, produces convergence onto an arbitrary victim, cathartic tension reduction upon expulsion, and -- when combined with status-rivalry dynamics -- endogenous production of the "signs of the victim." The phase boundary is a generic property of convex conserving operators, confirmed by comparison with a softmax alternative (Appendix G), but the power-law's scale invariance is uniquely robust to population scaling -- the softmax convergence band vanishes at $N \geq 150$, whereas the power-law boundary is $N$-invariant. The mechanism is not amplification but organization: the operator does not create hostility mass; it focuses existing mass through zero-sum cross-target competition under per-agent throughput conservation.
+Girard writes that "the power of mimetic attraction multiplies with the number of those polarized." We formalized that sentence and tested it. The formalization reveals that the multiplicative character of mimetic attraction in hostile contexts -- convex redistributive transmission, where each agent's fixed mimetic throughput is reallocated among targets by sharpened attention weights -- is, within this model family, the formal condition separating diffuse crisis from scapegoat convergence. Linear transmission produces crisis without resolution; convex redistributive transmission, with the effective phase boundary at $\gamma^\ast \approx 1.03$ and invariant across community sizes from 5 to 500 agents, produces convergence onto an arbitrary victim, cathartic tension reduction upon expulsion, and -- when combined with status-rivalry dynamics -- endogenous production of the "signs of the victim." The phase boundary is a generic property of convex conserving operators, confirmed by comparison with a softmax alternative (Appendix G), but the power-law's scale invariance is uniquely robust to population scaling -- the softmax convergence band vanishes at $N \geq 150$, whereas the power-law boundary is $N$-invariant. The mechanism is not amplification but organization: the operator does not create hostility mass; it focuses existing mass through zero-sum cross-target competition under per-agent throughput conservation.
 
 Above the phase boundary, the model reveals a further structure that Girard's phenomenological account describes but does not formally distinguish. Near the boundary, the scapegoat mechanism grinds: it achieves unanimity and expels the victim, but reconverges instantly, producing relentless serial purges with no peace. Far above the boundary, it detonates: discrete paired expulsions shatter the mimetic cascade, producing long natural peace intervals before the next paroxysm. The grinding regime is where the sacred -- prohibition, ritual, sacrificial substitution -- is structurally indispensable: without cultural intervention, the community has no respite between crises. The burst regime is where the sacred becomes a technology of management rather than survival: it domesticates a stochastic pattern of periodic violence into a predictable institution. The founding murder's generative potential is confined to a viability window at approximately $N = 15$--$50$: below this range, each expulsion is too costly a fraction of the population; above it, the cascade either grinds indefinitely or consumes approximately two-thirds of the community before halting. Within the window, 65--95% of simulations produce self-exhaustion with majority survival -- a founding murder that is both mechanically operative and socially survivable. The viability window corresponds to primate and early hominid community sizes, and the network topology most favorable to generative founding murder (scale-free hub-and-spoke) corresponds to observed primate dominance hierarchies. At larger community sizes, the burst regime cycles indefinitely -- consuming a characteristic $\sim$64% of the population regardless of scale, an emergent constant of the unanimity-triggered dynamics. The threshold between self-exhaustion and perpetual cycling is consistent with the community-size range at which anthropologists locate the transition from primate social organization to distinctly human symbolic culture. At the network level, sustained unanimity requires dense or homogeneous connectivity: sparse and degree-heterogeneous networks produce high transient agreement without sustained convergence, suggesting that the "crisis of undifferentiation" Girard describes may function as a connectivity-homogenizing precondition for the founding murder.
 
@@ -850,10 +850,10 @@ $$A_i(j) \leftarrow A_i(j) \cdot (1 - \delta)$$
 
 Let $R(v) = \sum_{i \in \mathcal{L}_t,\, i \neq v} A_i(v)$. If $R(v) \geq \tau$ for any $v \in \mathcal{L}_t$:
 
-1. Select $v^* = \arg\max_v R(v)$ (tie-breaking by lowest index).
-2. Set $v^*$ to dead: $\mathcal{L}_{t+1} = \mathcal{L}_t \setminus \{v^*\}$.
-3. Zero all aggression toward $v^*$: $A_i(v^*) = 0$ for all $i$.
-4. Zero all aggression from $v^*$: $A_{v^*}(j) = 0$ for all $j$.
+1. Select $v^\ast = \arg\max_v R(v)$ (tie-breaking by lowest index).
+2. Set $v^\ast$ to dead: $\mathcal{L}_{t+1} = \mathcal{L}_t \setminus \{v^\ast\}$.
+3. Zero all aggression toward $v^\ast$: $A_i(v^\ast) = 0$ for all $i$.
+4. Zero all aggression from $v^\ast$: $A_{v^\ast}(j) = 0$ for all $j$.
 
 Only one agent is expelled per timestep (the maximally targeted).
 
@@ -944,9 +944,9 @@ Table E1 reports convergence outcomes across the conditions referenced in Sectio
 
 ## Appendix F: Parameter Sensitivity at Small $N$
 
-Table F1 reports the phase boundary $\gamma^*$ under varying $(\alpha, d)$ combinations at $N = 10$ and $N = 20$ (AC variant, no expulsion, 20 seeds, 800 steps, $\gamma$ swept from 0.95 to 2.0 in the same grid as Section 3.2).
+Table F1 reports the phase boundary $\gamma^\ast$ under varying $(\alpha, d)$ combinations at $N = 10$ and $N = 20$ (AC variant, no expulsion, 20 seeds, 800 steps, $\gamma$ swept from 0.95 to 2.0 in the same grid as Section 3.2).
 
-| $\alpha$ | Decay | $\gamma^*$ ($N = 10$) | $\gamma^*$ ($N = 20$) |
+| $\alpha$ | Decay | $\gamma^\ast$ ($N = 10$) | $\gamma^\ast$ ($N = 20$) |
 |----------|-------|----------------------|----------------------|
 | 0.05 | 0.01 | 1.00 | 1.02 |
 | 0.05 | 0.03 | 1.00 | 1.04 |
@@ -969,7 +969,7 @@ Table F1 reports the phase boundary $\gamma^*$ under varying $(\alpha, d)$ combi
 | 0.30 | 0.05 | 1.00 | 1.08 |
 | 0.30 | 0.10 | 1.08 | 1.25 |
 
-*Table F1. Parameter sensitivity of the phase boundary at small $N$. $\gamma^*$ is the lowest tested $\gamma$ at which $\geq 50\%$ of seeds converge within 800 steps (10 seeds per condition). The phase boundary is more sensitive to the decay parameter at small $N$ than at $N = 50$ (Section 3.2), particularly at $N = 20$ with decay $= 0.10$, where the boundary shifts upward to $\gamma^* = 1.10$--$1.25$. At $N = 10$, the boundary is generally lower (median $\gamma^* = 1.00$) because convergence is easier with fewer agents to coordinate, though below-threshold noise is higher (see Section 3.11.3). Produced by `exp_small_n_param_sensitivity.py`.*
+*Table F1. Parameter sensitivity of the phase boundary at small $N$. $\gamma^\ast$ is the lowest tested $\gamma$ at which $\geq 50\%$ of seeds converge within 800 steps (10 seeds per condition). The phase boundary is more sensitive to the decay parameter at small $N$ than at $N = 50$ (Section 3.2), particularly at $N = 20$ with decay $= 0.10$, where the boundary shifts upward to $\gamma^\ast = 1.10$--$1.25$. At $N = 10$, the boundary is generally lower (median $\gamma^\ast = 1.00$) because convergence is easier with fewer agents to coordinate, though below-threshold noise is higher (see Section 3.11.3). Produced by `exp_small_n_param_sensitivity.py`.*
 
 
 ## Appendix G: Operator Universality -- Softmax Comparison
@@ -1073,7 +1073,7 @@ At $N = 10$, convergence is 0% across all temperatures, but peak modal agreement
 
 The comparison yields three findings. First, the phase boundary separating diffuse crisis from scapegoat convergence is a **generic property of convex throughput-conserving operators**, not an artifact of the power-law functional form. Both operators exhibit a sharp transition from 0% to 100% convergence within a narrow parameter interval. The qualitative claim -- that budget-conserving convex reallocation is the formal condition for convergence -- is confirmed as operator-independent.
 
-Second, the power-law and softmax differ in **regime structure**. The power-law produces an open half-line $[\gamma^*, \infty)$: once the convexity threshold is crossed, convergence is robust at any degree of superlinearity. The softmax produces a closed band $[T_{\text{lower}}, T_{\text{upper}}]$: too little sharpness fails to concentrate, too much sharpness oscillates. The power-law's half-line structure is a direct consequence of its multiplicative scale invariance, which preserves ordinal rankings under arbitrary rescaling and thereby prevents the argmax-oscillation failure mode.
+Second, the power-law and softmax differ in **regime structure**. The power-law produces an open half-line $[\gamma^\ast, \infty)$: once the convexity threshold is crossed, convergence is robust at any degree of superlinearity. The softmax produces a closed band $[T_{\text{lower}}, T_{\text{upper}}]$: too little sharpness fails to concentrate, too much sharpness oscillates. The power-law's half-line structure is a direct consequence of its multiplicative scale invariance, which preserves ordinal rankings under arbitrary rescaling and thereby prevents the argmax-oscillation failure mode.
 
 Third, the power-law's scale invariance is **necessary for the mechanism to operate at anthropologically relevant population sizes**. The softmax band vanishes at $N \geq 150$ -- well below the community sizes ($N = 200$--$500$) at which the most theoretically consequential dynamics (the grinding/burst transition, the self-exhaustion threshold, the viability window's upper bound) operate. An operator that fails at $N = 150$ cannot formalize a mechanism that must function at the scale of archaic human communities. The $N$-invariant phase boundary reported in Section 3.2 is not a trivial property of convexity; it is a substantive consequence of scale invariance that distinguishes the power-law from other members of the operator class.
 
