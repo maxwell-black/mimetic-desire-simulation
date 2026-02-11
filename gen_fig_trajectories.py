@@ -1,11 +1,10 @@
 """
-Figure 2: Convergence Trajectories -- Linear vs Attentional Concentration
+Figure 1: Convergence Trajectories -- Linear vs Attentional Concentration
 ==========================================================================
 Modal-target agreement over time for one representative run each of
 LM (linear mimesis) and AC (attentional concentration), no expulsion.
 
-Shows what "mimetic attraction multiplies" looks like as a dynamical
-process: LM stays flat, AC snowballs to unanimity.
+Lines connecting timesteps ARE appropriate here (time series).
 """
 
 import sys, os
@@ -17,13 +16,28 @@ matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 from girard_2x2_v3 import GirardConfig, GirardSimulation
 
+PALETTE = ['#1a1a2e', '#e63946', '#457b9d', '#2a9d8f', '#e9c46a']
+
+plt.rcParams.update({
+    'font.size': 10,
+    'axes.labelsize': 11,
+    'axes.titlesize': 12,
+    'axes.titleweight': 'bold',
+    'xtick.labelsize': 10,
+    'ytick.labelsize': 10,
+    'legend.fontsize': 9,
+    'axes.linewidth': 0.8,
+    'xtick.major.width': 0.8,
+    'ytick.major.width': 0.8,
+})
+
 
 def main():
     cfg = GirardConfig(
         n_agents=50, n_neighbors=6, rewire_prob=0.15,
         alpha=0.15, salience_exponent=2.0,
         expulsion_threshold=None,  # no expulsion
-        n_steps=300,  # 300 is enough to show the full trajectory
+        n_steps=300,
         record_history=True, seed=42,
     )
 
@@ -50,23 +64,26 @@ def main():
             break
 
     # ---- Plot ----
+    plt.style.use('seaborn-v0_8-whitegrid')
     plt.rcParams.update({
-        'font.family': 'serif',
-        'font.size': 11,
-        'axes.linewidth': 0.8,
-        'xtick.major.width': 0.8,
-        'ytick.major.width': 0.8,
+        'axes.labelsize': 11,
+        'axes.titlesize': 12,
+        'axes.titleweight': 'bold',
+        'xtick.labelsize': 10,
+        'ytick.labelsize': 10,
+        'legend.fontsize': 9,
     })
 
+    os.makedirs('figures', exist_ok=True)
     fig, ax = plt.subplots(figsize=(8, 4.2))
 
     steps = np.arange(len(modal_lm))
 
     ax.plot(steps, modal_lm, color='#adb5bd', linewidth=1.8,
             label='LM (linear mimesis)', zorder=2)
-    ax.plot(steps, modal_ac, color='#1a1a2e', linewidth=2.0,
+    ax.plot(steps, modal_ac, color=PALETTE[0], linewidth=2.0,
             label='AC (attentional concentration)', zorder=3)
-    ax.plot(steps, modal_ra, color='#e63946', linewidth=1.4,
+    ax.plot(steps, modal_ra, color=PALETTE[1], linewidth=1.4,
             label='RA (rivalry + attention)', alpha=0.7,
             linestyle='--', zorder=2)
 
@@ -76,45 +93,29 @@ def main():
     ax.text(302, 0.955, r'$m = 0.95$', fontsize=9, color='#888888',
             va='bottom')
 
-    # Mark t_95
+    # Mark t_95 with a vertical dashed line (no arrow annotation)
     if t95_ac is not None:
-        ax.axvline(t95_ac, color='#1a1a2e', linestyle='--',
+        ax.axvline(t95_ac, color=PALETTE[0], linestyle='--',
                    linewidth=0.7, alpha=0.4)
-        ax.annotate(f'$t_{{95}} = {t95_ac}$',
-                    xy=(t95_ac, 0.95), xytext=(t95_ac + 25, 0.78),
-                    fontsize=9, color='#1a1a2e',
-                    arrowprops=dict(arrowstyle='->', color='#1a1a2e',
-                                    lw=0.8))
+        ax.text(t95_ac + 3, 0.75, f'$t_{{95}} = {t95_ac}$',
+                fontsize=9, color=PALETTE[0])
 
     # Ceiling annotation
     ax.text(250, 0.99, r'ceiling $(N{-}1)/N = 0.98$', fontsize=8.5,
             color='#666666', ha='center', va='bottom')
 
-    # "Snowball" annotation near the inflection
-    ac_arr = np.array(modal_ac)
-    # Find steepest ascent region
-    diffs = np.diff(ac_arr)
-    steep_start = np.argmax(diffs > 0.02)
-    if steep_start > 5:
-        ax.annotate('mimetic snowball',
-                    xy=(steep_start + 3, modal_ac[steep_start + 3]),
-                    xytext=(steep_start + 40, 0.35),
-                    fontsize=9, fontstyle='italic', color='#1a1a2e',
-                    arrowprops=dict(arrowstyle='->', color='#1a1a2e',
-                                    lw=0.8, connectionstyle='arc3,rad=0.2'))
-
     ax.set_xlabel('Timestep')
     ax.set_ylabel('Modal-target agreement')
     ax.set_ylim(-0.02, 1.05)
     ax.set_xlim(-5, 310)
-    ax.legend(loc='center right', framealpha=0.9, fontsize=10)
+    ax.legend(loc='center right', framealpha=0.9, fontsize=9)
 
     plt.tight_layout()
-    fig.savefig('fig2_trajectories.pdf',
+    fig.savefig('figures/fig1_trajectories.pdf',
                 bbox_inches='tight', dpi=300)
-    fig.savefig('fig2_trajectories.png',
-                bbox_inches='tight', dpi=200)
-    print("Saved: fig2_trajectories.pdf/.png")
+    fig.savefig('figures/fig1_trajectories.png',
+                bbox_inches='tight', dpi=300)
+    print("Saved: figures/fig1_trajectories.pdf/.png")
 
     print(f"\nLM final modal: {modal_lm[-1]:.3f}")
     print(f"AC final modal: {modal_ac[-1]:.3f}")

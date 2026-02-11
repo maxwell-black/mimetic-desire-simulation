@@ -3,9 +3,6 @@ Figure 3: The Founding Murder and Its Aftermath
 =================================================
 Two-panel plot comparing tau=8 (serial purge) vs tau=500 (founding murder).
 Modal agreement over time with vertical lines at expulsion events.
-
-Directly illustrates the "missing sacred" argument: the cycle structure
-is visible, the transient peace is visible, and the reconvergence is visible.
 """
 
 import sys, os
@@ -17,6 +14,8 @@ matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 from collections import Counter
 from girard_2x2_v3 import GirardConfig, GirardSimulation
+
+PALETTE = ['#1a1a2e', '#e63946', '#457b9d', '#2a9d8f', '#e9c46a']
 
 
 def compute_modal_agreement(sim):
@@ -58,10 +57,6 @@ def run_with_threshold(tau, n_steps=800, seed=42):
         cur_modal = compute_modal_agreement(sim)
         modal_series.append(cur_modal)
 
-        # Count alive before step
-        alive_before = len(sim._alive_ids())
-
-        # Full step
         sim._refresh_prestige()
         sim.step_desire()
         sim.step_aggression_source()
@@ -96,97 +91,77 @@ def main():
     print(f"  {len(exp_500)} expulsions at steps: {exp_500}")
 
     # ---- Plot ----
+    plt.style.use('seaborn-v0_8-whitegrid')
     plt.rcParams.update({
-        'font.family': 'serif',
-        'font.size': 11,
-        'axes.linewidth': 0.8,
-        'xtick.major.width': 0.8,
-        'ytick.major.width': 0.8,
+        'axes.labelsize': 11,
+        'axes.titlesize': 12,
+        'axes.titleweight': 'bold',
+        'xtick.labelsize': 10,
+        'ytick.labelsize': 10,
+        'legend.fontsize': 9,
     })
 
+    os.makedirs('figures', exist_ok=True)
     fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(9, 6.5), sharex=True)
 
     steps = np.arange(len(modal_8))
 
     # --- Panel (a): tau = 8 ---
-    ax1.plot(steps, modal_8, color='#1a1a2e', linewidth=0.9, zorder=2)
-    for es in exp_8[:60]:  # cap display to avoid visual overload
-        ax1.axvline(es, color='#e63946', linewidth=0.4, alpha=0.35, zorder=1)
+    ax1.plot(steps, modal_8, color=PALETTE[0], linewidth=0.9, zorder=2)
+    for es in exp_8[:60]:
+        ax1.axvline(es, color=PALETTE[1], linewidth=0.4, alpha=0.35, zorder=1)
     ax1.axhline(0.95, color='#888888', linestyle=':', linewidth=0.7, alpha=0.4)
 
     ax1.set_ylabel('Modal-target agreement')
     ax1.set_ylim(-0.02, 1.05)
-    ax1.set_title(r'(a) Regime 1: Serial purge ($\tau = 8$)', fontsize=12,
+    ax1.set_title(r'(a) Regime 1: Serial purge ($\tau = 8$)',
                   pad=8, loc='left')
 
-    # Annotations for panel a
     ax1.text(500, 0.85, f'{len(exp_8)} expulsions in 800 steps',
-             fontsize=9.5, color='#e63946', fontstyle='italic')
+             fontsize=9.5, color=PALETTE[1], fontstyle='italic')
     ax1.text(500, 0.72, 'No sustained unanimity',
              fontsize=9.5, color='#666666')
 
     # --- Panel (b): tau = 500 ---
-    ax2.plot(steps, modal_500, color='#1a1a2e', linewidth=1.2, zorder=2)
+    ax2.plot(steps, modal_500, color=PALETTE[0], linewidth=1.2, zorder=2)
     for i, es in enumerate(exp_500):
         label = 'expulsion' if i == 0 else None
-        ax2.axvline(es, color='#e63946', linewidth=1.2, alpha=0.7,
+        ax2.axvline(es, color=PALETTE[1], linewidth=1.2, alpha=0.7,
                     linestyle='-', zorder=1, label=label)
     ax2.axhline(0.95, color='#888888', linestyle=':', linewidth=0.7, alpha=0.4)
 
-    ax2.set_xlabel('Timestep')
-    ax2.set_ylabel('Modal-target agreement')
-    ax2.set_ylim(-0.02, 1.05)
-    ax2.set_xlim(-10, 810)
-    ax2.set_title(r'(b) Regime 2: Founding murder ($\tau = 500$)',
-                  fontsize=12, pad=8, loc='left')
-
-    # Annotate the cycle structure in panel b
+    # Shade peace intervals (light fill instead of arrow annotations)
     if len(exp_500) >= 1:
         first_exp = exp_500[0]
-        # Peace phase
-        # Find where modal drops below 0.50 and where it rises back above 0.95
         post = modal_500[first_exp + 1:]
         peace_end = None
         for t, m in enumerate(post):
             if m >= 0.50:
                 peace_end = t
                 break
-
         if peace_end is not None and peace_end > 3:
-            mid_peace = first_exp + 1 + peace_end // 2
-            ax2.annotate('transient\npeace',
-                         xy=(mid_peace, modal_500[mid_peace]),
-                         xytext=(mid_peace - 20, 0.45),
-                         fontsize=9, fontstyle='italic', color='#2a6f4e',
-                         arrowprops=dict(arrowstyle='->',
-                                         color='#2a6f4e', lw=0.8))
+            ax2.axvspan(first_exp + 1, first_exp + 1 + peace_end,
+                        alpha=0.08, color=PALETTE[3], zorder=0)
 
-        # Reconvergence
-        reconverge = None
-        for t, m in enumerate(post):
-            if m >= 0.95:
-                reconverge = first_exp + 1 + t
-                break
-        if reconverge is not None:
-            ax2.annotate('reconvergence\n(the sacred is absent)',
-                         xy=(reconverge, 0.95),
-                         xytext=(reconverge + 80, 0.55),
-                         fontsize=9, fontstyle='italic', color='#444444',
-                         arrowprops=dict(arrowstyle='->',
-                                         color='#444444', lw=0.8))
+    ax2.set_xlabel('Timestep')
+    ax2.set_ylabel('Modal-target agreement')
+    ax2.set_ylim(-0.02, 1.05)
+    ax2.set_xlim(-10, 810)
+    ax2.set_title(r'(b) Regime 2: Founding murder ($\tau = 500$)',
+                  pad=8, loc='left')
 
     if exp_500:
         ax2.text(420, 0.42,
                  f'{len(exp_500)} expulsions in 800 steps',
-                 fontsize=9.5, color='#e63946', fontstyle='italic',
+                 fontsize=9.5, color=PALETTE[1], fontstyle='italic',
                  ha='center')
 
     plt.tight_layout(h_pad=1.5)
-    fig.savefig('fig3_founding_murder.pdf',
+    fig.savefig('figures/fig3_founding_murder.pdf',
                 bbox_inches='tight', dpi=300)
-    fig.savefig('fig3_founding_murder.png',
-                bbox_inches='tight', dpi=200)
-    print("\nSaved: fig3_founding_murder.pdf/.png")
+    fig.savefig('figures/fig3_founding_murder.png',
+                bbox_inches='tight', dpi=300)
+    print("\nSaved: figures/fig3_founding_murder.pdf/.png")
 
 
 if __name__ == "__main__":

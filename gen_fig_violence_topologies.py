@@ -6,7 +6,7 @@ Two representative traces showing qualitatively distinct regimes:
   (b) Supercritical bursts: N=500, gamma=2.0 -- paired expulsions with long peace
 
 Usage:  python gen_fig_violence_topologies.py
-Output: fig5_violence_topologies.pdf/.png
+Output: figures/fig5_violence_topologies.pdf/.png
 """
 
 import sys, os
@@ -18,6 +18,8 @@ import matplotlib.pyplot as plt
 import numpy as np
 from collections import Counter
 from girard_2x2_v3 import GirardConfig, GirardSimulation
+
+PALETTE = ['#1a1a2e', '#e63946', '#457b9d', '#2a9d8f', '#e9c46a']
 
 
 def get_modal_target(sim):
@@ -101,39 +103,50 @@ def main():
     modal_burst, exps_burst = run_unanimity_triggered(500, 2.0, n_steps=1500, seed=42)
 
     # --- Plot ---
+    plt.style.use('seaborn-v0_8-whitegrid')
+    plt.rcParams.update({
+        'axes.labelsize': 11,
+        'axes.titlesize': 12,
+        'axes.titleweight': 'bold',
+        'xtick.labelsize': 10,
+        'ytick.labelsize': 10,
+        'legend.fontsize': 9,
+    })
+
+    os.makedirs('figures', exist_ok=True)
     fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(12, 8))
 
     # Panel (a): Boundary grinding
     steps_a = range(len(modal_grind))
-    ax1.plot(steps_a, modal_grind, color='#1f77b4', linewidth=0.8, alpha=0.8)
+    ax1.plot(steps_a, modal_grind, color=PALETTE[2], linewidth=0.8, alpha=0.8)
     for es in exps_grind:
         if es < len(modal_grind):
-            ax1.axvline(x=es, color='red', alpha=0.4, linewidth=0.5)
+            ax1.axvline(x=es, color=PALETTE[1], alpha=0.4, linewidth=0.5)
     ax1.axhline(y=0.95, color='gray', linestyle='--', alpha=0.5, linewidth=0.8)
-    ax1.set_ylabel('Modal agreement', fontsize=11)
+    ax1.set_ylabel('Modal agreement')
     ax1.set_title(f'(a) Boundary grinding: N=200, $\\gamma$=1.05 '
-                  f'({len(exps_grind)} expulsions in 800 steps)', fontsize=12)
+                  f'({len(exps_grind)} expulsions in 800 steps)', pad=8)
     ax1.set_ylim(-0.05, 1.05)
     ax1.set_xlim(0, 800)
 
     # Panel (b): Supercritical bursts
     steps_b = range(len(modal_burst))
-    ax2.plot(steps_b, modal_burst, color='#2ca02c', linewidth=0.8, alpha=0.8)
+    ax2.plot(steps_b, modal_burst, color=PALETTE[3], linewidth=0.8, alpha=0.8)
     for es in exps_burst:
         if es < len(modal_burst):
-            ax2.axvline(x=es, color='red', alpha=0.6, linewidth=1.0)
+            ax2.axvline(x=es, color=PALETTE[1], alpha=0.6, linewidth=1.0)
     ax2.axhline(y=0.95, color='gray', linestyle='--', alpha=0.5, linewidth=0.8)
-    ax2.set_xlabel('Timestep', fontsize=11)
-    ax2.set_ylabel('Modal agreement', fontsize=11)
+    ax2.set_xlabel('Timestep')
+    ax2.set_ylabel('Modal agreement')
     ax2.set_title(f'(b) Supercritical bursts: N=500, $\\gamma$=2.0 '
-                  f'({len(exps_burst)} expulsions in 1500 steps)', fontsize=12)
+                  f'({len(exps_burst)} expulsions in 1500 steps)', pad=8)
     ax2.set_ylim(-0.05, 1.05)
     ax2.set_xlim(0, 1500)
 
     plt.tight_layout(h_pad=2)
-    fig.savefig('fig5_violence_topologies.pdf', bbox_inches='tight', dpi=300)
-    fig.savefig('fig5_violence_topologies.png', bbox_inches='tight', dpi=200)
-    print("\nSaved: fig5_violence_topologies.pdf/.png")
+    fig.savefig('figures/fig5_violence_topologies.pdf', bbox_inches='tight', dpi=300)
+    fig.savefig('figures/fig5_violence_topologies.png', bbox_inches='tight', dpi=300)
+    print("\nSaved: figures/fig5_violence_topologies.pdf/.png")
 
     print(f"\nPanel (a): {len(exps_grind)} expulsions, "
           f"{200 - len(exps_grind)} alive")

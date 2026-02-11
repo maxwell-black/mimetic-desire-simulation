@@ -1,5 +1,5 @@
 """
-Figure 1: Phase Transition at the Superlinearity Boundary
+Figure 2: Phase Transition at the Superlinearity Boundary
 ==========================================================
 Two-panel plot:
   Left:  Convergence rate (%) vs gamma
@@ -15,8 +15,22 @@ import numpy as np
 import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
-from matplotlib.ticker import MultipleLocator
 from girard_2x2_v3 import GirardConfig, GirardSimulation
+
+PALETTE = ['#1a1a2e', '#e63946', '#457b9d', '#2a9d8f', '#e9c46a']
+
+plt.rcParams.update({
+    'font.size': 10,
+    'axes.labelsize': 11,
+    'axes.titlesize': 12,
+    'axes.titleweight': 'bold',
+    'xtick.labelsize': 10,
+    'ytick.labelsize': 10,
+    'legend.fontsize': 9,
+    'axes.linewidth': 0.8,
+    'xtick.major.width': 0.8,
+    'ytick.major.width': 0.8,
+})
 
 
 def time_to_95(modal_series, threshold=0.95, consecutive=10):
@@ -69,20 +83,23 @@ def main():
               f"med_t95={med_t95s[-1]}")
 
     # ---- Plot ----
+    plt.style.use('seaborn-v0_8-whitegrid')
     plt.rcParams.update({
-        'font.family': 'serif',
-        'font.size': 11,
-        'axes.linewidth': 0.8,
-        'xtick.major.width': 0.8,
-        'ytick.major.width': 0.8,
+        'axes.labelsize': 11,
+        'axes.titlesize': 12,
+        'axes.titleweight': 'bold',
+        'xtick.labelsize': 10,
+        'ytick.labelsize': 10,
+        'legend.fontsize': 9,
     })
 
+    os.makedirs('figures', exist_ok=True)
     fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(10, 4.2))
 
-    # Left panel: Convergence rate
-    ax1.plot(gammas, conv_rates, 'o-', color='#1a1a2e', markersize=6,
-             linewidth=1.5, markerfacecolor='#1a1a2e', markeredgewidth=0)
-    ax1.axvspan(1.02, 1.05, alpha=0.12, color='#e63946', zorder=0)
+    # Left panel: Convergence rate -- scatter only, no connecting line
+    ax1.scatter(gammas, conv_rates, color=PALETTE[0], s=40, zorder=3,
+                edgecolors='none')
+    ax1.axvspan(1.02, 1.05, alpha=0.12, color=PALETTE[1], zorder=0)
     ax1.axvline(1.0, color='#888888', linestyle=':', linewidth=0.8, alpha=0.6)
 
     ax1.set_xlabel(r'Salience exponent $\gamma$')
@@ -90,13 +107,13 @@ def main():
     ax1.set_ylim(-5, 108)
     ax1.set_xlim(0.65, 2.1)
     ax1.text(1.035, 55, r'$\gamma^*$', fontsize=13, ha='center',
-             color='#e63946', fontstyle='italic')
+             color=PALETTE[1], fontstyle='italic')
     ax1.text(0.78, 92, 'No convergence', fontsize=9, color='#666666')
     ax1.text(1.35, 92, 'Universal\nconvergence', fontsize=9,
              color='#666666', ha='center')
-    ax1.set_title('(a) Phase boundary', fontsize=12, pad=8)
+    ax1.set_title('(a) Phase boundary', pad=8)
 
-    # Right panel: Median t_95 (only converging gammas)
+    # Right panel: Median t_95 -- scatter with error bars, no connecting line
     conv_gammas = [g for g, t in zip(gammas, med_t95s) if t is not None]
     conv_t95 = [t for t in med_t95s if t is not None]
     conv_lo = [lo for lo in t95_lows if lo is not None]
@@ -106,30 +123,22 @@ def main():
     yerr_hi = [hi - m for m, hi in zip(conv_t95, conv_hi)]
 
     ax2.errorbar(conv_gammas, conv_t95, yerr=[yerr_lo, yerr_hi],
-                 fmt='s-', color='#1a1a2e', markersize=5, linewidth=1.5,
-                 markerfacecolor='#1a1a2e', markeredgewidth=0,
+                 fmt='s', color=PALETTE[0], markersize=5,
+                 markerfacecolor=PALETTE[0], markeredgewidth=0,
                  capsize=3, capthick=0.8, elinewidth=0.8, ecolor='#666666')
     ax2.axvline(1.0, color='#888888', linestyle=':', linewidth=0.8, alpha=0.6)
 
     ax2.set_xlabel(r'Salience exponent $\gamma$')
     ax2.set_ylabel(r'Median $t_{95}$ (steps to convergence)')
     ax2.set_xlim(0.95, 2.1)
-    ax2.set_title('(b) Critical slowing down', fontsize=12, pad=8)
-
-    # Annotate the critical slowing
-    ax2.annotate(r'$t_{95} = 421$' + '\n(1 of 8 runs)',
-                 xy=(1.02, 421), xytext=(1.22, 380),
-                 fontsize=8.5, ha='left',
-                 arrowprops=dict(arrowstyle='->', color='#444444',
-                                 lw=0.8),
-                 color='#444444')
+    ax2.set_title('(b) Critical slowing down', pad=8)
 
     plt.tight_layout(w_pad=3)
-    fig.savefig('fig1_phase_transition.pdf',
+    fig.savefig('figures/fig2_phase_transition.pdf',
                 bbox_inches='tight', dpi=300)
-    fig.savefig('fig1_phase_transition.png',
-                bbox_inches='tight', dpi=200)
-    print("\nSaved: fig1_phase_transition.pdf/.png")
+    fig.savefig('figures/fig2_phase_transition.png',
+                bbox_inches='tight', dpi=300)
+    print("\nSaved: figures/fig2_phase_transition.pdf/.png")
 
 
 if __name__ == "__main__":
