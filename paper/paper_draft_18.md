@@ -160,7 +160,7 @@ The central result is displayed in Table 1.
 | RL        | Rivalry + linear          |       0.223 |              0.043 |                1.06 |         14.3 | 6.3%        |
 | RA        | Rivalry + attention       |       0.812 |              0.436 |                2.19 |         26.8 | 36.7%       |
 
-*Table 1. Summary metrics across 10 runs per variant (seeds spaced by 1000), $\alpha=0.15$, salience exponent $\gamma=2.0$, 600 timesteps, expulsion threshold $\tau=8.0$. Gini, top-target share, and convergence ratio are time-averaged over all 600 timesteps within each run and then averaged across runs (note that this averaging mixes pre- and post-convergence regimes for AC and RA; peak and final-window values are reported in the no-expulsion gamma sweep, Table 2). "Expulsions" reports the mean number of expulsions per run. "Catharsis" reports the mean immediate fractional drop in total received aggression following an expulsion (averaged over expulsions within a run, then averaged across runs). Formally, catharsis for a single expulsion event at step $t$ is $(M_{t^-} - M_{t^+}) / M_{t^-}$, where $M_{t^-} = \sum_{v} R(v)$ is total received aggression immediately before expulsion and $M_{t^+}$ is total received aggression immediately after (i.e., after zeroing all aggression toward the expelled agent).*
+<em>Table 1. Summary metrics across 10 runs per variant (seeds spaced by 1000), $\alpha=0.15$, salience exponent $\gamma=2.0$, 600 timesteps, expulsion threshold $\tau=8.0$. Gini, top-target share, and convergence ratio are time-averaged over all 600 timesteps within each run and then averaged across runs (note that this averaging mixes pre- and post-convergence regimes for AC and RA; peak and final-window values are reported in the no-expulsion gamma sweep, Table 2). "Expulsions" reports the mean number of expulsions per run. "Catharsis" reports the mean immediate fractional drop in total received aggression following an expulsion (averaged over expulsions within a run, then averaged across runs). Formally, catharsis for a single expulsion event at step $t$ is $(M_{t^-} - M_{t^+}) / M_{t^-}$, where $M_{t^-} = \sum_{v} R(v)$ is total received aggression immediately before expulsion and $M_{t^+}$ is total received aggression immediately after (i.e., after zeroing all aggression toward the expelled agent).</em>
 
 Under the full dynamics with expulsions enabled at the default threshold ($\tau = 8.0$), no variant achieves sustained convergence (Table 1b). This confirms that at low thresholds, expulsion interrupts the convergence process before unanimity -- a finding developed in the threshold-regime analysis of Section 3.6.
 
@@ -171,7 +171,7 @@ Under the full dynamics with expulsions enabled at the default threshold ($\tau 
 | RL        | 0%                 | —           |                          0 |             0.315 |
 | RA        | 0%                 | —           |                          0 |             0.564 |
 
-*Table 1b. Convergence outcomes under full dynamics (expulsions enabled). Convergence is defined as modal-target agreement $\ge 0.95$ sustained for 10 consecutive steps. "Median $t_1$" reports the first timestep at which a qualifying episode begins (reported only when at least one run converges). "Fraction steps converged" is the share of timesteps lying inside qualifying convergence episodes. "Mean peak modal" is the runwise maximum modal-target agreement averaged across runs; it remains informative even when convergence rate is 0%.*
+<em>Table 1b. Convergence outcomes under full dynamics (expulsions enabled). Convergence is defined as modal-target agreement $\ge 0.95$ sustained for 10 consecutive steps. "Median $t_1$" reports the first timestep at which a qualifying episode begins (reported only when at least one run converges). "Fraction steps converged" is the share of timesteps lying inside qualifying convergence episodes. "Mean peak modal" is the runwise maximum modal-target agreement averaged across runs; it remains informative even when convergence rate is 0%.</em>
 
 The transmission-character axis remains the dominant divider. Under linear transmission (LM, RL), hostility remains diffuse: top-target shares stay near $\sim 0.04$ and convergence ratios remain near 1.0. Introducing status rivalry under linear spread (RL) modestly increases inequality in received aggression (Mean Gini 0.223 vs 0.115 in LM), but does not produce strong single-target concentration or sustained coordination. By contrast, convex redistributive transmission (AC, RA) sharply concentrates hostility (Mean Gini 0.739--0.812; top-target share 0.310--0.436) and deepens catharsis (29.6--36.7%). Status rivalry under attentional concentration (RA vs AC) further increases concentration and catharsis, consistent with a marginalization feedback, but the redistributive transmission mechanism still does the majority of the convergence work.
 
@@ -201,7 +201,7 @@ To locate the boundary between diffuse crisis and scapegoat convergence, we perf
 | 1.50 | 0.980 (0.000) | 0.980 (0.000) | 0.970 | 29 | 100% |
 | 2.00 | 0.980 (0.000) | 0.980 (0.000) | 0.972 | 30 | 100% |
 
-*Table 2. Fine-grained gamma-sweep results. N=50 agents, Watts-Strogatz k=6, p=0.15, alpha=0.15, no expulsion, 8 runs x 600 steps per condition.*
+<em>Table 2. Fine-grained gamma-sweep results. N=50 agents, Watts-Strogatz k=6, p=0.15, alpha=0.15, no expulsion, 8 runs x 600 steps per condition.</em>
 
 The effective phase boundary is sharp and narrowly localized.[^crit] For $\gamma \leq 1.01$, no runs converge. At $\gamma = 1.02$, convergence is rare and slow (1 of 8 runs; $t_{95} = 421$). By $\gamma = 1.05$, convergence is universal (8/8; median $t_{95} = 116$). The boundary lies in the interval [1.02, 1.05] at $N = 50$: a ~3% departure from purely proportional imitation separates crisis-without-convergence from robust scapegoating.
 
@@ -221,7 +221,7 @@ To test whether the phase boundary is a property of the attention-allocation mec
 | 100 | 0%                  | 0%              | 100%            | 100%                |
 | 200 | 0%                  | 0%              | 100%            | 100%                |
 
-*Table 2b. Convergence rate by gamma and community size. 20 seeds per condition, 800 steps, no expulsion.*
+<em>Table 2b. Convergence rate by gamma and community size. 20 seeds per condition, 800 steps, no expulsion.</em>
 
 The boundary does not shift with $N$; it *sharpens*. At $N = 50$, a fuzzy zone spans $\gamma \in [1.02, 1.04]$: 10% convergence at 1.02, 90% at 1.03, 100% at 1.04. At $N \geq 100$, the transition collapses to a clean step function between 1.02 (0%) and 1.03 (100%). Convergence speed is also approximately $N$-independent: median $t_{95}$ at $\gamma = 1.05$ is 88, 98, and 102 for $N = 50, 100, 200$ respectively.
 
@@ -245,7 +245,7 @@ The $N$-invariance results hold alpha and decay at defaults ($\alpha = 0.15$, $\
 | $\alpha = 0.20$ | 1.02 | 1.03 | 1.05 | 1.10 |
 | $\alpha = 0.30$ | 1.02 | 1.04 | 1.08 | 1.25 |
 
-*Table 2c. Phase boundary $\gamma^\ast$ (lowest gamma achieving 100% convergence in 10 seeds) across alpha and decay. $N = 50$, 800 steps, no expulsion. Produced by `exp3_param_sensitivity.py`.*
+<em>Table 2c. Phase boundary $\gamma^\ast$ (lowest gamma achieving 100% convergence in 10 seeds) across alpha and decay. $N = 50$, 800 steps, no expulsion. Produced by `exp3_param_sensitivity.py`.</em>
 
 The boundary is nearly invariant to $\alpha$ for $\alpha \leq 0.20$: across the entire range from highly mimetic ($\alpha = 0.05$) to predominantly autonomous ($\alpha = 0.20$), $\gamma^\ast$ shifts by at most one grid increment. At $\alpha = 0.30$, the boundary shifts upward at high decay rates, consistent with a regime where mimetic throughput is too weak to overcome rapid dissipation. The boundary scales monotonically with decay rate -- higher decay requires stronger superlinearity to sustain the cascade against dissipation -- but the scaling is gentle: a ninefold increase in decay (0.01 to 0.09) shifts $\gamma^\ast$ by roughly 0.08 at typical alpha values. A cross-check at $N = 200$ with default parameters ($\alpha = 0.15$, $\delta = 0.03$) confirms $\gamma^\ast = 1.03$, identical to the $N = 50$ and $N = 100$ values (Table 2b).
 
@@ -271,7 +271,7 @@ We define total aggression mass at time $t$ as $M_t = \sum_{i \neq j} \text{agg}
 | 2 | Raw $h^\gamma$ (no normalization) | 0.115 | 0.113 | 9.1 | 0.053 |
 | 3 | Full AC (convex redistribution) | 0.972 | 0.980 | 786 | 19.1 |
 
-*Table 3. Ablation results. All conditions: N=50, alpha=0.15, no expulsion, 600 steps, 8 runs. Conditions 2 and 3 use gamma=2.0.*
+<em>Table 3. Ablation results. All conditions: N=50, alpha=0.15, no expulsion, 600 steps, 8 runs. Conditions 2 and 3 use gamma=2.0.</em>
 
 The convergence boundary is not "convexity alone"; it is convexity operating as a redistribution rule under throughput conservation.
 
@@ -294,7 +294,7 @@ Analysis of the non-converging runs reveals a distinctive failure mode: **stable
 | $N = 50$, $\alpha = 0.85$, $\gamma = 1.5$ | 1/8 | 78% | 27/21 | 4 | 0 |
 | $N = 50$, $\alpha = 0.85$, $\gamma = 2.0$ | 2/8 | 82% | 39/9, 28/20 | 3--4 | 0 |
 
-*Table 5. Structure of non-converging runs. "Top-2 share" is the fraction of total received aggression absorbed by the two most-targeted agents at step 600. "Faction split" counts agents whose primary target is victim 1 vs victim 2 (excluding targets themselves). "Shared $\mathcal{N}$" is the number of shared graph neighbors between the two top targets. All conditions use AC variant, no expulsion, 8 runs per condition.*
+<em>Table 5. Structure of non-converging runs. "Top-2 share" is the fraction of total received aggression absorbed by the two most-targeted agents at step 600. "Faction split" counts agents whose primary target is victim 1 vs victim 2 (excluding targets themselves). "Shared $\mathcal{N}$" is the number of shared graph neighbors between the two top targets. All conditions use AC variant, no expulsion, 8 runs per condition.</em>
 
 This is structurally distinct from incomplete convergence: it is *two convergences* that partition the community. We return to the theoretical significance of this outcome in Section 4.1. The bifurcation analysis above was conducted at $N = 50$--$100$ on small-world networks and represents a failure mode distinct from the topology-dependent effects that emerge at larger scales.
 
@@ -309,7 +309,7 @@ At $N = 200$ ($\gamma = 2.0$, 10 seeds, 5000 steps, unanimity-triggered expulsio
 | Erdos-Renyi ($p = k/(N-1)$) | 19.8 | 0.102 | 164 | 82.2% | 0% | 0.995 | 9/10 |
 | Complete | 199.0 | 1.000 | 197 | 98.5% | 100% | 0.995 | 10/10 |
 
-*Table E1b. Topology robustness at $N = 200$. AC variant, $\gamma = 2.0$, unanimity-triggered expulsion (0.95 threshold, 5-step cooldown), 10 seeds, 5000 steps. Convergence defined as modal agreement $\geq 0.95$ sustained for 10 consecutive steps. Produced by `exp5_topology_n200.py`.*
+<em>Table E1b. Topology robustness at $N = 200$. AC variant, $\gamma = 2.0$, unanimity-triggered expulsion (0.95 threshold, 5-step cooldown), 10 seeds, 5000 steps. Convergence defined as modal agreement $\geq 0.95$ sustained for 10 consecutive steps. Produced by `exp5_topology_n200.py`.</em>
 
 Only the complete graph achieves formal convergence at $N = 200$ (10/10 seeds, peak modal 0.995). The Erdos-Renyi graph is the most instructive negative case: it matches the complete graph's peak modal agreement (0.995 in every seed) and consumes 82% of the population, but achieves 0% formal convergence. The mechanism reaches near-unanimity repeatedly but cannot sustain it for 10 consecutive steps. The explanation lies in the clustering coefficient: ER at this density has clustering $C = 0.102$ versus 0.458 for Watts-Strogatz. Without local clustering to stabilize the attentional cascade, the momentary consensus target rotates too rapidly -- the community achieves 99.5% agreement on *who to target* but the "who" changes before the 10-step criterion is met.
 
@@ -342,7 +342,7 @@ The founding murder produces genuine but transient peace. Modal agreement drops 
 | 500 | 6.2 | 36 | 0.97 | 17 | 49 | 59 |
 | 750 | 2.0 | 132 | 0.98 | 25 | -- | 260+ |
 
-*Table 4. Post-expulsion dynamics across threshold regimes. 12 runs x 1500 steps, gamma = 2.0, alpha = 0.15. Peace = consecutive steps with modal agreement < 0.50 after first expulsion.*
+<em>Table 4. Post-expulsion dynamics across threshold regimes. 12 runs x 1500 steps, gamma = 2.0, alpha = 0.15. Peace = consecutive steps with modal agreement < 0.50 after first expulsion.</em>
 
 The three regimes are produced by a single parameter controlling the ratio of violence capacity to convergence capacity. Girard's founding murder implicitly assumes Regime 2. The model makes this assumption explicit and shows it is non-trivial: if the threshold is too low, the result is serial violence without unanimity; if too high, unanimity without discharge. The founding murder occupies a specific parameter region.
 
@@ -377,7 +377,7 @@ Three qualitatively distinct regimes emerge.
 | 200 | 1.10     | 92              | 2               | 7              | 46%           |
 | 500 | 1.10     | 75              | 4               | 7              | 15%           |
 
-*Table 6. Boundary-grinding regime: unanimity-triggered expulsion near the phase boundary. 8 runs per condition, 1500 steps, unanimity threshold 0.95, cooldown 5. "Med. Reconverge" is the median number of steps after an expulsion before modal agreement returns to 0.95. "Med. Cycle Gap" is the median steps between consecutive expulsions. At $N \geq 200$, the cycle gap converges on 7 steps -- the cooldown plus minimal reconvergence time.*
+<em>Table 6. Boundary-grinding regime: unanimity-triggered expulsion near the phase boundary. 8 runs per condition, 1500 steps, unanimity threshold 0.95, cooldown 5. "Med. Reconverge" is the median number of steps after an expulsion before modal agreement returns to 0.95. "Med. Cycle Gap" is the median steps between consecutive expulsions. At $N \geq 200$, the cycle gap converges on 7 steps -- the cooldown plus minimal reconvergence time.</em>
 
 **Supercritical bursts ($\gamma \gg 1$, e.g., 1.5--2.0).** Violence occurs in discrete *paired* expulsions separated by long natural peace intervals. At $N = 500$, $\gamma = 2.0$ (seed 42): 9 expulsions in 1500 steps. The trace reveals a characteristic structure:
 
@@ -406,7 +406,7 @@ The mechanism fires in bursts of 2--3, each burst separated by 300--450 steps of
 | 200 | 2.00     | 30              | 1          | 4               | 15%           |
 | 500 | 2.00     | 6               | 1          | 4               | 1.2%$^\dagger$ |
 
-*Table 7. Supercritical burst regime: unanimity-triggered expulsion at high gamma. Same conditions as Table 6. Peace intervals emerge naturally from topology disruption and increase with both $\gamma$ and $N$. $\dagger$ The $N = 500$ consumed fractions (3% and 1.2%) are censored at 1500 steps. Extended runs (Section 3.9) show that the supercritical burst regime at $N = 500$ eventually consumes $\sim$64% of the population when run to completion.*
+<em>Table 7. Supercritical burst regime: unanimity-triggered expulsion at high gamma. Same conditions as Table 6. Peace intervals emerge naturally from topology disruption and increase with both $\gamma$ and $N$. $\dagger$ The $N = 500$ consumed fractions (3% and 1.2%) are censored at 1500 steps. Extended runs (Section 3.9) show that the supercritical burst regime at $N = 500$ eventually consumes $\sim$64% of the population when run to completion.</em>
 
 ![Figure 5. Violence topologies under unanimity-triggered expulsion. (a) Boundary grinding: $N = 200$, $\gamma = 1.05$ -- relentless short-cycle expulsions with near-zero peace intervals. (b) Supercritical bursts: $N = 500$, $\gamma = 2.0$ -- paired expulsions separated by long natural peace intervals of 300--450 steps. Red vertical lines mark expulsion events; dashed grey line marks the 0.95 unanimity threshold.](../figures/fig5_violence_topologies.png)
 
@@ -432,7 +432,7 @@ At larger $N$, self-exhaustion becomes progressively less reliable, but the frac
 | 500 | 1.5 | 320 | 63.9% | 10/20 (50%) | 10/20 | 773 |
 | 500 | 2.0 | 319 | 63.8% | 6/20 (30%) | 14/20 | 732 |
 
-*Table 8. Self-exhaustion across community sizes. $N = 50$ results: 20 seeds, 10,000 steps, threshold-triggered expulsion ($\tau = 8.0$). $N = 200$--$500$ results: 20 seeds, 5,000 steps, unanimity-triggered expulsion (0.95 threshold, 5-step cooldown). "Genuine exhaustion" requires $\geq 2000$ steps of post-final-expulsion silence. "Censored" indicates the simulation ended before the 2000-step silence criterion could be evaluated. Produced by `self_exhaustion_interpolation.py`.*
+<em>Table 8. Self-exhaustion across community sizes. $N = 50$ results: 20 seeds, 10,000 steps, threshold-triggered expulsion ($\tau = 8.0$). $N = 200$--$500$ results: 20 seeds, 5,000 steps, unanimity-triggered expulsion (0.95 threshold, 5-step cooldown). "Genuine exhaustion" requires $\geq 2000$ steps of post-final-expulsion silence. "Censored" indicates the simulation ended before the 2000-step silence criterion could be evaluated. Produced by `self_exhaustion_interpolation.py`.</em>
 
 Two patterns emerge. First, the consumed fraction converges to a narrow band around 64% for all $N \geq 200$, independent of both $N$ and $\gamma$. The range across all 160 runs at $N \geq 200$ is 62.3--66.2%, with the median at 64.0%. This is an emergent constant of the dynamics: no parameter was tuned to produce it. The mechanism consumes approximately two-thirds of the population before the accumulated topological damage -- the removal of cascade-sustaining nodes and the fragmentation of the network's mimetic pathways -- halts further convergence. The remaining one-third survives not because of any intrinsic property but because the network can no longer support the coordinated attention required for unanimity.
 
@@ -453,7 +453,7 @@ The baseline 2x2 results (Table 1) were obtained at $N = 50$ with threshold-trig
 | RL | status | linear | 150 | 75.0% | 0% | 0.167 | 0.234 | 20/20 | 1.8% |
 | RA | status | attention | 167 | 83.5% | 0% | 0.814 | 0.930 | 20/20 | 23.0% |
 
-*Table 9. The 2x2 design at $N = 200$. 20 seeds, 5000 steps, unanimity-triggered expulsion. Produced by `exp4_2x2_n200.py`.*
+<em>Table 9. The 2x2 design at $N = 200$. 20 seeds, 5000 steps, unanimity-triggered expulsion. Produced by `exp4_2x2_n200.py`.</em>
 
 The transmission-character axis remains the dominant divider at scale: attention-based variants (AC, RA) produce peak modal agreement of 0.81--0.83 and peak Gini of 0.93, while linear variants (LM, RL) remain at peak modal 0.16--0.17 and Gini 0.22--0.23. The gap between linear and attention variants is slightly wider at $N = 200$ than at $N = 50$, consistent with the phase boundary sharpening documented in Section 3.2.
 
@@ -486,7 +486,7 @@ Table 10 reports the viability index for the two convex-redistribution variants 
 | RA | 1.50 | 0% | 0% | 25% | 65% | 80% | 85% | 100% | 90% |
 | RA | 2.00 | 0% | 0% | 30% | 75% | 80% | 95% | 90% | 65% |
 
-*Table 10. Viability index for the founding murder at small community sizes. "Generative" requires genuine self-exhaustion, < 50% consumed, and at least one expulsion. AC = object-rivalry + convex redistribution; RA = status-rivalry + convex redistribution. 20 seeds per cell, 5000 steps, adaptive unanimity threshold, 5-step cooldown. Produced by `exp_small_n_viability.py`.*
+<em>Table 10. Viability index for the founding murder at small community sizes. "Generative" requires genuine self-exhaustion, < 50% consumed, and at least one expulsion. AC = object-rivalry + convex redistribution; RA = status-rivalry + convex redistribution. 20 seeds per cell, 5000 steps, adaptive unanimity threshold, 5-step cooldown. Produced by `exp_small_n_viability.py`.</em>
 
 Three patterns emerge. First, *the founding murder is almost never generative below $N = 15$.* At $N = 5$, the maximum viability across all conditions is 25% (AC, $\gamma = 1.05$), and most cells show 0%. The arithmetic is decisive: each expulsion removes 20% of a five-agent community, so two expulsions breach the 50% consumption threshold regardless of self-exhaustion timing. The community is too small to absorb the cost of its own collective violence. At $N = 10$, viability is bimodal: AC at $\gamma = 1.05$ achieves 75% (most seeds produce one or two expulsions and then exhaust), but at $\gamma \geq 1.5$ viability collapses to 0--5% because the unanimity-expulsion cycle churns through six to eight of ten agents before exhausting.
 
@@ -511,7 +511,7 @@ To test whether the phase boundary shifts at small community sizes, we swept $\g
 | 35 | 6 | 0.950 | 1.03 |
 | 40 | 6 | 0.950 | 1.03 |
 
-*Table 11. Phase boundary at small community sizes. $\gamma^\ast$ is the lowest tested $\gamma$ at which $\geq 50\%$ of 20 seeds converge (modal agreement $\geq 0.95$) within 800 steps. AC variant, no expulsion. $k$ is the Watts-Strogatz mean degree, $\theta$ the adaptive unanimity threshold. Produced by `exp_small_n_phase_boundary.py`.*
+<em>Table 11. Phase boundary at small community sizes. $\gamma^\ast$ is the lowest tested $\gamma$ at which $\geq 50\%$ of 20 seeds converge (modal agreement $\geq 0.95$) within 800 steps. AC variant, no expulsion. $k$ is the Watts-Strogatz mean degree, $\theta$ the adaptive unanimity threshold. Produced by `exp_small_n_phase_boundary.py`.</em>
 
 The phase boundary remains in the narrow range $\gamma^\ast \in [1.03, 1.05]$ across all tested community sizes, extending the $N$-invariance documented in Section 3.2 downward by a full order of magnitude ($N = 5$--$40$ vs. $N = 50$--$500$). The convexity threshold is a property of the redistribution operator, not of the population.
 
@@ -528,7 +528,7 @@ The founding murder's viability depends not only on community size but on networ
 | Erdos-Renyi | 70% | 90% | 90% | 100% |
 | Complete | 0% | 0% | 0% | 0% |
 
-*Table 12. Topology dependence of founding-murder viability at small $N$. AC variant, $\gamma = 2.0$, 10 seeds, 5000 steps, adaptive unanimity threshold. "Viability" defined as in Table 10 (genuine exhaustion, < 50% consumed, $\geq 1$ expulsion). Produced by `exp_small_n_topology.py`.*
+<em>Table 12. Topology dependence of founding-murder viability at small $N$. AC variant, $\gamma = 2.0$, 10 seeds, 5000 steps, adaptive unanimity threshold. "Viability" defined as in Table 10 (genuine exhaustion, < 50% consumed, $\geq 1$ expulsion). Produced by `exp_small_n_topology.py`.</em>
 
 Three findings are notable. First, all sparse topologies (Watts-Strogatz, Barabasi-Albert, Erdos-Renyi) support generative founding murder at rates of 70--100%, confirming that the mechanism is robust to network structure provided connectivity is incomplete. Second, the complete graph produces 0% viability at every $N$ tested. On a complete graph, every agent observes every other agent simultaneously; unanimity forms instantly, the expulsion fires, and the cascade reconverges equally instantly onto the next target. At $N = 15$ and $N = 20$, the complete graph produces perpetual cycling (still targeting at simulation end); at $N = 30$ and $N = 40$, it achieves convergence without exhaustion, consuming 86--95% of the community. The founding murder occurs, but it is purely destructive.
 
@@ -906,7 +906,7 @@ We swept $C$ from $0.5 C_{\text{cal}}$ to $2.0 C_{\text{cal}}$ in 20 increments 
 | 0.86 -- 0.97 | 0.29 -- 0.34 | 0.48 -- 0.58 | 3--4/8 |
 | 1.05+ | 0.44 -- 0.68 | 0.88 -- 0.98 | 7--8/8 |
 
-*Table D1. Fixed-scale ablation results by $C / C_{\text{cal}}$ band.*
+<em>Table D1. Fixed-scale ablation results by $C / C_{\text{cal}}$ band.</em>
 
 Below a sharp explosion threshold $C_{\text{crit}} \approx 0.86 \, C_{\text{cal}}$, the system behaves like the linear baseline: peak modal agreement remains near 0.10 and peak Gini below 0.17. Above $C_{\text{crit}}$, total system tension diverges, with aggression values exceeding $10^4$ within 7--58 steps depending on the magnitude of overshoot ($C / C_{\text{cal}} = 2.0$: divergence in 7--9 steps; $C / C_{\text{cal}} = 1.2$: divergence in 17--58 steps). No intermediate regime of stable convergence exists.
 
@@ -931,7 +931,7 @@ Table E1 reports convergence outcomes across the conditions referenced in Sectio
 |Watts-Strogatz |50 |6  |0.85    |1.5     |88%       |106            |0.804    |
 |Watts-Strogatz |50 |6  |0.85    |2.0     |75%       |192            |0.822    |
 
-*Table E1. Robustness of convergence across topologies, group sizes, and mimetic susceptibility levels. Convergence rate is the fraction of 8 runs achieving modal agreement $\geq 0.95$ within 600 steps. Median $t_{95}$ is computed over converging runs only. Extended runs (2400 steps) confirm that non-converging runs are genuinely metastable, not time-horizon artifacts. Results produced by `reproduce_table_e1.py` using `girard_2x2_v3.py` with graph-type support for all four topologies (Watts-Strogatz, Barabasi-Albert with $m = 3$, Erdos-Renyi with $p = k/(N-1)$, and complete graph).*
+<em>Table E1. Robustness of convergence across topologies, group sizes, and mimetic susceptibility levels. Convergence rate is the fraction of 8 runs achieving modal agreement $\geq 0.95$ within 600 steps. Median $t_{95}$ is computed over converging runs only. Extended runs (2400 steps) confirm that non-converging runs are genuinely metastable, not time-horizon artifacts. Results produced by `reproduce_table_e1.py` using `girard_2x2_v3.py` with graph-type support for all four topologies (Watts-Strogatz, Barabasi-Albert with $m = 3$, Erdos-Renyi with $p = k/(N-1)$, and complete graph).</em>
 
 | Topology | Mean Degree | Clustering | Med. Expulsions | Consumed | Conv. Rate | Peak Modal | Exhausted |
 |---|---|---|---|---|---|---|---|
@@ -940,7 +940,7 @@ Table E1 reports convergence outcomes across the conditions referenced in Sectio
 | Erdos-Renyi ($p = k/(N-1)$) | 19.8 | 0.102 | 164 | 82.2% | 0% | 0.995 | 9/10 |
 | Complete | 199.0 | 1.000 | 197 | 98.5% | 100% | 0.995 | 10/10 |
 
-*Table E1b. Topology robustness at $N = 200$, corresponding to the analysis in Section 3.4. The qualitative shift from universal convergence at $N = 50$ (Table E1) to topology-dependent convergence at $N = 200$ is the central finding of the scaling analysis. AC variant, $\gamma = 2.0$, unanimity-triggered expulsion (0.95 threshold, 5-step cooldown), 10 seeds, 5000 steps. Produced by `exp5_topology_n200.py`.*
+<em>Table E1b. Topology robustness at $N = 200$, corresponding to the analysis in Section 3.4. The qualitative shift from universal convergence at $N = 50$ (Table E1) to topology-dependent convergence at $N = 200$ is the central finding of the scaling analysis. AC variant, $\gamma = 2.0$, unanimity-triggered expulsion (0.95 threshold, 5-step cooldown), 10 seeds, 5000 steps. Produced by `exp5_topology_n200.py`.</em>
 
 ## Appendix F: Parameter Sensitivity at Small $N$
 
@@ -969,7 +969,7 @@ Table F1 reports the phase boundary $\gamma^\ast$ under varying $(\alpha, d)$ co
 | 0.30 | 0.05 | 1.00 | 1.08 |
 | 0.30 | 0.10 | 1.08 | 1.25 |
 
-*Table F1. Parameter sensitivity of the phase boundary at small $N$. $\gamma^\ast$ is the lowest tested $\gamma$ at which $\geq 50\%$ of seeds converge within 800 steps (10 seeds per condition). The phase boundary is more sensitive to the decay parameter at small $N$ than at $N = 50$ (Section 3.2), particularly at $N = 20$ with decay $= 0.10$, where the boundary shifts upward to $\gamma^\ast = 1.10$--$1.25$. At $N = 10$, the boundary is generally lower (median $\gamma^\ast = 1.00$) because convergence is easier with fewer agents to coordinate, though below-threshold noise is higher (see Section 3.11.3). Produced by `exp_small_n_param_sensitivity.py`.*
+<em>Table F1. Parameter sensitivity of the phase boundary at small $N$. $\gamma^\ast$ is the lowest tested $\gamma$ at which $\geq 50\%$ of seeds converge within 800 steps (10 seeds per condition). The phase boundary is more sensitive to the decay parameter at small $N$ than at $N = 50$ (Section 3.2), particularly at $N = 20$ with decay $= 0.10$, where the boundary shifts upward to $\gamma^\ast = 1.10$--$1.25$. At $N = 10$, the boundary is generally lower (median $\gamma^\ast = 1.00$) because convergence is easier with fewer agents to coordinate, though below-threshold noise is higher (see Section 3.11.3). Produced by `exp_small_n_param_sensitivity.py`.</em>
 
 
 ## Appendix G: Operator Universality -- Softmax Comparison
@@ -1007,7 +1007,7 @@ Table G1 reports convergence outcomes across a fine temperature grid ($N = 50$, 
 | 0.80 | 0.258 (0.149) | 0.096 | -- | 0% |
 | 1.00 | 0.142 (0.017) | 0.095 | -- | 0% |
 
-*Table G1. Softmax operator sweep at $N = 50$. Convergence criterion: modal agreement $\geq 0.95$ for 10 consecutive steps. Produced by `exp_softmax_operator_sweep.py`.*
+<em>Table G1. Softmax operator sweep at $N = 50$. Convergence criterion: modal agreement $\geq 0.95$ for 10 consecutive steps. Produced by `exp_softmax_operator_sweep.py`.</em>
 
 | $\gamma$ | Conv. Rate | Peak Modal |
 |-----------|------------|------------|
@@ -1019,7 +1019,7 @@ Table G1 reports convergence outcomes across a fine temperature grid ($N = 50$, 
 | 1.10 | 100% | 0.980 |
 | 2.00 | 100% | 0.980 |
 
-*Table G1b. Reference power-law sweep at the same $N$, seeds, and step count. Produced by the same script.*
+<em>Table G1b. Reference power-law sweep at the same $N$, seeds, and step count. Produced by the same script.</em>
 
 The softmax produces a convergence **band** $T \in [0.20, 0.65]$, bounded on both sides, whereas the power-law produces an open **half-line** $\gamma \in [\sim\!1.03, \infty)$. The two operators share an **upper boundary** (too flat $\to$ no convergence): both require sufficient convexity to concentrate mass on the leading target. This shared boundary confirms that the phase transition is a generic property of convex conserving operators, not an artifact of the power-law parameterization.
 
@@ -1042,7 +1042,7 @@ Table G2 reports convergence rates across $N$ and $T$ (10 seeds per cell, steps 
 | 150 | 0% | 0% | 0% | 0% | 20% | 0% | 0% | 0% | 0% | 0% |
 | 200 | 0% | 0% | 0% | 0% | 0% | 0% | 0% | 0% | 0% | 0% |
 
-*Table G2. Convergence rate heatmap: $N$ (rows) $\times$ $T$ (columns). Produced by `exp_softmax_band_n_dependence.py`.*
+<em>Table G2. Convergence rate heatmap: $N$ (rows) $\times$ $T$ (columns). Produced by `exp_softmax_band_n_dependence.py`.</em>
 
 ![Figure G1. Softmax convergence rate by population size and temperature. The viable convergence region (dark blue) shrinks with increasing $N$ and vanishes entirely at $N \geq 150$, in contrast to the power-law operator's $N$-invariant phase boundary.](../figures/fig_softmax_heatmap.png)
 
@@ -1057,7 +1057,7 @@ Phase boundaries (interpolated at 50% convergence threshold):
 | 150 | -- | -- | 0 (no $T$ converges) |
 | 200 | -- | -- | 0 (no $T$ converges) |
 
-*Table G3. Softmax convergence band as a function of population size. Band width is monotonically decreasing. Both boundaries squeeze inward: $T_{\text{lower}}$ increases (argmax oscillation worsens with more targets) and $T_{\text{upper}}$ decreases (higher entropy of the uniform distribution requires sharper concentration to overcome). Produced by `exp_softmax_band_n_dependence.py`.*
+<em>Table G3. Softmax convergence band as a function of population size. Band width is monotonically decreasing. Both boundaries squeeze inward: $T_{\text{lower}}$ increases (argmax oscillation worsens with more targets) and $T_{\text{upper}}$ decreases (higher entropy of the uniform distribution requires sharper concentration to overcome). Produced by `exp_softmax_band_n_dependence.py`.</em>
 
 ![Figure G2. Softmax convergence band width vs. population size. The band narrows monotonically from 0.68 ($N = 30$) to zero ($N \geq 150$), confirming that the softmax operator lacks the scale invariance required for large-community convergence.](../figures/fig_softmax_band_width.png)
 
@@ -1107,7 +1107,7 @@ Table H1 reports convergence rates, entropy statistics, and settle times across 
 | 1.50 | 100% | 0.176 | 0.005 | 5 |
 | 2.00 | 90% | 0.122 | 0.000 | 3 |
 
-*Table H1. Modal-target entropy transient. "Early Entropy" is the mean sliding-window entropy over steps 5--30; "Late Entropy" over steps 100--200. "Settle Step" is defined as in Section H.1. 20 seeds per $\gamma$, $N = 50$, 400 steps, no expulsion. Produced by `exp_modal_entropy_transient.py`.*
+<em>Table H1. Modal-target entropy transient. "Early Entropy" is the mean sliding-window entropy over steps 5--30; "Late Entropy" over steps 100--200. "Settle Step" is defined as in Section H.1. 20 seeds per $\gamma$, $N = 50$, 400 steps, no expulsion. Produced by `exp_modal_entropy_transient.py`.</em>
 
 The entropy trajectory reveals the transient structure directly. Table H2 reports mean entropy at 25-step intervals.
 
@@ -1123,7 +1123,7 @@ The entropy trajectory reveals the transient structure directly. Table H2 report
 | 1.50 | 1.090 | 0.077 | 0.000 | 0.000 | 0.000 | 0.000 | 0.000 |
 | 2.00 | 0.988 | 0.092 | 0.000 | 0.000 | 0.000 | 0.000 | 0.000 |
 
-*Table H2. Entropy trajectories (mean over 20 seeds, sampled every 25 steps). All runs begin at high entropy ($\sim$1.0--1.3) reflecting the initially random hostility landscape. The decay to zero -- the resolution of the "monstrous doubles" into a single victim -- is progressively faster at higher $\gamma$. Produced by `exp_modal_entropy_transient.py`.*
+<em>Table H2. Entropy trajectories (mean over 20 seeds, sampled every 25 steps). All runs begin at high entropy ($\sim$1.0--1.3) reflecting the initially random hostility landscape. The decay to zero -- the resolution of the "monstrous doubles" into a single victim -- is progressively faster at higher $\gamma$. Produced by `exp_modal_entropy_transient.py`.</em>
 
 ![Figure H1. Modal-target entropy decay by superlinearity. Sub-threshold controls ($\gamma \leq 1.00$, dashed grey) maintain elevated entropy throughout. Supercritical values ($\gamma \geq 1.03$) drive entropy to zero progressively faster, with deep supercritical values ($\gamma \geq 1.25$) achieving lock-in within 25 steps.](../figures/fig_entropy_transient.png)
 
