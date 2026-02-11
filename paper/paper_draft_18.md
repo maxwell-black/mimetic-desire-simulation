@@ -127,7 +127,7 @@ We define *convergence* as modal-target agreement >= 0.95 sustained for 10 conse
 
 ### 2.4 Metric Definitions
 
-Let $R(v) = \sum_{i \in \mathcal{L}_t, i \neq v} A_i(v)$ be the total received aggression for agent $v$ at time $t$. Let $\mathbf{r} = (R(v_1), \ldots, R(v_m))$ be the vector of received aggression for all $m = |\mathcal{L}_t|$ living agents, sorted in ascending order.
+Let $R(v) = \sum_{i \in \mathcal{L}_t, i \neq v} A_i(v)$ be the total received aggression for agent $v$ at time $t$. Let $\mathbf{r} = (R(v_1), \ldots, R(v_m))$ be the vector of received aggression for all $m = \lvert\mathcal{L}_t\rvert$ living agents, sorted in ascending order.
 
 **Aggression Gini coefficient:**
 
@@ -141,7 +141,7 @@ computed over living agents only. If $\sum r_i = 0$, $G = 0$.
 
 **Shannon entropy of targeting:** $H = -\sum_v p_v \log_2 p_v$, where $p_v = R(v) / \sum_v R(v)$, computed over living agents with $R(v) > 0$.
 
-**Modal-target agreement:** Let $T_i = \arg\max_j A_i(j)$ be agent $i$'s top target. Let $\mathcal{A}_t = {i \in \mathcal{L}_t : \sum_j A_i(j) > 10^{-8}}$ be the set of agents with nontrivial aggression. The modal target is $t^* = \text{mode}({T_i : i \in \mathcal{A}_t})$. Modal-target agreement is $|{i \in \mathcal{A}_t : T_i = t^*}| / |\mathcal{A}_t|$.
+**Modal-target agreement:** Let $T_i = \arg\max_j A_i(j)$ be agent $i$'s top target. Let $\mathcal{A}_t = \{i \in \mathcal{L}_t : \sum_j A_i(j) > 10^{-8}\}$ be the set of agents with nontrivial aggression. The modal target is $t^* = \text{mode}(\{T_i : i \in \mathcal{A}_t\})$. Modal-target agreement is $\lvert\{i \in \mathcal{A}_t : T_i = t^*\}\rvert / \lvert\mathcal{A}_t\rvert$.
 
 
 
@@ -762,7 +762,7 @@ All updates within a step are computed from the state at the beginning of that s
 
 ### C.2 Definitions
 
-**Network.** A Watts-Strogatz graph $G = (V, E)$ with $|V| = N$, mean degree $k$, and rewiring probability $p$. Let $\mathcal{N}(i)$ denote the neighbors of $i$ in $G$.
+**Network.** A Watts-Strogatz graph $G = (V, E)$ with $\lvert V \rvert = N$, mean degree $k$, and rewiring probability $p$. Let $\mathcal{N}(i)$ denote the neighbors of $i$ in $G$.
 
 **Prestige weights.** For each directed edge $(i, k)$ where $\{i, k\} \in E$, a base prestige weight $w^0_{ik} \in [0.1, 1.0]$ is drawn uniformly at random at initialization. Prestige is asymmetric: $w^0_{ik} \neq w^0_{ki}$ in general. For object-rivalry variants (LM, AC), the prestige weight $w_{ik} = w^0_{ik}$ is static. For status-rivalry variants (RL, RA), the effective prestige weight is status-dependent and recomputed each timestep:
 
