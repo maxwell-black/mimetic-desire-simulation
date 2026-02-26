@@ -14,7 +14,7 @@ Method:
   2. Extract the full gap sequence for each seed.
   3. For seeds with >= 10 gaps:
      a. Mann-Kendall trend test on gap sequence.
-     b. Split into first-half / second-half, compare medians (Wilcoxon).
+     b. Split into first-half / second-half, compare medians (Mann-Whitney U).
      c. Fit OLS slope (gap ~ ordinal index).
   4. Aggregate across seeds to draw a population-level conclusion.
 
@@ -124,7 +124,7 @@ def mann_kendall(x):
 
 def half_split_test(gaps):
     """
-    Split gaps into first and second half, compare medians via Wilcoxon rank-sum.
+    Split gaps into first and second half, compare medians via Mann-Whitney U.
     Returns (median_first, median_second, p_value, direction).
     """
     from scipy.stats import mannwhitneyu

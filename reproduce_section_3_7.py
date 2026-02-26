@@ -3,7 +3,7 @@ Section 3.7 Statistical Tests: Victim Arbitrariness & Endogenous Marginality
 =============================================================================
 
 Produces:
-  1. AC (no rivalry): Wilcoxon rank-sum tests comparing victim vs population
+  1. AC (no rivalry): Mann-Whitney U tests comparing victim vs population
      on degree centrality, betweenness centrality, clustering coefficient.
   2. RA (rivalry + attention): Same tests, plus victim status at expulsion
      with confidence interval.
@@ -157,8 +157,8 @@ def collect_victim_status_data(variant_name, n_runs=10, seed0=42):
     }
 
 
-def wilcoxon_test(victim_vals, pop_vals, label):
-    """Run Wilcoxon rank-sum and report."""
+def mann_whitney_u_test(victim_vals, pop_vals, label):
+    """Run Mann-Whitney U (rank-sum) test and report."""
     v = np.array(victim_vals)
     p = np.array(pop_vals)
     stat, pval = stats.mannwhitneyu(v, p, alternative='two-sided')
@@ -197,7 +197,7 @@ if __name__ == "__main__":
     print(f"  Total victims across {ac_data['n_runs']} runs: {ac_data['n_victims']}")
     print()
     for prop in ['degree', 'betweenness', 'clustering']:
-        r = wilcoxon_test(ac_data[f'victim_{prop}'], ac_data[f'pop_{prop}'],
+        r = mann_whitney_u_test(ac_data[f'victim_{prop}'], ac_data[f'pop_{prop}'],
                          f'{prop} centrality')
         print_test(r)
 
@@ -210,7 +210,7 @@ if __name__ == "__main__":
     print(f"  Total victims across {ra_data['n_runs']} runs: {ra_data['n_victims']}")
     print()
     for prop in ['degree', 'betweenness', 'clustering']:
-        r = wilcoxon_test(ra_data[f'victim_{prop}'], ra_data[f'pop_{prop}'],
+        r = mann_whitney_u_test(ra_data[f'victim_{prop}'], ra_data[f'pop_{prop}'],
                          f'{prop} centrality')
         print_test(r)
 
@@ -259,13 +259,13 @@ if __name__ == "__main__":
     print("Section 3.7, paragraph 1 (AC arbitrariness):")
     print("  'Victims are statistically indistinguishable from the general population")
     print("   across all measured network properties: degree centrality")
-    ac_d = wilcoxon_test(ac_data['victim_degree'], ac_data['pop_degree'], 'degree')
-    ac_b = wilcoxon_test(ac_data['victim_betweenness'], ac_data['pop_betweenness'], 'betweenness')
-    ac_c = wilcoxon_test(ac_data['victim_clustering'], ac_data['pop_clustering'], 'clustering')
+    ac_d = mann_whitney_u_test(ac_data['victim_degree'], ac_data['pop_degree'], 'degree')
+    ac_b = mann_whitney_u_test(ac_data['victim_betweenness'], ac_data['pop_betweenness'], 'betweenness')
+    ac_c = mann_whitney_u_test(ac_data['victim_clustering'], ac_data['pop_clustering'], 'clustering')
     print(f"   ({ac_d['victim_mean']:.3f} vs {ac_d['pop_mean']:.3f}, p={ac_d['p']:.2f}),")
     print(f"   betweenness centrality ({ac_b['victim_mean']:.3f} vs {ac_b['pop_mean']:.3f}, p={ac_b['p']:.2f}),")
     print(f"   clustering coefficient ({ac_c['victim_mean']:.3f} vs {ac_c['pop_mean']:.3f}, p={ac_c['p']:.2f});")
-    print(f"   Wilcoxon rank-sum, all n.s.'")
+    print(f"   Mann-Whitney U, all n.s.'")
     print()
     print("Section 3.7, paragraph 2 (RA endogenous marginality):")
     print(f"  'Victims have mean status {np.mean(vs):.3f} (95% CI [{ci_lo:.3f}, {ci_hi:.3f}])")
