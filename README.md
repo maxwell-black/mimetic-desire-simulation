@@ -1,6 +1,6 @@
 # Mimetic Desire Simulation
 
-Companion code for "Mimetic Attraction Multiplies: A Computational Test of Girard's Scapegoat Mechanism" (Black, 2026).
+Companion code for "A Computational Test of Girard's Scapegoat Mechanism" (Black, 2026).
 
 ## Overview
 
