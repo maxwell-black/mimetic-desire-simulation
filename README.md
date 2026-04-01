@@ -1,10 +1,10 @@
 # Mimetic Desire Simulation
 
-Companion code for "Mimetic Attraction Multiplies: A Computational Test of Girard's Scapegoat Mechanism" (Black, 2026).
+Companion code for "A Computational Test of Girard's Scapegoat Mechanism" (Black, 2026).
 
 ## Overview
 
-Agent-based model testing Girard's claim that mimetic crisis resolves through unanimous polarization against a single victim. Four variants in a 2x2 design cross two hostility-transmission modes (linear vs. convex redistributive) with two hostility sources (object-rivalry vs. status-rivalry).
+Agent-based model testing Girard's claim that mimetic crisis resolves through unanimous polarization against a single victim via a "snowball effect" in which mimetic attraction "multiplies with the number of those polarized." Four variants in a 2x2 design cross two hostility-transmission modes (linear vs. convex redistributive) with two hostility sources (object-rivalry vs. status-rivalry).
 
 ## Core Module
 
@@ -29,7 +29,7 @@ Each script reproduces one table or analysis section from the paper. All import 
 
 ## Experiment Scripts
 
-These scripts ran the exploratory analyses that informed the v15 paper additions. Results are saved in `*_results.txt` files.
+These scripts ran the exploratory analyses that informed the paper. Results are saved in `*_results.txt` files.
 
 | Script | Analysis |
 |--------|----------|
@@ -38,6 +38,9 @@ These scripts ran the exploratory analyses that informed the v15 paper additions
 | `phase_boundary_large_N.py` | Phase boundary invariance across N |
 | `self_exhaustion_extended.py` | Extended 5000-step self-exhaustion test |
 | `unanimity_trigger_traces_full.py` | Detailed trace generation |
+| `exp_small_n_*.py` | Small-N scaling, topology, viability analyses |
+| `exp_softmax_*.py` | Softmax operator comparison (Appendix G) |
+| `exp_modal_entropy_transient.py` | Entropy trajectory analysis (Appendix H) |
 
 ## Figure Generation
 
@@ -48,6 +51,9 @@ These scripts ran the exploratory analyses that informed the v15 paper additions
 | `gen_fig_founding_murder.py` | Figure 3: Founding murder cycle structure |
 | `gen_fig_phase_boundary_N.py` | Figure 4: Phase boundary N-invariance |
 | `gen_fig_violence_topologies.py` | Figure 5: Violence topology comparison |
+| `gen_fig_entropy_transient.py` | Appendix H: Modal-target entropy transient |
+| `gen_fig_softmax_heatmap.py` | Appendix G: Softmax convergence rate heatmap |
+| `gen_fig_softmax_band_width.py` | Appendix G: Softmax convergence band vs N |
 
 ### Requirements
 
@@ -73,18 +79,25 @@ gen_fig_*.py               # figure generation
 unanimity_trigger_*.py     # experiment scripts
 phase_boundary_*.py        # experiment scripts
 self_exhaustion_*.py       # experiment scripts
+exp_*.py                   # additional experiments (softmax, small-N, etc.)
 paper/                     # manuscript drafts
 figures/                   # generated figures
 legacy/                    # old framework (pre-2x2 design)
 ```
 
-## Changes in v15
+## Key Findings (v18)
 
-- Added unanimity-triggered expulsion analysis (Sections 3.8-3.9)
-- Phase boundary N-invariance (Table 2b)
-- Violence topology classification: boundary grinding vs supercritical bursts (Tables 6, 7)
-- Self-exhaustion at high gamma (Table 8)
-- Figures 4-5
+- **Phase boundary**: The effective phase boundary lies just above linearity (γ ∈ [1.02, 1.03]), is invariant across community sizes from 5 to 500 agents, and sharpens with increasing N.
+- **Operator comparison**: The phase boundary is a generic property of the convex conserving operator class, but power-law's scale invariance is uniquely robust to population scaling. Softmax convergence band narrows monotonically with N and vanishes at N ≥ 150.
+- **Violence topologies**: Three distinct regimes emerge above the phase boundary: (1) boundary-grinding (relentless serial purges), (2) supercritical bursts (paired expulsions with peace intervals), and (3) self-exhaustion through topology destruction (small communities only).
+- **Viability window**: The founding murder is generative—self-exhausting with majority survival—only within a window at approximately N = 15–50, corresponding to primate and early hominid community sizes. This identifies the boundary above which Girard's "sacred" becomes structurally indispensable.
+
+## Changes in v18
+
+- **Appendix G**: Softmax/Boltzmann operator comparison; confirms phase boundary is generic to convex conserving operators but power-law's scale invariance is uniquely robust (Tables G1, G2, G3)
+- **Appendix H**: Modal-target entropy transient analysis showing early entropy dip before convergence (Tables H1, H2)
+- **Small-N analyses**: Extended parameter sensitivity, topology robustness, and viability window analysis (Appendices E-F)
+- Additional figures for appendix material
 
 ## Legacy Code
 
